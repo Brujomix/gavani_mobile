@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding:15,
-    marginTop:30
   },
   logoEmpresa: {
     objectFit: "contain",

@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, ScrollView, View } from "react-native";
 import {
+  Business_OnLine,
   Carroucel_Products,
   Container_Categories,
   Header_App,
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <ScrollView style={styles.containerScroll}>
       <View style={styles.containerPrincipal}>
+        <Business_OnLine onLine={true}/>
         <Header_App />
         <Title_Dinamic text="Productos Seleccionados" />
         <Carroucel_Products products={products} />

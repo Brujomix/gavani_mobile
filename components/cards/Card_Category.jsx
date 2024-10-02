@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#FFF",
     borderRadius: 5,
-    backgroundColor: "#555",
+    backgroundColor: "#fff",
   },
   containerChildren: {
     flexDirection: "row",
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 23,
-    color: "#FFF",
+    color: "#009",
     fontStyle: "italic",
     letterSpacing: 3,
   },
