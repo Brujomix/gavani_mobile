@@ -9,3 +9,4 @@ export * from "./cards/Card_Product"
 //UI
 export * from "./ui/Header_App"
 export * from "./ui/Title_Dinamic"
+export * from "./ui/Buttons_Cart"

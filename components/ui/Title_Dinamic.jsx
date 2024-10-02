@@ -10,5 +10,6 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: "#FFF",
     letterSpacing: 2,
+    alignSelf:"center"
   },
 });

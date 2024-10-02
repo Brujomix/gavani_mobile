@@ -1,102 +1,126 @@
 {
   "categories": [
-    { "cat_iden": 1, "cat_url_image": "", "cat_name": "Hamburguesas" },
-    { "cat_iden": 2, "cat_url_image": "", "cat_name": "Pizzas" },
-    { "cat_iden": 3, "cat_url_image": "", "cat_name": "Sandwiches" },
-    { "cat_iden": 4, "cat_url_image": "", "cat_name": "Combos" },
-    { "cat_iden": 5, "cat_url_image": "", "cat_name": "Menus" },
-    { "cat_iden": 6, "cat_url_image": "", "cat_name": "Empanadas" }
+    {
+      "cat_iden": 1,
+      "cat_url_image": "https://img2.freepnges.com/lnd/20240810/ao/1d35a9c180690d5f139998c4459fed.webp",
+      "cat_name": "Hamburguesas"
+    },
+    {
+      "cat_iden": 2,
+      "cat_url_image": "https://img2.freepnges.com/lnd/20240820/gi/a096484d18e32ec95dc5e9f4d65b9c.webp",
+      "cat_name": "Pizzas"
+    },
+    {
+      "cat_iden": 3,
+      "cat_url_image": "https://img2.freepnges.com/lnd/20240502/gzw/aa3m5w170.webp",
+      "cat_name": "Sandwiches"
+    },
+    {
+      "cat_iden": 4,
+      "cat_url_image": "https://img2.freepnges.com/20231121/foh/transparent-french-fries-fast-food-scene-with-hamburgers-fries-and-1711006939902.webp",
+      "cat_name": "Combos"
+    },
+    {
+      "cat_iden": 5,
+      "cat_url_image": "https://img2.freepnges.com/20231221/ebq/transparent-christmas-dish-plate-of-food-mixed-vegetables-oran-plate-of-food-with-mixed-vegetables-and-1710964295128.webp",
+      "cat_name": "Menus"
+    },
+    {
+      "cat_iden": 6,
+      "cat_url_image": "https://img2.freepnges.com/lnd/20240911/uk/7a024eb0e9711f7942bf8bde4c8637.webp",
+      "cat_name": "Empanadas"
+    }
   ],
   "products": [
     {
       "pro_iden": 1,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
-      "pro_top": false,
+      "pro_name": "Hamburguesa Especial",
+      "pro_url_image": "https://img2.freepnges.com/lnd/20240810/ao/1d35a9c180690d5f139998c4459fed.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
+      "pro_top": true,
       "pro_cat_iden": 1
     },
     {
       "pro_iden": 2,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
+      "pro_name": "Empanada Choclo",
+      "pro_url_image": "https://img2.freepnges.com/lnd/20240911/uk/7a024eb0e9711f7942bf8bde4c8637.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
       "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_cat_iden": 6
     },
     {
       "pro_iden": 3,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
+      "pro_name": "Combo 1",
+      "pro_url_image": "https://img2.freepnges.com/20231121/foh/transparent-french-fries-fast-food-scene-with-hamburgers-fries-and-1711006939902.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
       "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_cat_iden": 4
     },
     {
       "pro_iden": 4,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
-      "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_name": "Menu 1",
+      "pro_url_image": "https://img2.freepnges.com/20231221/ebq/transparent-christmas-dish-plate-of-food-mixed-vegetables-oran-plate-of-food-with-mixed-vegetables-and-1710964295128.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
+      "pro_top": true,
+      "pro_cat_iden": 5
     },
     {
       "pro_iden": 5,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
+      "pro_name": "Combo 2",
+      "pro_url_image": "https://img2.freepnges.com/20231121/foh/transparent-french-fries-fast-food-scene-with-hamburgers-fries-and-1711006939902.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
       "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_cat_iden": 4
     },
     {
       "pro_iden": 6,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
-      "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_name": "Sandwich Jamon y Queso",
+      "pro_url_image": "https://img2.freepnges.com/lnd/20240502/gzw/aa3m5w170.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
+      "pro_top": true,
+      "pro_cat_iden": 3
     },
     {
       "pro_iden": 7,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
+      "pro_name": "Sandwich Pollo",
+      "pro_url_image": "https://img2.freepnges.com/lnd/20240502/gzw/aa3m5w170.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
       "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_cat_iden": 3
     },
     {
       "pro_iden": 8,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
-      "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_name": "Pizza 4 Quesos",
+      "pro_url_image": "https://img2.freepnges.com/lnd/20240820/gi/a096484d18e32ec95dc5e9f4d65b9c.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
+      "pro_top": true,
+      "pro_cat_iden": 2
     },
     {
       "pro_iden": 9,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
+      "pro_name": "Pizza Especial",
+      "pro_url_image": "https://img2.freepnges.com/lnd/20240820/gi/a096484d18e32ec95dc5e9f4d65b9c.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
       "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_cat_iden": 2
     },
     {
       "pro_iden": 10,
-      "pro_name": "",
-      "pro_url_image":"",
-      "pro_desc": "",
-      "pro_precio": 0,
-      "pro_top": false,
-      "pro_cat_iden": 1
+      "pro_name": "Menu 2",
+      "pro_url_image": "https://img2.freepnges.com/20231221/ebq/transparent-christmas-dish-plate-of-food-mixed-vegetables-oran-plate-of-food-with-mixed-vegetables-and-1710964295128.webp",
+      "pro_desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+      "pro_precio": 10000,
+      "pro_top": true,
+      "pro_cat_iden": 5
     }
   ]
 }

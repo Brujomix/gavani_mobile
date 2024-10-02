@@ -1,17 +1,25 @@
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { Card_Product } from "./cards/Card_Product";
+import { useEffect, useState } from "react";
 
-import { products } from "../dataTest.json";
+export function Carroucel_Products({products}) {
+  
+ const [favoritesProducts, setFavoritesProducts] = useState([])
 
-export function Carroucel_Products({ arr }) {
+ useEffect(()=>{
+  setFavoritesProducts(products.filter(e=>e.pro_top === true))
+ },[products])
+
   return (
     <View style={styles.containerCrroucel}>
-      <ScrollView style={styles.containerChildren}>
+      <ScrollView>
         <FlatList
           horizontal
-          data={products}
+          data={favoritesProducts}
           keyExtractor={(item) => item.pro_iden}
           renderItem={({ item }) => <Card_Product product={item} />}
+          contentContainerStyle={styles.containerChildren}
+          showsHorizontalScrollIndicator={false}
         />
       </ScrollView>
     </View>
@@ -20,14 +28,11 @@ export function Carroucel_Products({ arr }) {
 
 const styles = StyleSheet.create({
   containerCrroucel: {
-    width: "100%",
-    overflow:"hidden",
-    height: 220,
-    backgroundColor: "#FFF",
-    margin: 10,
+    felx: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   containerChildren: {
-    margin: 15,
-    backgroundColor: "#FFF",
+    flexGrow: 1,
   },
 });

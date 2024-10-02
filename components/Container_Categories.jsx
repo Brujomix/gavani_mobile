@@ -1,22 +1,20 @@
-import { View, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { Card_Category } from "../components";
 
-import { categories } from "../dataTest.json";
-
-export function Container_Categories() {
+export function Container_Categories({categories}) {
   return (
-    <View style={styles.containerCategories}>
-      <FlatList
-        data={categories}
-        keyExtractor={(item) => item.cat_iden}
-        renderItem={({ item }) => <Card_Category category={item} />}
-      />
-    </View>
+    <FlatList
+      data={categories}
+      keyExtractor={(item) => item.cat_iden}
+      renderItem={({ item }) => <Card_Category category={item} />}
+      contentContainerStyle={styles.containerCategories}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   containerCategories: {
     padding: 10,
+    gap:20
   },
 });
