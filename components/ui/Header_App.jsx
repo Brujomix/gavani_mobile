@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   },
   logoEmpresa: {
     objectFit: "contain",
-    width: "100%",
-    height: 150
+    width: 150,
+    height:150,
   },
   textHeader: {
     fontSize: 25,
