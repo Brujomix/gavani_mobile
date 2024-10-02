@@ -1,5 +1,11 @@
-//UI COMPONENTS
-export * from "./ui/Pressable_Button_Dinamic"
+//CONTAINERS
+export * from "./Carroucel_Products"
+export * from "./Container_Categories"
 
-//OTHERS
-export * from "./Best_Sellers"
+//CARDS
+export * from "./cards/Card_Category"
+export * from "./cards/Card_Product"
+
+//UI
+export * from "./ui/Header_App"
+export * from "./ui/Title_Dinamic"
