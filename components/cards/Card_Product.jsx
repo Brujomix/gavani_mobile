@@ -1,24 +1,20 @@
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Buttons_Cart } from "../ui/Buttons_Cart";
-import { useState } from "react";
-
-import imageLess from "../../assets/imageLess.png";
+import { Image_Dianamic } from "../ui/Image_Dianamic";
+import { paletOfColors } from "../../utils/colors";
 
 const { width } = Dimensions.get("screen");
 
 export function Card_Product({ product }) {
-  const [isLoading, setIsLoading] = useState(true);
   return (
     <View style={styles.containerProducts}>
       <View style={styles.containerChildren}>
         <Text style={styles.textPro_name}>{product.pro_name}</Text>
         <View style={styles.containerInfoWithImage}>
           <View style={styles.containerImage}>
-            <Image
-              style={styles.imageStyle}
-              source={isLoading ? imageLess : {uri: product.pro_url_image}}
-              onLoad={()=>setIsLoading(false)}
-              defaultSource={imageLess}
+            <Image_Dianamic
+              uriURL={product.pro_url_image}
+              altProp={`Imagen del Producto ${product.pro_name}`}
             />
           </View>
           <View style={styles.containerInfoProductText}>
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginHorizontal: 10,
     borderWidth: 2,
-    borderColor: "#FFF",
+    borderColor: paletOfColors.white,
     borderRadius: 10,
     overflow: "hidden",
   },
@@ -60,27 +56,22 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   containerImage: {},
-  imageStyle: {
-    width: 120,
-    height: 120,
-    objectFit: "contain",
-  },
   textPro_name: {
     fontSize: 25,
     alignSelf: "center",
-    color: "#FFF",
+    color: paletOfColors.white,
     fontStyle: "italic",
-    marginBottom:5
+    marginBottom: 5,
   },
   textPro_Desc: {
     fontSize: 18,
     alignSelf: "center",
-    color: "#FFF",
+    color: paletOfColors.white,
     fontStyle: "italic",
   },
   textPro_Precio: {
     fontSize: 25,
     alignSelf: "flex-end",
-    color: "#FFF",
+    color: paletOfColors.white,
   },
 });

@@ -1,19 +1,17 @@
-import { View, StyleSheet, Pressable, Text, Image } from "react-native";
-import imageLess from "../../assets/imageLess.png";
-import { useState } from "react";
+import { View, StyleSheet, Pressable, Text } from "react-native";
+import { Image_Dianamic } from "../ui/Image_Dianamic";
+import { paletOfColors } from "../../utils/colors";
 
 export function Card_Category({ category }) {
-  const [isLoading, setIsLoading] = useState(true);
   return (
     <Pressable
       style={styles.pressableStyle}
-      onPress={() => console.log("Prees It")}
+      onPress={() => console.log(`Prees On Category ${category.cat_name}`)}
     >
       <View style={styles.containerChildren}>
-        <Image
-          style={styles.imageStyle}
-          source={isLoading ? imageLess : { uri: category.cat_url_image }}
-          onLoad={() => setIsLoading(false)}
+        <Image_Dianamic
+          uriURL={category.cat_url_image}
+          altProp={`imagen de la categoria ${category.cat_name}`}
         />
         <Text style={styles.textStyle}>{category.cat_name}</Text>
       </View>
@@ -24,23 +22,19 @@ export function Card_Category({ category }) {
 const styles = StyleSheet.create({
   pressableStyle: {
     borderWidth: 2,
-    borderColor: "#FFF",
+    borderColor: paletOfColors.lightGray,
     borderRadius: 5,
-    backgroundColor: "#fff",
+    backgroundColor: "#333",
+    padding: 5,
   },
   containerChildren: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
-  imageStyle: {
-    width: 80,
-    height: 80,
-    objectFit: "contain",
-  },
   textStyle: {
-    fontSize: 23,
-    color: "#009",
+    fontSize: 28,
+    color: paletOfColors.darkGray,
     fontStyle: "italic",
     letterSpacing: 3,
   },

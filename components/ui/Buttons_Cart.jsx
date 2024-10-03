@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { paletOfColors } from "../../utils/colors";
 
 export function Buttons_Cart({ pro_iden }) {
   return (
@@ -25,12 +26,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   buttonCart: {
-    backgroundColor: "#FFF",
+    backgroundColor: paletOfColors.white,
     padding: 8,
     borderRadius: 10,
   },
   textButtonCart: {
     fontSize: 18,
     fontWeight: "bold",
+    color: paletOfColors.black,
   },
 });
