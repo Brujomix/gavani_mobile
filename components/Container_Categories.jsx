@@ -6,7 +6,7 @@ export function Container_Categories({categories}) {
     <FlatList
       data={categories}
       keyExtractor={(item) => item.cat_iden}
-      renderItem={({ item }) => <Card_Category category={item} />}
+      renderItem={({ item, index }) => <Card_Category category={item} index={index} />}
       contentContainerStyle={styles.containerCategories}
     />
   );
