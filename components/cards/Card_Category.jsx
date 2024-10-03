@@ -19,7 +19,7 @@ export function Card_Category({ category, index }) {
           uriURL={category.cat_url_image}
           altProp={`imagen de la categoria ${category.cat_name}`}
         />
-        <Text style={styles.textStyle}>{category.cat_name}</Text>
+        <Text style={index % 2 === 0 ? styles.textStyleGrey : styles.textStyleBlack}>{category.cat_name}</Text>
       </View>
     </Pressable>
   );
@@ -30,13 +30,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: paletOfColors.lightGray,
     borderRadius: 5,
-    backgroundColor: "#333",
-    padding: 5,
-    shadowColor: paletOfColors.white,
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    shadowOffset: { width: 8, height: 8 },
-    elevation: 5,
   },
   containerChildrenRow: {
     flexDirection: "row",
@@ -47,10 +40,17 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent: "space-around",
     alignItems: "center",
+    backgroundColor:"#FFF",
   },
-  textStyle: {
+  textStyleGrey: {
     fontSize: 28,
-    color: paletOfColors.darkGray,
+    color: paletOfColors.white,
+    fontStyle: "italic",
+    letterSpacing: 3,
+  },
+  textStyleBlack: {
+    fontSize: 28,
+    color: paletOfColors.black,
     fontStyle: "italic",
     letterSpacing: 3,
   },
