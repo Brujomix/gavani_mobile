@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#333",
     padding: 5,
+    shadowColor: paletOfColors.white,
+    shadowOpacity:.3,
+    shadowRadius:1,
+    shadowOffset: {width: 8,height:8},
+    elevation:5,
   },
   containerChildren: {
     flexDirection: "row",
