@@ -1,10 +1,13 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Edu_Text } from "../components";
 
 export function Registration_Screen() {
-  return <View style={styles.containerRegistration}>
-    <Text>Inicio de Session</Text>
-    <Text>Page Login</Text>
-  </View>;
+  return (
+    <View style={styles.containerRegistration}>
+      <Edu_Text>Inicio de Session</Edu_Text>
+      <Edu_Text>Page Login</Edu_Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

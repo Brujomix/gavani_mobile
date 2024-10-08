@@ -1,12 +1,14 @@
-import { View, StyleSheet, Pressable, Text } from "react-native";
-import { Image_Dianamic } from "../ui/Image_Dianamic";
+import { View, StyleSheet, Pressable } from "react-native";
 import { paletOfColors } from "../../utils/colors";
+import { Image_Dianamic, Edu_Text } from "../../components";
 
-export function Card_Category({ category, index, setCat_Iden }) {
+export function Card_Category({ category, index }) {
+
   return (
     <Pressable
       style={styles.pressableStyle}
-      onPress={()=> setCat_Iden(category.cat_iden)}
+      onPress={() => console.log(`Press on Category ${category.cat_iden}`)
+      }
     >
       <View
         style={
@@ -19,11 +21,11 @@ export function Card_Category({ category, index, setCat_Iden }) {
           uriURL={category.cat_url_image}
           altProp={`imagen de la categoria ${category.cat_name}`}
         />
-        <Text
+        <Edu_Text
           style={index % 2 === 0 ? styles.textStyleGrey : styles.textStyleBlack}
         >
           {category.cat_name}
-        </Text>
+        </Edu_Text>
       </View>
     </Pressable>
   );
@@ -49,15 +51,13 @@ const styles = StyleSheet.create({
   textStyleGrey: {
     fontSize: 28,
     color: paletOfColors.white,
-    fontFamily:"Montserrat",
     letterSpacing: 2,
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
   textStyleBlack: {
     fontSize: 28,
     color: paletOfColors.black,
-    fontFamily:"Montserrat",
     letterSpacing: 2,
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
 });

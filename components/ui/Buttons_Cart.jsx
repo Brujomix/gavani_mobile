@@ -1,5 +1,6 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { paletOfColors } from "../../utils/colors";
+import { Edu_Text } from "./Edu_Text";
 
 export function Buttons_Cart({ pro_iden }) {
   return (
@@ -8,13 +9,13 @@ export function Buttons_Cart({ pro_iden }) {
         style={styles.buttonCart}
         onPress={() => console.log(`Adding to Cart Product: ${pro_iden}`)}
       >
-        <Text style={styles.textButtonCart}>Add To Cart</Text>
+        <Edu_Text style={styles.textButtonCart}>Add To Cart</Edu_Text>
       </Pressable>
       <Pressable
         style={styles.buttonCart}
         onPress={() => console.log(`Removing from Cart Product: ${pro_iden}`)}
       >
-        <Text style={styles.textButtonCart}>Remove To Cart</Text>
+        <Edu_Text style={styles.textButtonCart}>Remove To Cart</Edu_Text>
       </Pressable>
     </View>
   );

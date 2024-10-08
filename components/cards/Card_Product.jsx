@@ -1,6 +1,9 @@
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { Buttons_Cart } from "../ui/Buttons_Cart";
-import { Image_Dianamic } from "../ui/Image_Dianamic";
+import { View, StyleSheet, Dimensions } from "react-native";
+import {
+  Buttons_Cart,
+  Image_Dianamic,
+  Montserrat_Text,
+} from "../../components";
 import { paletOfColors } from "../../utils/colors";
 
 const { width } = Dimensions.get("screen");
@@ -9,7 +12,9 @@ export function Card_Product({ product }) {
   return (
     <View style={styles.containerProducts}>
       <View style={styles.containerChildren}>
-        <Text style={styles.textPro_name}>{product.pro_name}</Text>
+        <Montserrat_Text style={styles.textPro_name}>
+          {product.pro_name}
+        </Montserrat_Text>
         <View style={styles.containerInfoWithImage}>
           <View style={styles.containerImage}>
             <Image_Dianamic
@@ -18,10 +23,14 @@ export function Card_Product({ product }) {
             />
           </View>
           <View style={styles.containerInfoProductText}>
-            <Text style={styles.textPro_Desc}>{product.pro_desc}</Text>
-            <Text
+            <Montserrat_Text style={styles.textPro_Desc}>
+              {product.pro_desc}
+            </Montserrat_Text>
+            <Montserrat_Text
               style={styles.textPro_Precio}
-            >{`$ ${product.pro_precio.toLocaleString("de-DE")}`}</Text>
+            >{`$ ${product.pro_precio.toLocaleString(
+              "de-DE"
+            )}`}</Montserrat_Text>
           </View>
         </View>
         <View style={styles.containerButtonsCart}>
@@ -58,15 +67,12 @@ const styles = StyleSheet.create({
   containerImage: {},
   textPro_name: {
     fontSize: 25,
-    fontFamily: "Montserrat",
-    fontWeight: "500",
     alignSelf: "center",
     color: paletOfColors.white,
     marginBottom: 5,
   },
   textPro_Desc: {
     fontSize: 18,
-    fontFamily:"Montserrat",
     alignSelf: "center",
     color: paletOfColors.white,
   },

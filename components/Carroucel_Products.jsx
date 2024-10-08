@@ -1,5 +1,5 @@
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
-import { Card_Product } from "./cards/Card_Product";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Card_Product } from "../components";
 import { useEffect, useState } from "react";
 
 export function Carroucel_Products({products}) {
@@ -12,7 +12,7 @@ export function Carroucel_Products({products}) {
 
   return (
     <View style={styles.containerCrroucel}>
-      <ScrollView>
+
         <FlatList
           horizontal
           data={favoritesProducts}
@@ -20,7 +20,7 @@ export function Carroucel_Products({products}) {
           renderItem={({ item }) => <Card_Product product={item} />} 
           showsHorizontalScrollIndicator={false}
         />
-      </ScrollView>
+
     </View>
   );
 }

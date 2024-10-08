@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Edu_Text } from "../components";
 
 export function Login_Screen() {
   return <View style={styles.containerLogin}>
-    <Text>Inicio de Session</Text>
-    <Text>Page Login</Text>
+    <Edu_Text>Inicio de Session</Edu_Text>
+    <Edu_Text>Page Login</Edu_Text>
   </View>;
 }
 
