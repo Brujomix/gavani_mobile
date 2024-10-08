@@ -58,16 +58,17 @@ const styles = StyleSheet.create({
   containerImage: {},
   textPro_name: {
     fontSize: 25,
+    fontFamily: "Montserrat",
+    fontWeight: "500",
     alignSelf: "center",
     color: paletOfColors.white,
-    fontStyle: "italic",
     marginBottom: 5,
   },
   textPro_Desc: {
     fontSize: 18,
+    fontFamily:"Montserrat",
     alignSelf: "center",
     color: paletOfColors.white,
-    fontStyle: "italic",
   },
   textPro_Precio: {
     fontSize: 25,

@@ -1,6 +1,6 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
-export function Login() {
+export function Login_Screen() {
   return <View style={styles.containerLogin}>
     <Text>Inicio de Session</Text>
     <Text>Page Login</Text>

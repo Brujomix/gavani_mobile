@@ -12,6 +12,7 @@ export * from "./ui/Title_Dinamic"
 export * from "./ui/Buttons_Cart"
 export * from "./ui/Image_Dianamic"
 export * from "./ui/Control_Navigation"
+export * from "./ui/Font_Text"
 
 //OTHERS
 export * from "./Business_OnLine"

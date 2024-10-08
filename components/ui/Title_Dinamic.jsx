@@ -7,10 +7,10 @@ export function Title_Dinamic({ text }) {
 
 const styles = StyleSheet.create({
   titleDinamic: {
-    fontSize: 29,
-    fontStyle: "italic",
+    fontSize: 30,
     color: paletOfColors.white,
-    letterSpacing: 2,
-    alignSelf:"center"
+    alignSelf:"center",
+    fontFamily:"Montserrat",
+    fontWeight:"200"
   },
 });

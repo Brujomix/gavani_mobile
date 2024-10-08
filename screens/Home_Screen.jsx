@@ -7,7 +7,7 @@ import {
 
 import { products, categories } from "../dataTest.json";
 
-export function Home() {
+export function Home_Screen() {
   return (
     <View style={styles.containerPrincipal}>
       <Title_Dinamic text="Productos Seleccionados" />

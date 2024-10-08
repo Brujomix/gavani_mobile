@@ -17,8 +17,7 @@ export function Carroucel_Products({products}) {
           horizontal
           data={favoritesProducts}
           keyExtractor={(item) => item.pro_iden}
-          renderItem={({ item }) => <Card_Product product={item} />}
-          contentContainerStyle={styles.containerChildren}
+          renderItem={({ item }) => <Card_Product product={item} />} 
           showsHorizontalScrollIndicator={false}
         />
       </ScrollView>

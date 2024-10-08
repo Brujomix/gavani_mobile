@@ -11,14 +11,14 @@ export function Image_Dianamic({ aditionaStyles, uriURL, altProp }) {
       alt={altProp}
       source={isLoading ? imageLess : { uri: uriURL }}
       onLoad={() => setIsLoading(false)}
+      resizeMode="contain"
     />
   );
 }
 
 const styles = StyleSheet.create({
   imageStyle: {
-    width: 80,
-    height: 80,
-    objectFit: "contain",
+    width: 90,
+    height: 90,
   },
 });
