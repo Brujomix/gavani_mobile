@@ -15,5 +15,8 @@ export * from "./ui/Control_Navigation"
 export * from "./ui/Edu_Text"
 export * from "./ui/Montserrat_Text"
 
+//ICONS
+export * from "./ui/Icons"
+
 //OTHERS
 export * from "./Business_OnLine"

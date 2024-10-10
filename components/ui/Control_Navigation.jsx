@@ -1,14 +1,15 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { paletOfColors } from "../../utils/colors";
+import { IconBack, IconHome } from "./components";
 
 export function Control_Navigation() {
   return (
     <View style={styles.containerControlPanel}>
       <Pressable>
-        <Text>Home</Text>
+        <IconHome/>
       </Pressable>
-      <Pressable>
-        <Text>BACK</Text>
+      <Pressable onPress={()=>console.log("Press Back")}>
+        <IconBack size={15} color={"#000"}/>
       </Pressable>
     </View>
   );
