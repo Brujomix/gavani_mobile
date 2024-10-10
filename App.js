@@ -1,25 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, ScrollView } from "react-native";
-import { Home_Screen, Products_Filter_Screen } from "./screens";
+import { Home_Screen } from "./screens";
 import { Business_OnLine, Control_Navigation, Header_App } from "./components";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-
-import { products } from "./dataTest.json";
 
 //Previene que se oculte mientras se cargan los recursos de la app
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-
-  const [catIden, setCatIden] = useState(null);
-  const [productsFilter, setProductsFilter] = useState([]);
-
-  useEffect(() => {
-    const productsFilter = products.filter((e) => e.pro_cat_iden === catIden);
-    setProductsFilter(productsFilter || []);
-  }, [catIden]);
 
   const [loaded, error] = useFonts({
     Montserrat: require("./assets/fonts/Montserrat-VariableFont_wght.ttf"),
@@ -41,11 +31,8 @@ export default function App() {
       <Business_OnLine onLine={true} />
       <Header_App />
       <Control_Navigation />
-      {catIden === null ? (
-        <Home_Screen />
-      ) : (
-        <Products_Filter_Screen productsFilter={productsFilter} />
-      )}
+
+      <Home_Screen />
 
       <StatusBar style="light" />
     </ScrollView>

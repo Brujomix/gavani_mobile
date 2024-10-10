@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   },
   textInfoBusiness: {
     color: paletOfColors.lightGray,
-    fontSize: 18,
-    fontWeight: "semibold",
+    fontSize: 19,
   },
 });
