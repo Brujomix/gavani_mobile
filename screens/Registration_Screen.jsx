@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Edu_Text } from "../components";
+import { paletOfColors } from "../utils/colors";
 
 export function Registration_Screen() {
   return (
@@ -15,5 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor:paletOfColors.white
   },
 });

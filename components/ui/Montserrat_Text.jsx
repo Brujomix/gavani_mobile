@@ -11,6 +11,7 @@ export const Montserrat_Text = ({children, style}) => {
 
 const styles = StyleSheet.create({
   textStyle:{
+    fontWeight:"bold",
     fontFamily:"Montserrat"
   }
 })

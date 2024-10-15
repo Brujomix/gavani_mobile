@@ -48,11 +48,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginHorizontal: 10,
     borderWidth: 2,
-    borderColor: paletOfColors.white,
+    borderColor: paletOfColors.black,
     borderRadius: 10,
     overflow: "hidden",
   },
-  containerChildren: {},
+  containerChildren: {
+    
+  },
   containerButtonsCart: {
     padding: 10,
   },
@@ -68,17 +70,17 @@ const styles = StyleSheet.create({
   textPro_name: {
     fontSize: 25,
     alignSelf: "center",
-    color: paletOfColors.white,
+    color: paletOfColors.black,
     marginBottom: 5,
   },
   textPro_Desc: {
     fontSize: 18,
     alignSelf: "center",
-    color: paletOfColors.white,
+    color: paletOfColors.black,
   },
   textPro_Precio: {
     fontSize: 25,
     alignSelf: "flex-end",
-    color: paletOfColors.white,
+    color: paletOfColors.black,
   },
 });

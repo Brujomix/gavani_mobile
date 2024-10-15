@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Montserrat_Text } from "./ui/Montserrat_Text";
 
 export function Business_OnLine({ onLine }) {
   const [isOnLine, setIsOnLine] = useState(false);
@@ -10,7 +11,9 @@ export function Business_OnLine({ onLine }) {
 
   return (
     <View style={isOnLine ? styles.containerIsOnLine : styles.containerOffline}>
-      <Text style={styles.styletext}>{isOnLine ? "OnLine" : "Offline"}</Text>
+      <Montserrat_Text style={styles.styletext}>
+        {isOnLine ? "OnLine" : "Offline"}
+      </Montserrat_Text>
     </View>
   );
 }

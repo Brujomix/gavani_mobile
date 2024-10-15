@@ -1,8 +1,11 @@
 import { FlatList, StyleSheet } from "react-native";
 import { Card_Product } from "../components";
+import { paletOfColors } from "../utils/colors";
 
-export function Products_Filter_Screen({ productsFilter }) {
-
+export function Products_Filter_Screen({ route }) {
+  
+ console.log(route.params);
+ 
   return (
     <FlatList
       data={productsFilter}
@@ -18,5 +21,6 @@ const styles = StyleSheet.create({
     felx: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: paletOfColors.white
   },
 });

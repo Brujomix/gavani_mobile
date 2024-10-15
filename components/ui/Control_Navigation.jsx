@@ -1,15 +1,17 @@
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { paletOfColors } from "../../utils/colors";
-import { IoArrowBack, IoHome } from "react-icons/io5";
 
-export function Control_Navigation() {
+
+export function Control_Navigation({navigation}) {
   return (
     <View style={styles.containerControlPanel}>
-      <Pressable onPress={() => console.log("Press Home")}>
-        {/* <IoHome size={15} color="#000" /> */}
+      <Pressable onPress={() => navigation.navigate("Home")}>
+        <Text>HOME</Text>
+        {/* <HomeIcon /> */}
       </Pressable>
-      <Pressable onPress={() => console.log("Press Back")}>
-        {/*<IoArrowBack size={15} color="#000" /> */}
+      <Pressable onPress={() => navigation.goBack()}>
+        <Text>BACK</Text>
+        {/* <BackIcon /> */}
       </Pressable>
     </View>
   );

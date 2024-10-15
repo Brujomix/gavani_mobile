@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, ScrollView } from "react-native";
-import { Home_Screen } from "./screens";
-import { Business_OnLine, Control_Navigation, Header_App } from "./components";
+import { Navigator } from "./components";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -10,10 +8,8 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-
   const [loaded, error] = useFonts({
     Montserrat: require("./assets/fonts/Montserrat-VariableFont_wght.ttf"),
-    Edu: require("./assets/fonts/EduAUVICWANTGuides-VariableFont_wght.ttf"),
   });
 
   useEffect(() => {
@@ -27,25 +23,9 @@ export default function App() {
   }
 
   return (
-    <ScrollView style={styles.containerScroll}>
-      <Business_OnLine onLine={true} />
-      <Header_App />
-      <Control_Navigation />
-
-      <Home_Screen />
-
+    <>
+      <Navigator />
       <StatusBar style="light" />
-    </ScrollView>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  containerScroll: {
-    backgroundColor: "#000",
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-  },
-  containerPrincipal: {
-    gap: 30,
-  },
-});
