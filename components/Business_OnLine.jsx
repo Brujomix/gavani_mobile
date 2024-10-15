@@ -12,7 +12,7 @@ export function Business_OnLine({ onLine }) {
   return (
     <View style={isOnLine ? styles.containerIsOnLine : styles.containerOffline}>
       <Montserrat_Text style={styles.styletext}>
-        {isOnLine ? "OnLine" : "Offline"}
+        {isOnLine ? "Comercio OnLine" : "Comercio OffLine"}
       </Montserrat_Text>
     </View>
   );
@@ -23,13 +23,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     backgroundColor: "#0F4",
-    marginTop: 40,
+    marginTop: 50,
   },
   containerOffline: {
     width: "100%",
     height: 60,
     backgroundColor: "#F00",
     marginTop: 30,
+    alignSelf: "center",
   },
   styletext: {
     fontSize: 35,

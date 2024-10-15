@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList} from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { Card_Category, Card_Product, Montserrat_Text } from "../components";
-
-import { products, categories } from "../dataTest.json";
 import { paletOfColors } from "../utils/colors";
 
-export function Home_Screen() {
+import { products, categories } from "../dataTest.json";
 
+export function Home_Screen({ navigation }) {
   const [favoritesProducts, setFavoritesProducts] = useState([]);
 
   useEffect(() => {
@@ -25,6 +24,7 @@ export function Home_Screen() {
         keyExtractor={(item) => item.pro_iden}
         renderItem={({ item }) => <Card_Product product={item} />}
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.containerFavoritesProducts}
       />
       <Montserrat_Text style={styles.titleText}>
         Nuestras Categorias
@@ -33,7 +33,11 @@ export function Home_Screen() {
         data={categories}
         keyExtractor={(item) => item.cat_iden}
         renderItem={({ item, index }) => (
-          <Card_Category category={item} index={index} />
+          <Card_Category
+            category={item}
+            index={index}
+            navigation={navigation}
+          />
         )}
         contentContainerStyle={styles.containerCategories}
       />
@@ -43,11 +47,16 @@ export function Home_Screen() {
 
 const styles = StyleSheet.create({
   containerPrincipal: {
+    flex: 1,
+    marginTop: 30,
+    gap: 50,
     backgroundColor: paletOfColors.white,
-    gap: 30,
   },
   containerCategories: {
     gap: 10,
+  },
+  containerFavoritesProducts: {
+    
   },
   titleText: {
     fontSize: 25,

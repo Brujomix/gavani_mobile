@@ -2,12 +2,11 @@ import { View, StyleSheet, Pressable } from "react-native";
 import { paletOfColors } from "../../utils/colors";
 import { Image_Dianamic, Montserrat_Text } from "../../components";
 
-export function Card_Category({ category, index }) {
+export function Card_Category({ category, index, navigation }) {
 
   return (
     <Pressable
-      onPress={() => console.log(`Press on Category ${category.cat_iden}`)
-      }
+      onPress={() => navigation.navigate("Lista Productos", category.cat_iden)}
     >
       <View
         style={
@@ -31,7 +30,6 @@ export function Card_Category({ category, index }) {
 }
 
 const styles = StyleSheet.create({
-  
   containerChildrenRow: {
     flexDirection: "row",
     justifyContent: "space-around",

@@ -1,16 +1,25 @@
 import { FlatList, StyleSheet } from "react-native";
 import { Card_Product } from "../components";
 import { paletOfColors } from "../utils/colors";
+import { useEffect, useState } from "react";
+
+import { products } from "../dataTest.json";
 
 export function Products_Filter_Screen({ route }) {
-  
- console.log(route.params);
- 
+  const catIden = route.params;
+
+  const [productsFilter, setProductsFilter] = useState([]);
+
+  useEffect(() => {
+    const productsFilter = products.filter((e) => e.pro_cat_iden === catIden);
+    setProductsFilter(productsFilter);
+  }, [catIden]);
+
   return (
     <FlatList
       data={productsFilter}
       keyExtractor={(item) => item.pro_iden}
-      renderItem={({ item }) => <Card_Product product={item}/>} 
+      renderItem={({ item }) => <Card_Product product={item} />}
       contentContainerStyle={styles.containerChildren}
     />
   );
@@ -18,9 +27,10 @@ export function Products_Filter_Screen({ route }) {
 
 const styles = StyleSheet.create({
   containerChildren: {
-    felx: 1,
+    flex: 1,
+    gap: 10,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: paletOfColors.white
+    backgroundColor: paletOfColors.white,
   },
 });

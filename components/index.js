@@ -13,6 +13,3 @@ export * from "./ui/Header_User"
 
 //OTHERS
 export * from "./Business_OnLine"
-
-//NAVIGATION
-export * from "./Navigator"
