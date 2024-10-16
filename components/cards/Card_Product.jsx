@@ -25,14 +25,14 @@ export function Card_Product({ product }) {
         </Montserrat_Text>
       </View>
 
-      <Montserrat_Text
-        style={styles.textPro_Precio}
-      >{`$ ${product.pro_precio.toLocaleString("de-DE")}`}
-      </Montserrat_Text>
-
-      <View style={styles.containerButtonsCart}>
-        <Buttons_Cart pro_iden={product.pro_iden} />
+      <View style={styles.containerPrice}>
+        <Montserrat_Text style={styles.textPro_Precio}>Precio</Montserrat_Text>
+        <Montserrat_Text style={styles.textPro_Precio}>
+          {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
+        </Montserrat_Text>
       </View>
+
+      <Buttons_Cart pro_iden={product.pro_iden} />
     </View>
   );
 }
@@ -45,14 +45,16 @@ const styles = StyleSheet.create({
     borderColor: paletOfColors.black,
     borderRadius: 10,
   },
-  containerButtonsCart: {
-    padding: 10,
-  },
+
   containerInfoWithImage: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
     gap: 10,
+  },
+  containerPrice:{
+    flexDirection:"row",
+    justifyContent:"space-around"
   },
   textPro_name: {
     fontSize: 25,

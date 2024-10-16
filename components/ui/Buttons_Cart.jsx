@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, View } from "react-native";
 import { paletOfColors } from "../../utils/colors";
 import { Montserrat_Text } from "./Montserrat_Text";
+import { AddToCart, RemoveToCart } from "./Icons";
 
 export function Buttons_Cart({ pro_iden }) {
   return (
@@ -9,13 +10,13 @@ export function Buttons_Cart({ pro_iden }) {
         style={styles.buttonCart}
         onPress={() => console.log(`Adding to Cart Product: ${pro_iden}`)}
       >
-        <Montserrat_Text style={styles.textButtonCart}>Add To Cart</Montserrat_Text>
+        <AddToCart />
       </Pressable>
       <Pressable
         style={styles.buttonCart}
         onPress={() => console.log(`Removing from Cart Product: ${pro_iden}`)}
       >
-        <Montserrat_Text style={styles.textButtonCart}>Remove To Cart</Montserrat_Text>
+        <RemoveToCart />
       </Pressable>
     </View>
   );
@@ -23,6 +24,8 @@ export function Buttons_Cart({ pro_iden }) {
 
 const styles = StyleSheet.create({
   containerButtonsCart: {
+    borderTopWidth:2,
+    borderColor: paletOfColors.lightGray,
     flexDirection: "row",
     justifyContent: "space-around",
   },
@@ -30,10 +33,5 @@ const styles = StyleSheet.create({
     backgroundColor: paletOfColors.white,
     padding: 8,
     borderRadius: 10,
-  },
-  textButtonCart: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: paletOfColors.black,
   },
 });

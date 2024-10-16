@@ -3,10 +3,14 @@ import { paletOfColors } from "../../utils/colors";
 import { Image_Dianamic, Montserrat_Text } from "../../components";
 
 export function Card_Category({ category, index, navigation }) {
-
   return (
     <Pressable
-      onPress={() => navigation.navigate("Lista Productos", category.cat_iden)}
+      onPress={() =>
+        navigation.navigate("Lista Productos", {
+          cat_iden: category.cat_iden,
+          cat_name: category.cat_name,
+        })
+      }
     >
       <View
         style={

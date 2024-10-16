@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { products } from "../dataTest.json";
 
 export function Products_Filter_Screen({ route }) {
-  const catIden = route.params;
-
+  
+  const {cat_iden} = route.params;
   const [productsFilter, setProductsFilter] = useState([]);
 
   useEffect(() => {
-    const productsFilter = products.filter((e) => e.pro_cat_iden === catIden);
+    const productsFilter = products.filter((e) => e.pro_cat_iden === 1);
     setProductsFilter(productsFilter);
-  }, [catIden]);
+  }, [cat_iden]);
 
   return (
     <FlatList

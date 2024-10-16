@@ -39,7 +39,6 @@ export function Home_Screen({ navigation }) {
             navigation={navigation}
           />
         )}
-        contentContainerStyle={styles.containerCategories}
       />
     </View>
   );
@@ -47,13 +46,14 @@ export function Home_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerPrincipal: {
+    padding: 5,
     flex: 1,
     backgroundColor: paletOfColors.white,
   },
-  containerFavoritesProducts: { marginHorizontal: 10, gap: 10 },
+  containerFavoritesProducts: { padding: 10, gap: 10 },
   titleText: {
+    marginVertical:10,
     fontSize: 25,
-
     alignSelf: "center",
   },
 });
