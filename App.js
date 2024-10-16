@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Tab_Navigation } from "./navigation";
-import { Business_OnLine } from "./components";
 
 //Previene que se oculte mientras se cargan los recursos de la app
 SplashScreen.preventAutoHideAsync();
@@ -25,7 +24,6 @@ export default function App() {
 
   return (
     <>
-      <Business_OnLine onLine={false} />
       <Tab_Navigation />
       <StatusBar style="light" />
     </>

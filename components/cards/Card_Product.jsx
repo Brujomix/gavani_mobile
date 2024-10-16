@@ -1,12 +1,10 @@
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet } from "react-native";
 import {
   Buttons_Cart,
   Image_Dianamic,
   Montserrat_Text,
 } from "../../components";
 import { paletOfColors } from "../../utils/colors";
-
-const { width } = Dimensions.get("screen");
 
 export function Card_Product({ product }) {
   return (
@@ -26,7 +24,7 @@ export function Card_Product({ product }) {
       </View>
 
       <View style={styles.containerPrice}>
-        <Montserrat_Text style={styles.textPro_Precio}>Precio</Montserrat_Text>
+        <Montserrat_Text style={styles.textPrecio}>Precio</Montserrat_Text>
         <Montserrat_Text style={styles.textPro_Precio}>
           {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
         </Montserrat_Text>
@@ -39,22 +37,21 @@ export function Card_Product({ product }) {
 
 const styles = StyleSheet.create({
   containerProducts: {
-    gap: 8,
-    width: width * 0.7,
+    marginHorizontal:5,
     borderWidth: 2,
     borderColor: paletOfColors.black,
     borderRadius: 10,
+    padding:5
   },
 
   containerInfoWithImage: {
-    width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    gap: 10,
   },
   containerPrice:{
     flexDirection:"row",
-    justifyContent:"space-around"
+    justifyContent:"space-around",
+    alignItems:"center"
   },
   textPro_name: {
     fontSize: 25,
@@ -70,7 +67,10 @@ const styles = StyleSheet.create({
   },
   textPro_Precio: {
     fontSize: 25,
-    alignSelf: "flex-end",
+    color: paletOfColors.black,
+  },
+  textPrecio: {
+    fontSize: 18,
     color: paletOfColors.black,
   },
 });

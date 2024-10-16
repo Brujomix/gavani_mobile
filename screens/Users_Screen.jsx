@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View } from 'react-native'
+import { Montserrat_Text } from '../components'
 
 export function Users_Screen() {
   return (
     <View>
-      <Text>Users_Screen</Text>
+      <Montserrat_Text>Users Screen</Montserrat_Text>
     </View>
   )
 }
