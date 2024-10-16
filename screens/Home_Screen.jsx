@@ -48,16 +48,9 @@ export function Home_Screen({ navigation }) {
 const styles = StyleSheet.create({
   containerPrincipal: {
     flex: 1,
-    marginTop: 30,
-    gap: 50,
     backgroundColor: paletOfColors.white,
   },
-  containerCategories: {
-    gap: 10,
-  },
-  containerFavoritesProducts: {
-    
-  },
+  containerFavoritesProducts: { marginHorizontal: 10 },
   titleText: {
     fontSize: 25,
     alignSelf: "center",

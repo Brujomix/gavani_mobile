@@ -27,7 +27,8 @@ export function Card_Product({ product }) {
 
       <Montserrat_Text
         style={styles.textPro_Precio}
-      >{`$ ${product.pro_precio.toLocaleString("de-DE")}`}</Montserrat_Text>
+      >{`$ ${product.pro_precio.toLocaleString("de-DE")}`}
+      </Montserrat_Text>
 
       <View style={styles.containerButtonsCart}>
         <Buttons_Cart pro_iden={product.pro_iden} />
@@ -39,18 +40,16 @@ export function Card_Product({ product }) {
 const styles = StyleSheet.create({
   containerProducts: {
     gap: 8,
-    width: width * 0.9,
-    marginHorizontal: 5,
+    width: width * 0.7,
     borderWidth: 2,
     borderColor: paletOfColors.black,
     borderRadius: 10,
-    overflow: "hidden",
   },
   containerButtonsCart: {
     padding: 10,
   },
   containerInfoWithImage: {
-    width:"100%",
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
     gap: 10,
@@ -62,6 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   textPro_Desc: {
+    width: "50%",
     fontSize: 18,
     alignSelf: "center",
     color: paletOfColors.black,

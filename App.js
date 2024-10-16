@@ -34,7 +34,12 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerTitle: () => <Business_OnLine onLine={true} />,
+          }}
+        >
           <Stack.Screen
             name="Login"
             options={({ route }) => ({ title: route.params?.name })}
