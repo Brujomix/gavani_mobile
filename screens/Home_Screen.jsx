@@ -50,9 +50,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: paletOfColors.white,
   },
-  containerFavoritesProducts: { marginHorizontal: 10 },
+  containerFavoritesProducts: { marginHorizontal: 10, gap: 10 },
   titleText: {
     fontSize: 25,
+
     alignSelf: "center",
   },
 });
