@@ -17,22 +17,22 @@ export function Tab_Navigation() {
         }}
       >
         <Tab.Screen
-          name="Carrito"
-          component={Carrito_Screen}
-          options={{
-            title:"",
-            tabBarIcon: () => (
-              <AntDesing_Icon name={"shoppingcart"} size={40} />
-            ),
-          }}
-        />
-        <Tab.Screen
           name="Home"
           component={Stack_Navigation}
           options={{
             title:"",
             tabBarIcon: () => (
               <AntDesing_Icon name={"home"} size={40} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Carrito"
+          component={Carrito_Screen}
+          options={{
+            title:"",
+            tabBarIcon: () => (
+              <AntDesing_Icon name={"shoppingcart"} size={40} />
             ),
           }}
         />
