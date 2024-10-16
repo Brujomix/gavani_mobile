@@ -37,7 +37,7 @@ export default function App() {
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
-            headerTitle: () => <Business_OnLine onLine={true} />,
+            headerTitle: () => <Business_OnLine onLine={false} />,
           }}
         >
           <Stack.Screen
