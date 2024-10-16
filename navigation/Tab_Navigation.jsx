@@ -20,6 +20,7 @@ export function Tab_Navigation() {
           name="Carrito"
           component={Carrito_Screen}
           options={{
+            title:"",
             tabBarIcon: () => (
               <AntDesing_Icon name={"shoppingcart"} size={40} />
             ),
@@ -29,6 +30,7 @@ export function Tab_Navigation() {
           name="Home"
           component={Stack_Navigation}
           options={{
+            title:"",
             tabBarIcon: () => (
               <AntDesing_Icon name={"home"} size={40} />
             ),
@@ -38,6 +40,7 @@ export function Tab_Navigation() {
           name="Usuarios"
           component={Users_Screen}
           options={{
+            title:"",
             tabBarIcon: () => (
               <AntDesing_Icon name={"user"} size={40}/>
             ),
