@@ -9,7 +9,7 @@ export function Home_Screen({ navigation, route }) {
   const { pro_top } = route.params;
 
   return (
-    <View>
+    <View style={styles.containerHome}>
       <Montserrat_Text style={styles.titleText}>
         Productos Seleccionados
       </Montserrat_Text>
@@ -18,11 +18,13 @@ export function Home_Screen({ navigation, route }) {
         <Carousel_Favorites_Products pro_top={pro_top} />
       </View>
 
-      <Montserrat_Text style={styles.titleText}>
-        Nuestras Categorias
-      </Montserrat_Text>
-
       <FlatList
+        ListHeaderComponent={
+          <Montserrat_Text style={styles.titleText}>
+            Nuestras Categorias
+          </Montserrat_Text>
+        }
+        ListFooterComponent={<View style={styles.footerListCategories}></View>}
         data={categories}
         keyExtractor={(item) => item.cat_iden}
         renderItem={({ item, index }) => (
@@ -32,15 +34,25 @@ export function Home_Screen({ navigation, route }) {
             navigation={navigation}
           />
         )}
+        contentContainerStyle={styles.containerFlatCategories}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  containerHome: {
+    flex: 1,
+  },
   containerCarousel: {
     height: 260,
     marginTop: 10,
+  },
+  containerFlatCategories: {
+    gap: 10,
+  },
+  footerListCategories:{
+    marginBottom:80
   },
   titleText: {
     marginVertical: 10,

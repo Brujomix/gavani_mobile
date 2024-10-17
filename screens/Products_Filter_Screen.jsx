@@ -11,7 +11,7 @@ export function Products_Filter_Screen({ route }) {
   const [productsFilter, setProductsFilter] = useState([]);
 
   useEffect(() => {
-    const productsFilter = products.filter((e) => e.pro_cat_iden === 1);
+    const productsFilter = products.filter((e) => e.pro_cat_iden === cat_iden);
     setProductsFilter(productsFilter);
   }, [cat_iden]);
 

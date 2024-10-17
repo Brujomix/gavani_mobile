@@ -1,13 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Carrito_Screen, Users_Screen } from "../screens";
+import { Carrito_Screen, ScreenWrapper, Users_Screen } from "../screens";
 import { Stack_Navigation_Home } from "./Stack_Navigation_Home";
 import { AntDesing_Icon, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
-const onLine = true;
+const onLine = false;
+
 export function Tab_Navigation() {
   return (
     <NavigationContainer>
@@ -20,30 +21,63 @@ export function Tab_Navigation() {
       >
         <Tab.Screen
           name="HomePage"
-          component={Stack_Navigation_Home}
           options={{
             title: "",
-            tabBarIcon: ({focused}) => <AntDesing_Icon name={"home"} size={40} color={focused ? paletOfColors.black:paletOfColors.darkGray}/>,
-          }}
-        />
-        <Tab.Screen
-          name="Carrito"
-          component={Carrito_Screen}
-          options={{
-            title: "",
-            tabBarIcon: ({focused}) => (
-              <AntDesing_Icon name={"shoppingcart"} size={40} color={focused ? paletOfColors.black:paletOfColors.darkGray}/>
+            tabBarIcon: ({ focused }) => (
+              <AntDesing_Icon
+                name={"home"}
+                size={40}
+                color={focused ? paletOfColors.black : paletOfColors.darkGray}
+              />
             ),
           }}
-        />
+        >
+          {() => (
+            <ScreenWrapper onLine={onLine}>
+              <Stack_Navigation_Home />
+            </ScreenWrapper>
+          )}
+        </Tab.Screen>
+
         <Tab.Screen
-          name="Usuarios"
-          component={Users_Screen}
+          name="Carrito"
           options={{
             title: "",
-            tabBarIcon: ({focused}) => <AntDesing_Icon name={"user"} size={40} color={focused ? paletOfColors.black:paletOfColors.darkGray}/>,
+            tabBarIcon: ({ focused }) => (
+              <AntDesing_Icon
+                name={"shoppingcart"}
+                size={40}
+                color={focused ? paletOfColors.black : paletOfColors.darkGray}
+              />
+            ),
           }}
-        />
+        >
+          {() => (
+            <ScreenWrapper onLine={onLine}>
+              <Carrito_Screen />
+            </ScreenWrapper>
+          )}
+        </Tab.Screen>
+
+        <Tab.Screen
+          name="Usuarios"
+          options={{
+            title: "",
+            tabBarIcon: ({ focused }) => (
+              <AntDesing_Icon
+                name={"user"}
+                size={40}
+                color={focused ? paletOfColors.black : paletOfColors.darkGray}
+              />
+            ),
+          }}
+        >
+          {() => (
+            <ScreenWrapper onLine={onLine}>
+              <Users_Screen />
+            </ScreenWrapper>
+          )}
+        </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -57,3 +91,4 @@ const styles = StyleSheet.create({
     borderTopColor: paletOfColors.black,
   },
 });
+

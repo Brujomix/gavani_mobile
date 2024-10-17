@@ -14,7 +14,7 @@ export function Business_OnLine({ onLine }) {
 const styles = StyleSheet.create({
   containerBussinesOnline: {
     marginTop: 45,
-    marginBottom: 10,
+    padding:8,
   },
   styletext: {
     fontSize: 35,

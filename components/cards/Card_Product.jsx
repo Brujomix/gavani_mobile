@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     borderColor: paletOfColors.black,
     borderRadius: 10,
     padding:5,
-    backgroundColor: paletOfColors.lightGray
   },
 
   containerInfoWithImage: {
