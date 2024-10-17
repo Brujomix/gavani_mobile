@@ -4,7 +4,7 @@ import { Carrito_Screen, Users_Screen } from "../screens";
 import { Stack_Navigation_Home } from "./Stack_Navigation_Home";
 import { AntDesing_Icon, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const onLine = true;
@@ -13,20 +13,17 @@ export function Tab_Navigation() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarStyle: {
-            height: 80,
-            borderTopWidth: 2,
-            borderTopColor: paletOfColors.black,
-          },
+          tabBarStyle: styles.tabBarStyle,
+          tabBarShowLabel: false,
           header: () => <Business_OnLine onLine={onLine} />,
         }}
       >
         <Tab.Screen
-          name="Home"
+          name="HomePage"
           component={Stack_Navigation_Home}
           options={{
             title: "",
-            tabBarIcon: () => <AntDesing_Icon name={"home"} size={40} />,
+            tabBarIcon: ({focused}) => <AntDesing_Icon name={"home"} size={40} color={focused ? paletOfColors.black:paletOfColors.darkGray}/>,
           }}
         />
         <Tab.Screen
@@ -34,8 +31,8 @@ export function Tab_Navigation() {
           component={Carrito_Screen}
           options={{
             title: "",
-            tabBarIcon: () => (
-              <AntDesing_Icon name={"shoppingcart"} size={40} />
+            tabBarIcon: ({focused}) => (
+              <AntDesing_Icon name={"shoppingcart"} size={40} color={focused ? paletOfColors.black:paletOfColors.darkGray}/>
             ),
           }}
         />
@@ -44,10 +41,19 @@ export function Tab_Navigation() {
           component={Users_Screen}
           options={{
             title: "",
-            tabBarIcon: () => <AntDesing_Icon name={"user"} size={40} />,
+            tabBarIcon: ({focused}) => <AntDesing_Icon name={"user"} size={40} color={focused ? paletOfColors.black:paletOfColors.darkGray}/>,
           }}
         />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    padding: 8,
+    height: 60,
+    borderTopWidth: 2,
+    borderTopColor: paletOfColors.black,
+  },
+});

@@ -34,13 +34,12 @@ export function Buttons_Cart({ pro_iden, disabled }) {
 const styles = StyleSheet.create({
   containerButtonsCart: {
     borderTopWidth: 2,
-    borderColor: paletOfColors.lightGray,
+    borderColor: paletOfColors.black,
     flexDirection: "row",
     justifyContent: "space-around",
   },
   buttonCart: {
-    backgroundColor: paletOfColors.white,
-    padding: 8,
     borderRadius: 10,
+    marginVertical: 10,
   },
 });

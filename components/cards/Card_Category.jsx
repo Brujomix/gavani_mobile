@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    backgroundColor: paletOfColors.lightGray,
   },
   containerChildrenRow_Reverse: {
     flexDirection: "row-reverse",

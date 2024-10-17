@@ -18,7 +18,7 @@ export function Carousel_Favorites_Products({ pro_top }) {
       <Carousel
         loop
         width={width}
-        height={200}
+        height={260}
         autoPlay={true}
         data={favoriteProducts}
         scrollAnimationDuration={8500}

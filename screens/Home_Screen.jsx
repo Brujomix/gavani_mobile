@@ -9,12 +9,14 @@ export function Home_Screen({ navigation, route }) {
   const { pro_top } = route.params;
 
   return (
-    <View style={styles.containerPrincipal}>
+    <View>
       <Montserrat_Text style={styles.titleText}>
         Productos Seleccionados
       </Montserrat_Text>
 
-      <Carousel_Favorites_Products pro_top={pro_top} />
+      <View style={styles.containerCarousel}>
+        <Carousel_Favorites_Products pro_top={pro_top} />
+      </View>
 
       <Montserrat_Text style={styles.titleText}>
         Nuestras Categorias
@@ -36,8 +38,10 @@ export function Home_Screen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  containerPrincipal: {},
-
+  containerCarousel: {
+    height: 260,
+    marginTop: 10,
+  },
   titleText: {
     marginVertical: 10,
     fontSize: 32,

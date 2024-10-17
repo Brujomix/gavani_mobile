@@ -38,10 +38,12 @@ export function Card_Product({ product }) {
 const styles = StyleSheet.create({
   containerProducts: {
     marginHorizontal:5,
+    gap:5,
     borderWidth: 2,
     borderColor: paletOfColors.black,
     borderRadius: 10,
-    padding:5
+    padding:5,
+    backgroundColor: paletOfColors.lightGray
   },
 
   containerInfoWithImage: {
