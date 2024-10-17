@@ -1,4 +1,4 @@
-import { Dimensions, View } from "react-native";
+import { Dimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { Card_Product } from "../components";
 import { useEffect, useState } from "react";
@@ -17,11 +17,11 @@ export function Carousel_Favorites_Products({ pro_top }) {
   return (
       <Carousel
         loop
-        width={width}
+        width={width }
         height={260}
         autoPlay={true}
         data={favoriteProducts}
-        scrollAnimationDuration={8500}
+        scrollAnimationDuration={10000}
         renderItem={({ item }) => <Card_Product product={item} />}
       />   
   );

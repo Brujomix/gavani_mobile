@@ -4,10 +4,10 @@ import { paletOfColors } from "../utils/colors";
 import { useEffect, useState } from "react";
 
 import { products } from "../dataTest.json";
+import { ScreenWrapper } from "../wrappers";
 
 export function Products_Filter_Screen({ route }) {
-  
-  const {cat_iden} = route.params;
+  const { cat_iden } = route.params;
   const [productsFilter, setProductsFilter] = useState([]);
 
   useEffect(() => {
@@ -16,21 +16,22 @@ export function Products_Filter_Screen({ route }) {
   }, [cat_iden]);
 
   return (
-    <FlatList
-      data={productsFilter}
-      keyExtractor={(item) => item.pro_iden}
-      renderItem={({ item }) => <Card_Product product={item} />}
-      contentContainerStyle={styles.containerChildren}
-    />
+    <ScreenWrapper>
+      <FlatList
+        data={productsFilter}
+        keyExtractor={(item) => item.pro_iden}
+        renderItem={({ item }) => <Card_Product product={item} />}
+        contentContainerStyle={styles.containerChildren}
+      />
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   containerChildren: {
     flex: 1,
-    gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: paletOfColors.white,
+    gap:10,
+    justifyContent:"center",
+    alignItems:"center"
   },
 });

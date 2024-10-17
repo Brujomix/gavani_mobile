@@ -38,13 +38,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: paletOfColors.lightGray,
+    backgroundColor: paletOfColors.white,
+    borderWidth: 4,
+    borderRadius:10,
+    borderColor: paletOfColors.darkGray,
   },
   containerChildrenRow_Reverse: {
     flexDirection: "row-reverse",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: paletOfColors.black,
+    backgroundColor: paletOfColors.white,
+    borderWidth: 4,
+    borderRadius:10,
+    borderColor: paletOfColors.darkGray,
   },
   textStyleGrey: {
     fontSize: 28,
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
   },
   textStyleBlack: {
     fontSize: 28,
-    color: paletOfColors.darkGray,
+    color: paletOfColors.black,
     letterSpacing: 2,
   },
 });

@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Montserrat_Text } from "./ui/Montserrat_Text";
+import { paletOfColors } from "../utils/colors";
 
 export function Business_OnLine({ onLine }) {
   return (
@@ -13,12 +14,13 @@ export function Business_OnLine({ onLine }) {
 
 const styles = StyleSheet.create({
   containerBussinesOnline: {
+    backgroundColor:paletOfColors.black,
     marginTop: 45,
     padding:8,
   },
   styletext: {
+    color:paletOfColors.white,
     fontSize: 35,
-    fontStyle: "normal",
     alignSelf: "center",
   },
 });

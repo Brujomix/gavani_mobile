@@ -4,7 +4,7 @@ import { paletOfColors } from "../utils/colors";
 
 export function Login_Screen({ route }) {
   console.log(route);
-  
+
   return (
     <View style={styles.containerLogin}>
       <Edu_Text>Inicio de Session</Edu_Text>
@@ -18,6 +18,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: paletOfColors.black
+    backgroundColor: paletOfColors.black,
   },
 });

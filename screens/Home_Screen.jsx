@@ -1,47 +1,52 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { Card_Category, Montserrat_Text } from "../components";
-import { paletOfColors } from "../utils/colors";
 
 import { categories } from "../dataTest.json";
 import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Products";
+import { ScreenWrapper } from "../wrappers";
 
 export function Home_Screen({ navigation, route }) {
   const { pro_top } = route.params;
 
   return (
-    <View style={styles.containerHome}>
-      <Montserrat_Text style={styles.titleText}>
-        Productos Seleccionados
-      </Montserrat_Text>
+    <ScreenWrapper>
+      <View style={styles.continerHomeScreen}>
+        <Montserrat_Text style={styles.titleText}>
+          Productos Seleccionados
+        </Montserrat_Text>
 
-      <View style={styles.containerCarousel}>
-        <Carousel_Favorites_Products pro_top={pro_top} />
+        <View style={styles.containerCarousel}>
+          <Carousel_Favorites_Products pro_top={pro_top} />
+        </View>
+
+        <FlatList
+          ListHeaderComponent={
+            <Montserrat_Text style={styles.titleText}>
+              Nuestras Categorias
+            </Montserrat_Text>
+          }
+          ListFooterComponent={
+            <View style={styles.footerListCategories}></View>
+          }
+          data={categories}
+          keyExtractor={(item) => item.cat_iden}
+          renderItem={({ item, index }) => (
+            <Card_Category
+              category={item}
+              index={index}
+              navigation={navigation}
+            />
+          )}
+          contentContainerStyle={styles.containerFlatCategories}
+        />
       </View>
-
-      <FlatList
-        ListHeaderComponent={
-          <Montserrat_Text style={styles.titleText}>
-            Nuestras Categorias
-          </Montserrat_Text>
-        }
-        ListFooterComponent={<View style={styles.footerListCategories}></View>}
-        data={categories}
-        keyExtractor={(item) => item.cat_iden}
-        renderItem={({ item, index }) => (
-          <Card_Category
-            category={item}
-            index={index}
-            navigation={navigation}
-          />
-        )}
-        contentContainerStyle={styles.containerFlatCategories}
-      />
-    </View>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  containerHome: {
+  continerHomeScreen: {
+    padding: 10,
     flex: 1,
   },
   containerCarousel: {
@@ -51,8 +56,8 @@ const styles = StyleSheet.create({
   containerFlatCategories: {
     gap: 10,
   },
-  footerListCategories:{
-    marginBottom:80
+  footerListCategories: {
+    marginBottom: 80,
   },
   titleText: {
     marginVertical: 10,

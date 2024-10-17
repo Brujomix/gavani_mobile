@@ -37,7 +37,8 @@ export function Card_Product({ product }) {
 
 const styles = StyleSheet.create({
   containerProducts: {
-    marginHorizontal:5,
+    backgroundColor:paletOfColors.lightGray,
+    alignSelf:"center",
     gap:5,
     borderWidth: 2,
     borderColor: paletOfColors.black,
