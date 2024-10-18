@@ -46,7 +46,6 @@ export function Home_Screen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   continerHomeScreen: {
-    padding: 10,
     flex: 1,
   },
   containerCarousel: {
