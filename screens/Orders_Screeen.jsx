@@ -2,19 +2,17 @@ import { StyleSheet, View } from "react-native";
 import { paletOfColors } from "../utils/colors";
 import { Montserrat_Text } from "../components";
 
-export function Login_Screen({ route }) {
-  console.log(route);
+export function Orders_Screen({ route }) {
 
   return (
-    <View style={styles.containerLogin}>
-      <Montserrat_Text>Inicio de Session</Montserrat_Text>
-      <Montserrat_Text>Page Login</Montserrat_Text>
+    <View style={styles.containerOrders}>
+      <Montserrat_Text>Mis Ordenes</Montserrat_Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  containerLogin: {
+  containerOrders: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

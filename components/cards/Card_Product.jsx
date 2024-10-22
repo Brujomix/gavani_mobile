@@ -1,16 +1,13 @@
 import { View, StyleSheet } from "react-native";
 import {
-  Pressable_Dinamic,
+  Cart_Buttons,
   Image_Dianamic,
-  Material_Icon,
   Montserrat_Text,
 } from "../../components";
 import { paletOfColors } from "../../utils/colors";
-import { useDispatch } from "react-redux";
-import { addCartProduct, removeCartProduct } from "../../redux/slices/carritoSlice";
 
 export function Card_Product({ product }) {
-  const dispatch = useDispatch()
+   
   return (
     <View style={styles.containerProducts}>
       <Montserrat_Text style={styles.textPro_name}>
@@ -34,22 +31,7 @@ export function Card_Product({ product }) {
         </Montserrat_Text>
       </View>
 
-      <View style={styles.containerButtonsCart}>
-        <Pressable_Dinamic onPress={() => dispatch(addCartProduct(product))}>
-          <Material_Icon
-            name={"add-shopping-cart"}
-            size={40}
-            color={paletOfColors.black}
-          />
-        </Pressable_Dinamic>
-        <Pressable_Dinamic onPress={() => dispatch(removeCartProduct(product))}>
-          <Material_Icon
-            name={"remove-shopping-cart"}
-            size={40}
-            color={paletOfColors.black}
-          />
-        </Pressable_Dinamic>
-      </View>
+      <Cart_Buttons product={product} />
     </View>
   );
 }
@@ -93,12 +75,5 @@ const styles = StyleSheet.create({
   textPrecio: {
     fontSize: 18,
     color: paletOfColors.black,
-  },
-  containerButtonsCart: {
-    borderTopWidth: 2,
-    padding: 5,
-    borderColor: paletOfColors.black,
-    flexDirection: "row",
-    justifyContent: "space-around",
   },
 });
