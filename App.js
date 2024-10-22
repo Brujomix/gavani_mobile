@@ -3,6 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Tab_Navigation } from "./navigation";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 //Previene que se oculte mientras se cargan los recursos de la app
 SplashScreen.preventAutoHideAsync();
@@ -23,9 +25,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <Provider store={store}>
       <Tab_Navigation />
       <StatusBar style="light" />
-    </>
+    </Provider>
   );
 }

@@ -1,12 +1,15 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { Card_Category, Montserrat_Text } from "../components";
 
-import { categories } from "../dataTest.json";
 import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Products";
 import { ScreenWrapper } from "../wrappers";
+import { useSelector } from "react-redux";
 
 export function Home_Screen({ navigation, route }) {
+
   const { pro_top } = route.params;
+
+  const {Categories} = useSelector(state=>state.Global)
 
   return (
     <ScreenWrapper>
@@ -28,7 +31,7 @@ export function Home_Screen({ navigation, route }) {
           ListFooterComponent={
             <View style={styles.footerListCategories}></View>
           }
-          data={categories}
+          data={Categories}
           keyExtractor={(item) => item.cat_iden}
           renderItem={({ item, index }) => (
             <Card_Category

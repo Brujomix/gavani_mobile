@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   Montserrat_Text,
   Pressable_Dinamic,
@@ -6,12 +6,17 @@ import {
 } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { FlatList } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
 
-export function Carrito_Screen({ cartProducts }) {
+export function Carrito_Screen() {
+
+ const {cartProducts} = useSelector(state=>state.Cart)
+ console.log(`Products of cart ${cartProducts}`);
+ 
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
-      {cartProducts ? (
+    {/*   {cartProducts ? (
         <FlatList
           data={[]}
           keyExtractor={(item) => item.pro_iden}
@@ -19,7 +24,7 @@ export function Carrito_Screen({ cartProducts }) {
         />
       ) : (
         <Montserrat_Text>Agrega Productos Al Carrito</Montserrat_Text>
-      )}
+      )} */}
 
       <Pressable_Dinamic onPress={() => console.log("Confirmar Pedido")}>
         <Montserrat_Text>Confirmar</Montserrat_Text>

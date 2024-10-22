@@ -1,14 +1,17 @@
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { paletOfColors } from "../utils/colors";
+import { useSelector } from "react-redux";
 
 export function ScreenWrapper({ children }) {
-  const onLine = true
+
+  const {isOnLine} = useSelector(state=>state.Global)
+  
   return (
     <View style={styles.containerPrincipal}>
       <LinearGradient
         colors={
-          onLine
+          isOnLine
             ? [paletOfColors.green, paletOfColors.white]
             : [paletOfColors.red, paletOfColors.white]
         }

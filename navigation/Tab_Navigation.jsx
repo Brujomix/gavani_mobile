@@ -5,11 +5,13 @@ import { Stack_Navigation_Home } from "./Stack_Navigation_Home";
 import { AntDesing_Icon, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
 import { StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
-const onLine = false;
 
 export function Tab_Navigation() {
+
+  const {isOnLine} = useSelector(state=>state.Global)
   
   return (
     <NavigationContainer>
@@ -17,7 +19,7 @@ export function Tab_Navigation() {
         initialRouteName="HomePage"
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
-          header: () => <Business_OnLine onLine={onLine} />,
+          header: () => <Business_OnLine isOnLine={isOnLine} />,
         }}
       >
         <Tab.Screen

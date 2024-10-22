@@ -2,11 +2,11 @@ import { StyleSheet, View } from "react-native";
 import { Montserrat_Text } from "./ui/Montserrat_Text";
 import { paletOfColors } from "../utils/colors";
 
-export function Business_OnLine({ onLine }) {
+export function Business_OnLine({ isOnLine }) {
   return (
     <View style={styles.containerBussinesOnline}>
       <Montserrat_Text style={styles.styletext}>
-        {onLine ? "Comercio OnLine" : "Comercio OffLine"}
+        {isOnLine ? "Comercio OnLine" : "Comercio OffLine"}
       </Montserrat_Text>
     </View>
   );
