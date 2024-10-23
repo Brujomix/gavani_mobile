@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
     backgroundColor: paletOfColors.whiteTransparent,
     alignSelf: "center",
     gap: 5,
-    borderWidth: 2,
-    borderColor: paletOfColors.black,
     borderRadius: 10,
     padding: 5,
   },

@@ -4,7 +4,7 @@ import { products, categories } from "../../dataTest.json";
 export const GlobalSlice = createSlice({
   name: "Global",
   initialState: {
-    isOnLine: true,
+    isOnLine: false,
     Products: products,
     Categories: categories,
     productFilteredByCategory: [],

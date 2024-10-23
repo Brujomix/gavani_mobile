@@ -28,7 +28,7 @@ export function Cart_Buttons({ product }) {
       </Pressable_Dinamic>
       <Pressable_Dinamic
         disabled={!isOnLine}
-        onPress={() => dispatch(removeCartProduct(product))}
+        onPress={() => dispatch(removeCartProduct(product.pro_iden))}
       >
         <Material_Icon
           name={"remove-shopping-cart"}

@@ -11,9 +11,6 @@ export * from "./ui/Icons"
 export * from "./ui/Header_User"
 export * from "./ui/Pressable_Dinamic"
 
-//TABLES
-export * from "./tables/Table_Cart_Products"
-
 //OTHERS
 export * from "./Business_OnLine"
 export * from "./Cart_Buttons"
