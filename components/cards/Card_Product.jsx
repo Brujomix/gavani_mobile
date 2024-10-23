@@ -43,6 +43,14 @@ const styles = StyleSheet.create({
     gap: 5,
     borderRadius: 10,
     padding: 5,
+    shadowColor: paletOfColors.white,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 
   containerInfoWithImage: {
@@ -74,4 +82,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: paletOfColors.black,
   },
+
 });

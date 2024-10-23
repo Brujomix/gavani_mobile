@@ -1,15 +1,16 @@
 import { FlatList, StyleSheet } from "react-native";
 import { Card_Product } from "../components";
 import { ScreenWrapper } from "../wrappers";
+import { useSelector } from "react-redux";
 
-export function Products_Filter_Screen({ route }) {
+export function Products_Filter_Screen() {
   
-  const { cat_iden } = route.params;
+  const {productFilteredByCategory} = useSelector(state=>state.Global)
 
   return (
     <ScreenWrapper>
       <FlatList
-        data={productsFilterByCategory}
+        data={productFilteredByCategory}
         keyExtractor={(item) => item.pro_iden}
         renderItem={({ item }) => <Card_Product product={item} />}
         contentContainerStyle={styles.containerChildren}

@@ -18,7 +18,7 @@ export function Stack_Navigation_Home() {
         component={Home_Screen}
       />
       <Stack.Screen
-        name="Lista Productos"
+        name="Products By Categories"
         options={({ route }) => ({
           title: route.params?.cat_name,
           headerTitleStyle: styles.textHeaderStack,

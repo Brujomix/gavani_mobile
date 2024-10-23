@@ -1,16 +1,21 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import { paletOfColors } from "../../utils/colors";
 import { Image_Dianamic, Montserrat_Text } from "../../components";
+import { useDispatch } from "react-redux";
+import { setProductsFilterByCategory } from "../../redux/slices/globalSlice";
 
 export function Card_Category({ category, index, navigation }) {
+  const dispatch = useDispatch();
+
   return (
     <Pressable
-      onPress={() =>
-        navigation.navigate("Lista Productos", {
+      onPress={() => {
+        navigation.navigate("Products By Categories", {
           cat_iden: category.cat_iden,
           cat_name: category.cat_name,
-        })
-      }
+        });
+        dispatch(setProductsFilterByCategory(category.cat_iden));
+      }}
     >
       <View
         style={
@@ -40,8 +45,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: paletOfColors.whiteTransparent,
     borderWidth: 4,
-    borderRadius:10,
+    borderRadius: 10,
     borderColor: paletOfColors.darkGray,
+    shadowColor: paletOfColors.white,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   containerChildrenRow_Reverse: {
     flexDirection: "row-reverse",
@@ -49,7 +62,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: paletOfColors.whiteTransparent,
     borderWidth: 4,
-    borderRadius:10,
+    borderRadius: 10,
     borderColor: paletOfColors.lightGray,
   },
   textStyleGrey: {

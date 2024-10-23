@@ -10,6 +10,10 @@ export * from "./ui/Montserrat_Text"
 export * from "./ui/Icons"
 export * from "./ui/Header_User"
 export * from "./ui/Pressable_Dinamic"
+export * from "./ui/Avatar_User"
+
+//MODALS
+export * from "./modals/Modal_Dinamic"
 
 //OTHERS
 export * from "./Business_OnLine"

@@ -18,3 +18,11 @@ export const Total_Cart = (array)=>{
   }
   return total;
 }
+
+export const TotalProductCart = (array) =>{
+  let total = 0
+  for (const obj of array) {
+    total += obj.Cantidad
+  }
+  return total
+}

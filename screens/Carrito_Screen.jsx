@@ -1,12 +1,12 @@
 import { StyleSheet, FlatList, View } from "react-native";
 import {
   Montserrat_Text,
-  Pressable_Dinamic,
   Card_Product_Cart,
+  Modal_Dinamic,
+  Pressable_Dinamic,
 } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { useSelector } from "react-redux";
-import { paletOfColors } from "../utils/colors";
 import { Total_Cart } from "../utils/funtions";
 
 export function Carrito_Screen() {
@@ -17,19 +17,18 @@ export function Carrito_Screen() {
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
-     
-        {cartProducts.length === 0 ? (
-          <Montserrat_Text style={styles.textWithoutProducts}>
-            Sin Productos En Carrito
-          </Montserrat_Text>
-        ) : (
-          <FlatList
-            data={cartProducts}
-            keyExtractor={(item) => item.pro_iden}
-            renderItem={({ item }) => <Card_Product_Cart product={item} />}
-          />
-        )}
-     
+
+      {cartProducts.length === 0 ? (
+        <Montserrat_Text style={styles.textWithoutProducts}>
+          Sin Productos En Carrito
+        </Montserrat_Text>
+      ) : (
+        <FlatList
+          data={cartProducts}
+          keyExtractor={(item) => item.pro_iden}
+          renderItem={({ item }) => <Card_Product_Cart product={item} />}
+        />
+      )}
 
       <View style={styles.containerTotalCart}>
         <Montserrat_Text style={styles.textTotalCart}>
@@ -40,9 +39,17 @@ export function Carrito_Screen() {
         </Montserrat_Text>
       </View>
 
-      <Pressable_Dinamic disabled={!isOnLine} onPress={() => console.log("Confirmar Pedido")}>
-        <Montserrat_Text style={styles.textConfirm}>{isOnLine ? "Confirmar" : "Fuera de Linea"}</Montserrat_Text>
-      </Pressable_Dinamic>
+      <Modal_Dinamic disabled={cartProducts.length === 0 ? true : false} textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}>
+        <View style={styles.containerBodyModalCart}>
+          <Montserrat_Text style={styles.textBodyModalCart}>
+            Confirmar Pedido ?
+          </Montserrat_Text>
+          <Pressable_Dinamic style={styles.confirmPressable} onPress={()=> console.log("Confirm Order")
+          }>
+            <Montserrat_Text style={styles.textConfirButton}>Confirmar</Montserrat_Text>
+          </Pressable_Dinamic>
+        </View>
+      </Modal_Dinamic>
     </ScreenWrapper>
   );
 }
@@ -58,22 +65,34 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  containerButtonsModal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  containerBodyModalCart: {
+    gap: 40,
+  },
   textWithoutProducts: {
-    alignSelf:"center",
-    marginVertical:35,
+    alignSelf: "center",
+    marginVertical: 35,
     fontSize: 25,
     fontStyle: "italic",
     fontWeight: "bold",
   },
   textTotalCart: {
-    marginBottom:45,
+    marginBottom: 45,
     fontSize: 30,
   },
-  pressableConfirm:{
-    backgroundColor: paletOfColors.red
-  },
-  textConfirm: {
-    fontSize: 35,
+  textBodyModalCart: {
     alignSelf: "center",
+    fontSize: 30,
   },
+  confirmPressable:{
+    width: "90%"
+  },
+  textConfirButton:{
+    alignSelf:"center",
+    fontSize:25,
+  }
 });

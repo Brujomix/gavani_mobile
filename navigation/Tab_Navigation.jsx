@@ -6,13 +6,14 @@ import { AntDesing_Icon, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
 import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
+import { TotalProductCart } from "../utils/funtions";
 
 const Tab = createBottomTabNavigator();
 
 export function Tab_Navigation() {
 
   const {isOnLine} = useSelector(state=>state.Global)
-  
+  const {cartProducts} = useSelector(state=>state.Cart)
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -42,6 +43,7 @@ export function Tab_Navigation() {
           component={Carrito_Screen}
           options={{
             title: "",
+            tabBarBadge: TotalProductCart(cartProducts),
             tabBarIcon: ({ focused }) => (
               <AntDesing_Icon
                 name={"shoppingcart"}
