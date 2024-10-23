@@ -3,7 +3,7 @@ import Carousel from "react-native-reanimated-carousel";
 import { Card_Product } from "../components";
 import { useSelector } from "react-redux";
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get("screen");
 
 export function Carousel_Favorites_Products() {
   

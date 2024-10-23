@@ -32,7 +32,7 @@ export function Modal_Dinamic({ children, textButton, disabled }) {
           </Pressable_Dinamic>
         </View>
       </Modal>
-      <Pressable_Dinamic disabled={disabled} onPress={() => setOpenModal(true)}>
+      <Pressable_Dinamic style={styles.pressableOpenModal} disabled={disabled} onPress={() => setOpenModal(true)}>
         <Montserrat_Text style={styles.textOpenModal}>
           {textButton}
         </Montserrat_Text>
@@ -59,13 +59,16 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-
+  pressableOpenModal:{
+    width:"90%",
+  },
   buttonCloseModal: {
     position: "absolute",
     top: 30,
     right: 30,
   },
   textOpenModal: {
+    alignSelf:"center",
     fontSize: 35,
   },
 });

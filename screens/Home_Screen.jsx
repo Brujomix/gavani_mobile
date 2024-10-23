@@ -5,9 +5,7 @@ import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Pr
 import { ScreenWrapper } from "../wrappers";
 import { useSelector } from "react-redux";
 
-export function Home_Screen({ navigation, route }) {
-
-  const { pro_top } = route.params;
+export function Home_Screen({ navigation }) {
 
   const {Categories} = useSelector(state=>state.Global)
 
@@ -19,7 +17,7 @@ export function Home_Screen({ navigation, route }) {
         </Montserrat_Text>
 
         <View style={styles.containerCarousel}>
-          <Carousel_Favorites_Products pro_top={pro_top} />
+          <Carousel_Favorites_Products />
         </View>
 
         <FlatList

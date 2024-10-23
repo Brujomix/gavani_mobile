@@ -14,6 +14,7 @@ export * from "./ui/Avatar_User"
 
 //MODALS
 export * from "./modals/Modal_Dinamic"
+export * from "./modals/Modal_PopUP"
 
 //OTHERS
 export * from "./Business_OnLine"

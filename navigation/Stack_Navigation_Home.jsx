@@ -9,7 +9,6 @@ export function Stack_Navigation_Home() {
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
-        initialParams={{ pro_top: true }}
         options={{
           title: "Gavani Rotiseria",
           headerTitleStyle: styles.textHeaderStack,
