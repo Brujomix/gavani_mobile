@@ -1,11 +1,8 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import { paletOfColors } from "../../utils/colors";
 import { Image_Dianamic, Montserrat_Text } from "../../components";
-import { useDispatch } from "react-redux";
-import { setProductsFilterByCategory } from "../../redux/slices/globalSlice";
 
 export function Card_Category({ category, index, navigation }) {
-  const dispatch = useDispatch();
 
   return (
     <Pressable
@@ -14,7 +11,6 @@ export function Card_Category({ category, index, navigation }) {
           cat_iden: category.cat_iden,
           cat_name: category.cat_name,
         });
-        dispatch(setProductsFilterByCategory(category.cat_iden));
       }}
     >
       <View

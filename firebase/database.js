@@ -1,0 +1,1 @@
+export const baseURL = "https://gavanimobile-default-rtdb.firebaseio.com/"

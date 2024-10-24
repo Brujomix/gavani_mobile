@@ -1,13 +1,13 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { Card_Category, Montserrat_Text } from "../components";
-
 import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Products";
 import { ScreenWrapper } from "../wrappers";
-import { useSelector } from "react-redux";
+import { useGetCategoriesQuery } from "../services/app_Service";
+import { paletOfColors } from "../utils/colors";
 
 export function Home_Screen({ navigation }) {
 
-  const {Categories} = useSelector(state=>state.Global)
+  const { data: Categories, error, isLoading } = useGetCategoriesQuery();
 
   return (
     <ScreenWrapper>
@@ -20,26 +20,32 @@ export function Home_Screen({ navigation }) {
           <Carousel_Favorites_Products />
         </View>
 
-        <FlatList
-          ListHeaderComponent={
-            <Montserrat_Text style={styles.titleText}>
-              Nuestras Categorias
-            </Montserrat_Text>
-          }
-          ListFooterComponent={
-            <View style={styles.footerListCategories}></View>
-          }
-          data={Categories}
-          keyExtractor={(item) => item.cat_iden}
-          renderItem={({ item, index }) => (
-            <Card_Category
-              category={item}
-              index={index}
-              navigation={navigation}
-            />
-          )}
-          contentContainerStyle={styles.containerFlatCategories}
-        />
+        <Montserrat_Text style={styles.titleText}>
+          Nuestras Categorias
+        </Montserrat_Text>
+
+        {/* Loading FlatList Categories */}
+        {isLoading ? (
+          <ActivityIndicator size={"large"} color={paletOfColors.darkGray} />
+        ) : error ? (
+          <Montserrat_Text>Error !</Montserrat_Text>
+        ) : (
+          <FlatList
+            ListFooterComponent={
+              <View style={styles.footerListCategories}></View>
+            }
+            data={Categories}
+            keyExtractor={(item) => item.cat_iden}
+            renderItem={({ item, index }) => (
+              <Card_Category
+                category={item}
+                index={index}
+                navigation={navigation}
+              />
+            )}
+            contentContainerStyle={styles.containerFlatCategories}
+          />
+        )}
       </View>
     </ScreenWrapper>
   );
