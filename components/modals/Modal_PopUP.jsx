@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Alert, Dimensions, Modal, StyleSheet, View } from "react-native";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { paletOfColors } from "../../utils/colors";
 
 const {width} = Dimensions.get("screen")
 
-export function Modal_PopUP({ open, textInfoPopUP }) {
+export function Modal_PopUP({ textInfoPopUP, isOpen }) {
     
-  const [openModal, setOpenModal] = useState(false);
-
-  useEffect(() => {
-    if (open) {
-        setOpenModal(true)
-        setTimeout(() => {
-            setOpenModal(false)
-        }, 3000);
-    }
-  }, [open]);
-
   return (
     <View>
       <Modal
         animationType="fade"
         transparent={true}
-        visible={openModal}
+        visible={isOpen}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setOpenModal(!openModal);
         }}
       >
         <View style={styles.modalView}>

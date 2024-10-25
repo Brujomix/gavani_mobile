@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 export function Cart_Buttons({ product }) {
 
   const dispatch = useDispatch();
+  
   const { isOnLine } = useSelector(
     (state) => state.Global
   );

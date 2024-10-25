@@ -2,7 +2,6 @@ import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { paletOfColors } from "../utils/colors";
 import { useSelector } from "react-redux";
-import { Modal_PopUP } from "../components";
 
 export function ScreenWrapper({ children }) {
 
@@ -10,7 +9,6 @@ export function ScreenWrapper({ children }) {
   
   return (
     <View style={styles.containerPrincipal}>
-      <Modal_PopUP open={isOnLine} textInfoPopUP={"Info POPUP"} />
       <LinearGradient
         colors={
           isOnLine
