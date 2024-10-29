@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import { paletOfColors } from "../utils/colors";
 import { Montserrat_Text } from "../components";
+import { useSelector } from "react-redux";
 
-export function Login_Screen({ route }) {
-  console.log(route);
-
+export function Login_Screen() {
+  
   return (
     <View style={styles.containerLogin}>
       <Montserrat_Text>Inicio de Session</Montserrat_Text>

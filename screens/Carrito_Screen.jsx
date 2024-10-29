@@ -8,12 +8,12 @@ import {
 import { ScreenWrapper } from "../wrappers";
 import { useSelector } from "react-redux";
 import { Total_Cart } from "../utils/funtions";
+import { usePostTicketsMutation } from "../services/tickets_Services";
 
-export function Carrito_Screen() {
-
+export function Carrito_Screen({ navigation }) {
   const { cartProducts } = useSelector((state) => state.Cart);
   const { isOnLine } = useSelector((state) => state.Global);
-
+  const [triggerPost, result] = usePostTicketsMutation();
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
@@ -39,14 +39,28 @@ export function Carrito_Screen() {
         </Montserrat_Text>
       </View>
 
-      <Modal_Dinamic disabled={cartProducts.length === 0 ? true : false} textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}>
+      <Modal_Dinamic
+        disabled={cartProducts.length === 0 ? true : false}
+        textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
+      >
         <View style={styles.containerBodyModalCart}>
           <Montserrat_Text style={styles.textBodyModalCart}>
             Confirmar Pedido ?
           </Montserrat_Text>
-          <Pressable_Dinamic style={styles.confirmPressable} onPress={()=> console.log("Confirm Order")
-          }>
-            <Montserrat_Text style={styles.textConfirButton}>Confirmar</Montserrat_Text>
+          <Pressable_Dinamic
+            style={styles.confirmPressable}
+            onPress={() => {
+              triggerPost({
+                products: cartProducts,
+                total: Total_Cart(cartProducts),
+              });
+              navigation.navigate("/");
+              //Clear Cart con dispatch
+            }}
+          >
+            <Montserrat_Text style={styles.textConfirButton}>
+              Confirmar
+            </Montserrat_Text>
           </Pressable_Dinamic>
         </View>
       </Modal_Dinamic>
@@ -88,11 +102,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 30,
   },
-  confirmPressable:{
-    width: "90%"
+  confirmPressable: {
+    width: "90%",
   },
-  textConfirButton:{
-    alignSelf:"center",
-    fontSize:25,
-  }
+  textConfirButton: {
+    alignSelf: "center",
+    fontSize: 25,
+  },
 });

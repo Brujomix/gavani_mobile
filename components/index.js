@@ -16,6 +16,10 @@ export * from "./ui/Avatar_User"
 export * from "./modals/Modal_Dinamic"
 export * from "./modals/Modal_PopUP"
 
+//FORMS
+export * from "./forms/Form_Login"
+export * from "./forms/Form_Register"
+
 //OTHERS
 export * from "./Business_OnLine"
 export * from "./Cart_Buttons"

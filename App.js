@@ -13,7 +13,7 @@ export default function App() {
   const [loaded, error] = useFonts({
     Montserrat: require("./assets/fonts/Montserrat-VariableFont_wght.ttf"),
   });
-
+ 
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
