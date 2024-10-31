@@ -10,6 +10,7 @@ export function Form_Login() {
   };
   const [errors, setErrors] = useState({
     errorEmail: "",
+    errorPassword: "",
     errorConfirmPassword: "",
   });
 
@@ -19,29 +20,43 @@ export function Form_Login() {
   });
 
   const checkPasswords = (text) => {
-    if (datosUser.password !== text) {
-      setErrors((pv) => ({
-        errorConfirmPassword: "Contraseñas no Coinciden",
-        ...pv,
-      }));
+  
+    if (datosUser.password === text && text) {
+      setErrors((pv) => ({ ...pv, errorConfirmPassword: "" }));
+      
     } else {
-      setErrors((pv) => ({ errorConfirmPassword: "", ...pv }));
+      setErrors((pv) => ({
+        ...pv,
+        errorConfirmPassword: "Contraseñas no Coinciden - Campo Obligatorio",
+      }));
+    }
+  };
+  
+  const checkPassword = (text) => {
+    const passwordRegex = /^.{6,}$/;
+    if (passwordRegex.test(text) && text) {
+      setErrors((pv) => ({ ...pv, errorPassword: "" }));
+      setDatosUser((pv) => ({ ...pv, password: text }))
+    }else{
+      setDatosUser((pv) => ({ ...pv, password: text }))
+      setErrors((pv) => ({
+        ...pv,
+        errorPassword: "Minimo 6 Caracteres - Campo Obligatorio",
+      }));
     }
   };
 
   const checkEmail = (text) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-     
-    if (emailRegex.test(text)) {
-      setErrors((pv) => ({ errorEmail: "No es un email Válido", ...pv }));
-      setDatosUser((pv) => ({ email: text, ...pv }));
+
+    if (emailRegex.test(text) && text) {
+      setErrors((pv) => ({ ...pv, errorEmail: "" }));
+      setDatosUser((pv) => ({ ...pv, email: text }));
     } else {
-      setErrors((pv) => ({ errorEmail: "No es un email Válido", ...pv }));
+      setDatosUser((pv) => ({ ...pv, email: text }));
+      setErrors((pv) => ({ ...pv, errorEmail: "No es un email Válido - Campo Obligatorio" }));
     }
   };
-
-  console.log(datosUser);
-  console.log(errors);
 
   return (
     <View style={styles.containerLogin}>
@@ -54,7 +69,8 @@ export function Form_Login() {
       />
       <Input_Text
         label={"Password"}
-        onChange={(text) => setDatosUser((pv) => ({ password: text, ...pv }))}
+        onChange={(text) => checkPassword(text)}
+        error={errors.errorPassword}
       />
       <Input_Text
         label={"Confirmar Password"}

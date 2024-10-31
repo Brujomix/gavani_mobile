@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
   },
   input: {
     borderBottomWidth: 2,
-    borderBottomColor: paletOfColors.black,
+    borderBottomColor: paletOfColors.darkGray,
     padding: 5,
     fontSize: 22,
-    color:paletOfColors.white
+    color:paletOfColors.black
     
   },
   error: {

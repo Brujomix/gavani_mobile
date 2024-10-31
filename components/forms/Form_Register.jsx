@@ -6,9 +6,14 @@ import { Montserrat_Text } from "../ui/Montserrat_Text";
 
 export function Form_Register({ navigation }) {
   const handlePressConfirmar = () => {
-    console.log("onPree HERE");
+    console.log("PreesME");
+    console.log(datosUser);
   };
- const [error, setError] = useState("")
+  const [errors, setErrors] = useState({
+    errorEmail: "",
+    errorPassword: "",
+    errorConfirmPassword: "",
+  });
 
   const [datosUser, setDatosUser] = useState({
     email: "",
@@ -16,10 +21,41 @@ export function Form_Register({ navigation }) {
   });
 
   const checkPasswords = (text) => {
-    if (datosUser.password !== text) {
-     setError("Contraseñas no Coinciden") 
+  
+    if (datosUser.password === text && text) {
+      setErrors((pv) => ({ ...pv, errorConfirmPassword: "" }));
+      
+    } else {
+      setErrors((pv) => ({
+        ...pv,
+        errorConfirmPassword: "Contraseñas no Coinciden - Campo Obligatorio",
+      }));
+    }
+  };
+  
+  const checkPassword = (text) => {
+    const passwordRegex = /^.{6,}$/;
+    if (passwordRegex.test(text) && text) {
+      setErrors((pv) => ({ ...pv, errorPassword: "" }));
+      setDatosUser((pv) => ({ ...pv, password: text }))
     }else{
-      setError("")
+      setDatosUser((pv) => ({ ...pv, password: text }))
+      setErrors((pv) => ({
+        ...pv,
+        errorPassword: "Minimo 6 Caracteres - Campo Obligatorio",
+      }));
+    }
+  };
+
+  const checkEmail = (text) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (emailRegex.test(text) && text) {
+      setErrors((pv) => ({ ...pv, errorEmail: "" }));
+      setDatosUser((pv) => ({ ...pv, email: text }));
+    } else {
+      setDatosUser((pv) => ({ ...pv, email: text }));
+      setErrors((pv) => ({ ...pv, errorEmail: "No es un email Válido - Campo Obligatorio" }));
     }
   };
 
@@ -27,16 +63,18 @@ export function Form_Register({ navigation }) {
     <View style={styles.containerLogin}>
       <Input_Text
         label={"Email"}
-        onChange={(text) => setDatosUser((pv) => ({ ...pv, email: text }))}
+        onChange={(text) => checkEmail(text)}
+        error={errors.errorEmail}
       />
       <Input_Text
         label={"Password"}
-        onChange={(text) => setDatosUser((pv) => ({ ...pv, password: text }))}
+        onChange={(text) => checkPassword(text)}
+        error={errors.errorPassword}
       />
       <Input_Text
         label={"Confirmar Password"}
         onChange={(text)=> checkPasswords(text)}
-        error={error}
+        error={errors.errorConfirmPassword}
       />
       <Pressable_Dinamic
         style={styles.pressableLogin}
