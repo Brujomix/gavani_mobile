@@ -1,12 +1,13 @@
-import { Dimensions, StyleSheet, View } from "react-native";
-import { Form_Login, Montserrat_Text, Pressable_Dinamic } from "../components";
+import { StyleSheet, View } from "react-native";
+import { Avatar_User, Form_Login, Montserrat_Text, Pressable_Dinamic } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { paletOfColors } from "../utils/colors";
-const {width, heigth} = Dimensions.get("screen")
+
 export function Login_Screen({ navigation }) {
   return (
     <ScreenWrapper>
-      <View style={styles.continerLoginScreen}>
+      <View style={styles.containerLoginScreen}>
+        <Avatar_User/>
         <Form_Login />
         <Pressable_Dinamic
           style={styles.buttonCreateAccount}
@@ -22,13 +23,12 @@ export function Login_Screen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  continerLoginScreen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",    
+  containerLoginScreen:{
+    width:"80%"
   },
   buttonCreateAccount: {
     alignSelf: "flex-end",
+    marginTop:20
   },
   textRegistration: {
     color: paletOfColors.blue,

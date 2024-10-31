@@ -4,9 +4,8 @@ import { paletOfColors } from "../utils/colors";
 import { useSelector } from "react-redux";
 
 export function ScreenWrapper({ children }) {
+  const { isOnLine } = useSelector((state) => state.Global);
 
-  const {isOnLine} = useSelector(state=>state.Global)
-  
   return (
     <View style={styles.containerPrincipal}>
       <LinearGradient
@@ -17,17 +16,20 @@ export function ScreenWrapper({ children }) {
         }
         style={StyleSheet.absoluteFillObject} // Hace que el gradiente cubra toda la pantalla
       />
-
-        {children}
- 
+      <View style={styles.containerChildren}>{children}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  containerPrincipal:{
+  containerPrincipal: {
+    flex: 1,
+    padding: 10,
+  },
+  containerChildren: {
     flex:1,
-    padding:10
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
-

@@ -1,11 +1,15 @@
-import { Dimensions, StyleSheet, View } from "react-native";
-import { Form_Register } from "../components";
+import { StyleSheet, View } from "react-native";
+import { Avatar_User, Form_Register } from "../components";
 import { ScreenWrapper } from "../wrappers";
-const { width, heigth } = Dimensions.get("screen");
+import { paletOfColors } from "../utils/colors";
+
 export function Registration_Screen() {
   return (
     <ScreenWrapper>
-      <View style={styles.containerRegistrationScreen}>
+      <View style={styles.containerLoginScreen}>
+        <View>
+          <Avatar_User />
+        </View>
         <Form_Register />
       </View>
     </ScreenWrapper>
@@ -13,10 +17,15 @@ export function Registration_Screen() {
 }
 
 const styles = StyleSheet.create({
-  containerRegistrationScreen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: width * 0.8,
+  containerLoginScreen: {
+    width: "80%",
+  },
+  buttonCreateAccount: {
+    alignSelf: "flex-end",
+    marginTop: 20,
+  },
+  textRegistration: {
+    color: paletOfColors.blue,
+    fontSize: 16,
   },
 });

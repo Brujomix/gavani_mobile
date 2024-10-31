@@ -27,9 +27,7 @@ export function Input_Text({ label, onChange, error = "", isSecure = false }) {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "center",
+    width:"100%",
   },
   label: {
     fontSize: 22,
@@ -37,9 +35,10 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 2,
     borderBottomColor: paletOfColors.black,
-    padding: 2,
+    padding: 5,
     fontSize: 22,
-    backgroundColor:paletOfColors.black
+    color:paletOfColors.white
+    
   },
   error: {
     fontSize: 16,
