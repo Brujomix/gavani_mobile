@@ -1,21 +1,22 @@
-import { StyleSheet, View } from "react-native";
-import { Form_Register, Montserrat_Text } from "../components";
-import { paletOfColors } from "../utils/colors";
-
+import { Dimensions, StyleSheet, View } from "react-native";
+import { Form_Register } from "../components";
+import { ScreenWrapper } from "../wrappers";
+const { width, heigth } = Dimensions.get("screen");
 export function Registration_Screen() {
   return (
-    <View style={styles.containerRegistration}>
-      <Montserrat_Text>Registration Page</Montserrat_Text>
-      <Form_Register/>
-    </View>
+    <ScreenWrapper>
+      <View style={styles.containerRegistrationScreen}>
+        <Form_Register />
+      </View>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  containerRegistration: {
+  containerRegistrationScreen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:paletOfColors.black
+    width: width * 0.8,
   },
 });

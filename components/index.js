@@ -11,6 +11,7 @@ export * from "./ui/Icons"
 export * from "./ui/Header_User"
 export * from "./ui/Pressable_Dinamic"
 export * from "./ui/Avatar_User"
+export * from "./ui/Input_Text"
 
 //MODALS
 export * from "./modals/Modal_Dinamic"

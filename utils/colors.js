@@ -6,5 +6,6 @@ export const paletOfColors = {
     darkGray: "#A9A9A9",
     black:"#000",
     red: "#E62E2D",
-    green:"#69DA53"
+    green:"#69DA53",
+    blue: "#7498EC"
 }

@@ -15,7 +15,7 @@ export function Pressable_Dinamic({ children, disabled, onPress, style }) {
 
 const styles = StyleSheet.create({
   childrenPresableDinamic: {
-    padding: 5,
+    padding: 8,
     alignSelf: "center",
     borderWidth: 2,
     borderColor: paletOfColors.darkGray,
