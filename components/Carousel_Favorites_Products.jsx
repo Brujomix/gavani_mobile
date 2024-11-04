@@ -16,7 +16,7 @@ export function Carousel_Favorites_Products() {
   return (
     <>
       {isLoading ? (
-        <ActivityIndicator size={"large"} color={paletOfColors.darkGray} />
+        <ActivityIndicator size={"large"} color={paletOfColors.black} />
       ) : error ? (
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (

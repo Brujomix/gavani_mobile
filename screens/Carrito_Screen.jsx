@@ -6,14 +6,20 @@ import {
   Pressable_Dinamic,
 } from "../components";
 import { ScreenWrapper } from "../wrappers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Total_Cart } from "../utils/funtions";
-import { usePostTicketsMutation } from "../services/tickets_Services";
+import { clearCart } from "../redux/slices/carritoSlice";
+import { usePostOrderMutation } from "../services/orders_Services";
+import { formated_Date } from "../utils/formated_Date";
 
 export function Carrito_Screen({ navigation }) {
   const { cartProducts } = useSelector((state) => state.Cart);
+  const dispatch = useDispatch();
   const { isOnLine } = useSelector((state) => state.Global);
-  const [triggerPost, result] = usePostTicketsMutation();
+  const { isLogged } = useSelector((state) => state.User);
+  const [triggerPost, result] = usePostOrderMutation();
+  console.log(result);
+
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
@@ -48,14 +54,18 @@ export function Carrito_Screen({ navigation }) {
             Confirmar Pedido ?
           </Montserrat_Text>
           <Pressable_Dinamic
-            style={styles.confirmPressable}
             onPress={() => {
-              triggerPost({
-                products: cartProducts,
-                total: Total_Cart(cartProducts),
-              });
-              navigation.navigate("/");
-              //Clear Cart con dispatch
+              if (isLogged) {
+                triggerPost({
+                  order_date: formated_Date(),
+                  order_products: cartProducts,
+                  order_total: Total_Cart(cartProducts),
+                });
+                navigation.navigate("Orders");
+                dispatch(clearCart());
+              } else {
+                navigation.navigate("Usuarios");
+              }
             }}
           >
             <Montserrat_Text style={styles.textConfirButton}>
@@ -100,13 +110,11 @@ const styles = StyleSheet.create({
   },
   textBodyModalCart: {
     alignSelf: "center",
-    fontSize: 30,
+    fontSize: 28,
   },
-  confirmPressable: {
-    width: "90%",
-  },
+
   textConfirButton: {
     alignSelf: "center",
-    fontSize: 25,
+    fontSize: 18,
   },
 });

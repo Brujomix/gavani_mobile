@@ -4,10 +4,10 @@ import { ScreenWrapper } from "../wrappers";
 import { useGetProductsByCategoryQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
 
-export function Products_Filter_Screen({route}) {
-
-  const {cat_iden} = route.params
+export function Products_Filter_Screen({ route }) {
   
+  const { cat_iden } = route.params;
+
   const {
     data: productFilteredByCategory,
     error,
@@ -16,9 +16,8 @@ export function Products_Filter_Screen({route}) {
 
   return (
     <ScreenWrapper>
-      {/* Loading FlatList Products Filter */}
       {isLoading ? (
-        <ActivityIndicator size={"large"} color={paletOfColors.darkGray} />
+        <ActivityIndicator size={"large"} color={paletOfColors.black} />
       ) : error ? (
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (
@@ -26,7 +25,6 @@ export function Products_Filter_Screen({route}) {
           data={productFilteredByCategory}
           keyExtractor={(item) => item.pro_iden}
           renderItem={({ item }) => <Card_Product product={item} />}
-          contentContainerStyle={styles.containerChildren}
         />
       )}
     </ScreenWrapper>
@@ -34,10 +32,5 @@ export function Products_Filter_Screen({route}) {
 }
 
 const styles = StyleSheet.create({
-  containerChildren: {
-    flex: 1,
-    gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  
 });

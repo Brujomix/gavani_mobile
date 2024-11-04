@@ -26,7 +26,7 @@ export function Home_Screen({ navigation }) {
 
         {/* Loading FlatList Categories */}
         {isLoading ? (
-          <ActivityIndicator size={"large"} color={paletOfColors.darkGray} />
+          <ActivityIndicator size={"large"} color={paletOfColors.black} />
         ) : error ? (
           <Montserrat_Text>Error !</Montserrat_Text>
         ) : (
@@ -59,15 +59,12 @@ const styles = StyleSheet.create({
     height: 260,
     marginTop: 10,
   },
-  containerFlatCategories: {
-    gap: 10,
-  },
   footerListCategories: {
     marginBottom: 80,
   },
   titleText: {
     marginVertical: 10,
-    fontSize: 32,
+    fontSize: 25,
     alignSelf: "center",
   },
 });

@@ -2,6 +2,7 @@
 export * from "./cards/Card_Category"
 export * from "./cards/Card_Product"
 export * from "./cards/Card_Product_Cart"
+export * from "./cards/Card_Order"
 
 //UI
 export * from "./ui/Header_App"

@@ -5,11 +5,11 @@ import {
   Montserrat_Text,
 } from "../../components";
 import { paletOfColors } from "../../utils/colors";
+import { ShadowBox_Wrapper } from "../../wrappers";
 
 export function Card_Product({ product }) {
-   
   return (
-    <View style={styles.containerProducts}>
+    <ShadowBox_Wrapper style={styles.shadowBox}>
       <Montserrat_Text style={styles.textPro_name}>
         {product.pro_name}
       </Montserrat_Text>
@@ -32,27 +32,14 @@ export function Card_Product({ product }) {
       </View>
 
       <Cart_Buttons product={product} />
-    </View>
+    </ShadowBox_Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  containerProducts: {
-    backgroundColor: paletOfColors.whiteTransparent,
-    alignSelf: "center",
-    gap: 5,
-    borderRadius: 10,
-    padding: 5,
-    shadowColor: paletOfColors.white,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  shadowBox: {
+    padding: 10,
   },
-
   containerInfoWithImage: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -82,5 +69,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: paletOfColors.black,
   },
-
 });

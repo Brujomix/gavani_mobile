@@ -7,7 +7,7 @@ import { paletOfColors } from "../../utils/colors";
 
 const { width, height } = Dimensions.get("screen");
 
-export function Modal_Dinamic({ children, textButton, disabled }) {
+export function Modal_Dinamic({ children, textButton, disabled, styleOpenmodal }) {
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -22,7 +22,7 @@ export function Modal_Dinamic({ children, textButton, disabled }) {
           setOpenModal(!openModal);
         }}
       >
-        <View style={styles.modalView}>
+        <View style={[styles.modalView, styleOpenmodal]}>
           <View style={styles.containerBodyModal}>{children}</View>
           <Pressable_Dinamic
             style={styles.buttonCloseModal}
@@ -32,7 +32,7 @@ export function Modal_Dinamic({ children, textButton, disabled }) {
           </Pressable_Dinamic>
         </View>
       </Modal>
-      <Pressable_Dinamic style={styles.pressableOpenModal} disabled={disabled} onPress={() => setOpenModal(true)}>
+      <Pressable_Dinamic disabled={disabled} onPress={() => setOpenModal(true)}>
         <Montserrat_Text style={styles.textOpenModal}>
           {textButton}
         </Montserrat_Text>
@@ -59,9 +59,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  pressableOpenModal:{
-    width:"90%",
-  },
+
   buttonCloseModal: {
     position: "absolute",
     top: 30,
@@ -69,6 +67,6 @@ const styles = StyleSheet.create({
   },
   textOpenModal: {
     alignSelf:"center",
-    fontSize: 35,
+    fontSize: 16,
   },
 });

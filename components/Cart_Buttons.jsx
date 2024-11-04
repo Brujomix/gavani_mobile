@@ -23,7 +23,7 @@ export function Cart_Buttons({ product }) {
       >
         <Material_Icon
           name={"add-shopping-cart"}
-          size={40}
+          size={30}
           color={paletOfColors.black}
         />
       </Pressable_Dinamic>
@@ -33,7 +33,7 @@ export function Cart_Buttons({ product }) {
       >
         <Material_Icon
           name={"remove-shopping-cart"}
-          size={40}
+          size={30}
           color={paletOfColors.black}
         />
       </Pressable_Dinamic>
@@ -47,6 +47,6 @@ const styles = StyleSheet.create({
     padding: 5,
     borderColor: paletOfColors.black,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   },
 });

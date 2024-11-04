@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { removeCartProduct } from "../../redux/slices/carritoSlice";
 import { Entypo_Icon, Material_Icon } from "../ui/Icons";
 import { paletOfColors } from "../../utils/colors";
+import { ShadowBox_Wrapper } from "../../wrappers";
 
 const { width } = Dimensions.get("window");
 
@@ -12,7 +13,7 @@ export function Card_Product_Cart({ product }) {
   const dispatch = useDispatch();
 
   return (
-    <View style={styles.containerPrincipal}>
+    <ShadowBox_Wrapper style={styles.shadowBox}>
       <Montserrat_Text style={styles.textName}>
         {product.pro_name}
       </Montserrat_Text>
@@ -36,24 +37,17 @@ export function Card_Product_Cart({ product }) {
         <Pressable_Dinamic
           onPress={() => dispatch(removeCartProduct(product.pro_iden))}
         >
-
           <Entypo_Icon name={"trash"} size={30} color={paletOfColors.black} />
-      
         </Pressable_Dinamic>
       </View>
-    </View>
+    </ShadowBox_Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  containerPrincipal: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: paletOfColors.darkGray,
-    marginVertical: 15,
+  shadowBox: {
+    marginVertical: 10,
   },
-
   containerInfo: {
     padding: 8,
     width: width,

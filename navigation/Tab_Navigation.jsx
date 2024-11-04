@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Carrito_Screen, Tickets_Screen } from "../screens";
+import { Carrito_Screen, Orders_Screen } from "../screens";
 import { Stack_Navigation_Home } from "./Stack_Navigation_Home";
 import { AntDesing_Icon,Material_Icon, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
@@ -55,8 +55,8 @@ export function Tab_Navigation() {
           }}
         />
         <Tab.Screen
-          name="Tickets"
-          component={Tickets_Screen}
+          name="Orders"
+          component={Orders_Screen}
           options={{
             title: "",
             tabBarBadge: 0,

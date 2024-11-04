@@ -1,17 +1,27 @@
 import { View, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
+import { useLoginMutation } from "../../services/auth_Service";
+import { paletOfColors } from "../../utils/colors";
+import { useDispatch } from "react-redux";
+import { changeLogged, setUser } from "../../redux/slices/usersSlice";
 
-export function Form_Login() {
+export function Form_Login({navigation}) {
+const dispatch = useDispatch()
+  const [triggerLogin, result] = useLoginMutation();
+
   const handlePressIniciar = () => {
-    console.log("onPree HERE");
+    const { email, password } = datosUser;
+    triggerLogin({ email, password });
   };
+
   const [errors, setErrors] = useState({
     errorEmail: "",
     errorPassword: "",
     errorConfirmPassword: "",
+    errorRegister: "",
   });
 
   const [datosUser, setDatosUser] = useState({
@@ -20,10 +30,8 @@ export function Form_Login() {
   });
 
   const checkPasswords = (text) => {
-  
     if (datosUser.password === text && text) {
       setErrors((pv) => ({ ...pv, errorConfirmPassword: "" }));
-      
     } else {
       setErrors((pv) => ({
         ...pv,
@@ -31,14 +39,14 @@ export function Form_Login() {
       }));
     }
   };
-  
+
   const checkPassword = (text) => {
     const passwordRegex = /^.{6,}$/;
     if (passwordRegex.test(text) && text) {
       setErrors((pv) => ({ ...pv, errorPassword: "" }));
-      setDatosUser((pv) => ({ ...pv, password: text }))
-    }else{
-      setDatosUser((pv) => ({ ...pv, password: text }))
+      setDatosUser((pv) => ({ ...pv, password: text }));
+    } else {
+      setDatosUser((pv) => ({ ...pv, password: text }));
       setErrors((pv) => ({
         ...pv,
         errorPassword: "Minimo 6 Caracteres - Campo Obligatorio",
@@ -54,9 +62,32 @@ export function Form_Login() {
       setDatosUser((pv) => ({ ...pv, email: text }));
     } else {
       setDatosUser((pv) => ({ ...pv, email: text }));
-      setErrors((pv) => ({ ...pv, errorEmail: "No es un email Válido - Campo Obligatorio" }));
+      setErrors((pv) => ({
+        ...pv,
+        errorEmail: "No es un email Válido - Campo Obligatorio",
+      }));
     }
   };
+
+  useEffect(() => {
+    
+    switch (result.status) {
+      case "fulfilled":
+        dispatch(changeLogged(true))
+        dispatch(setUser({datosUser}))
+        navigation.navigate("HomePage")
+        break;
+      case "rejected":
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "Revisa Tus Credenciales",
+        }));
+        break;
+      default:
+        setErrors((pv) => ({ ...pv, errorRegister: "" }));
+        break;
+    }
+  }, [result]);
 
   return (
     <View style={styles.containerLogin}>
@@ -85,6 +116,9 @@ export function Form_Login() {
           Iniciar
         </Montserrat_Text>
       </Pressable_Dinamic>
+      <Montserrat_Text style={styles.errorRegister}>
+        {errors.errorRegister ? errors.errorRegister : ""}
+      </Montserrat_Text>
     </View>
   );
 }
@@ -102,6 +136,11 @@ const styles = StyleSheet.create({
   },
   textPressableLogin: {
     fontSize: 16,
+    alignSelf: "center",
+  },
+  errorRegister: {
+    fontSize: 16,
+    color: paletOfColors.red,
     alignSelf: "center",
   },
 });
