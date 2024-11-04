@@ -2,11 +2,16 @@ import { Pressable, StyleSheet } from "react-native";
 import { paletOfColors } from "../../utils/colors";
 
 export function Pressable_Dinamic({ children, disabled, onPress, style }) {
+  
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled}
-      style={{ ...styles.childrenPresableDinamic, ...style }}
+      style={({ pressed }) => [
+        styles.childrenPresableDinamic,
+        style,
+        { opacity: pressed ? 0.8 : 1 },
+      ]}
     >
       {children}
     </Pressable>

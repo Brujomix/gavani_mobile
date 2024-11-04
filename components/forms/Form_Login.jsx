@@ -70,11 +70,11 @@ const dispatch = useDispatch()
   };
 
   useEffect(() => {
-    
+  
     switch (result.status) {
       case "fulfilled":
         dispatch(changeLogged(true))
-        dispatch(setUser({datosUser}))
+        dispatch(setUser({email: result.data.email, idToken: result.data.idToken}))
         navigation.navigate("HomePage")
         break;
       case "rejected":

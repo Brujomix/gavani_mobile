@@ -5,9 +5,39 @@ import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { useRegisterMutation } from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
+import { AntDesign } from "@expo/vector-icons";
+import * as ImagePiker from "expo-image-picker";
 
 export function Form_Register({ navigation }) {
   const [triggerRegistration, result] = useRegisterMutation();
+
+  const verifyCameraPermision = async () => {
+    const { granted } = await ImagePiker.requestCameraPermissionsAsync();
+    if (!granted) return false;
+    else true;
+  };
+
+  
+  const handleAddProfileImage = async () => {
+    
+    const permissionOk = await verifyCameraPermision()
+    if (permissionOk) {
+      
+      let result = await ImagePiker.launchCameraAsync({
+        mediaTypes: ImagePiker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1,1],
+        base64: true,
+        quality: .5
+      })
+
+      setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
+
+    }else{
+      setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
+    }
+    
+  };
 
   const handlePressConfirmar = () => {
     const { email, password } = datosUser;
@@ -23,9 +53,11 @@ export function Form_Register({ navigation }) {
 
   const [datosUser, setDatosUser] = useState({
     email: "",
-    password: ""
-    
+    password: "",
+    imageProfile: "",
   });
+
+ 
 
   const checkPasswords = (text) => {
     if (datosUser.password === text && text) {
@@ -70,10 +102,13 @@ export function Form_Register({ navigation }) {
   useEffect(() => {
     switch (result.status) {
       case "fulfilled":
-         navigation.navigate("HomePage")
+        navigation.navigate("HomePage");
         break;
       case "rejected":
-        setErrors((pv) => ({ ...pv, errorRegister: "Revisa Tus Credenciales" }));
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "Revisa Tus Credenciales",
+        }));
         break;
       default:
         setErrors((pv) => ({ ...pv, errorRegister: "" }));
@@ -83,6 +118,13 @@ export function Form_Register({ navigation }) {
 
   return (
     <View style={styles.containerLogin}>
+      <Pressable_Dinamic
+        onPress={handleAddProfileImage}
+        style={styles.buttonCamera}
+      >
+        <AntDesign name="camerao" size={38} />
+      </Pressable_Dinamic>
+
       <Input_Text
         label={"Email"}
         onChange={(text) => checkEmail(text)}
@@ -119,6 +161,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     gap: 18,
+  },
+  buttonCamera: {
+    position: "absolute",
+    right: 75,
+    top: -50,
+    backgroundColor: paletOfColors.lightGray,
   },
   pressableLogin: {
     width: "100%",
