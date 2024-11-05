@@ -6,7 +6,8 @@ import { paletOfColors } from "../utils/colors";
 
 const { width } = Dimensions.get("screen");
 
-export function Carousel_Favorites_Products() {
+export function Carousel_Favorites_Products({navigation}) {
+    
   const {
     data: favoritesProducts,
     error,
@@ -21,13 +22,12 @@ export function Carousel_Favorites_Products() {
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (
         <Carousel
-          loop
           width={width}
           height={260}
           autoPlay={true}
           data={favoritesProducts}
           scrollAnimationDuration={10000}
-          renderItem={({ item }) => <Card_Favorite_Product favoriteProduct={item} />}
+          renderItem={({ item }) => <Card_Favorite_Product favoriteProduct={item} navigation={navigation} />}
         />
       )}
     </>

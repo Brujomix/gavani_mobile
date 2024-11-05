@@ -5,8 +5,9 @@ import { ShadowBox_Wrapper } from "../../wrappers";
 
 export function Card_Category({ category, index, navigation }) {
   return (
-    <ShadowBox_Wrapper styleChildrensBoxShadow={styles.containerBoxShadow}>
+    <ShadowBox_Wrapper style={styles.containerBoxShadow}>
       <Pressable
+        style={styles.pressableCategory}
         onPress={() => {
           navigation.navigate("Products By Categories", {
             cat_iden: category.cat_iden,
@@ -36,6 +37,7 @@ export function Card_Category({ category, index, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  containerBoxShadow:{width:"100%"},
   containerChildrenRow: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -46,10 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  containerBoxShadow: {
-    width: "100%",
-    justifyContent: "space-around",
-  },
+  pressableCategory: { padding: 5, marginTop: 10, width: "100%" },
   styleImage: { width: 120, height: 120 },
   textStyleBlack: {
     fontSize: 22,

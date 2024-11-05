@@ -1,11 +1,19 @@
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { Card_Category, Montserrat_Text } from "../components";
 import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Products";
 import { ScreenWrapper } from "../wrappers";
 import { useGetCategoriesQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
+const { width } = Dimensions.get("screen");
 
 export function Home_Screen({ navigation }) {
+
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
 
   return (
@@ -15,7 +23,7 @@ export function Home_Screen({ navigation }) {
       </Montserrat_Text>
 
       <View style={styles.containerCarousel}>
-        <Carousel_Favorites_Products />
+        <Carousel_Favorites_Products navigation={navigation}/>
       </View>
 
       <Montserrat_Text style={styles.titleText}>
@@ -29,6 +37,7 @@ export function Home_Screen({ navigation }) {
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (
         <FlatList
+          style={styles.flatCategories}
           ListFooterComponent={
             <View style={styles.footerListCategories}></View>
           }
@@ -51,6 +60,7 @@ const styles = StyleSheet.create({
   containerCarousel: {
     height: 250,
   },
+  flatCategories: { width: width * 0.98 },
   footerListCategories: {
     marginBottom: 80,
   },

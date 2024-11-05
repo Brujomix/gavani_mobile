@@ -2,14 +2,14 @@ import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { paletOfColors } from "../utils/colors";
 
-export function ScreenWrapper({ children }) {
+export function ScreenWrapper({ children, style }) {
   return (
-    <View style={styles.containerPrincipal}>
+    <View style={[styles.containerPrincipal, style]}>
       <LinearGradient
         colors={[paletOfColors.darkGray, paletOfColors.white]}
         style={StyleSheet.absoluteFillObject} // Hace que el gradiente cubra toda la pantalla
       />
-      <View style={styles.containerChildren}>{children}</View>
+      {children}
     </View>
   );
 }
@@ -17,11 +17,6 @@ export function ScreenWrapper({ children }) {
 const styles = StyleSheet.create({
   containerPrincipal: {
     flex: 1,
-    padding: 10,
-  },
-  containerChildren: {
-    flex: 1,
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
