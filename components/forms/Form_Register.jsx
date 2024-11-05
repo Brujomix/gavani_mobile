@@ -5,11 +5,10 @@ import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { useRegisterMutation } from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
-import { AntDesign } from "@expo/vector-icons";
+import { Icon_Dinamic } from "../../components";
 import * as ImagePiker from "expo-image-picker";
 import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/slices/usersSlice";
 
 export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
@@ -120,7 +119,7 @@ export function Form_Register({ navigation }) {
         onPress={handleAddProfileImage}
         style={styles.buttonCamera}
       >
-        <AntDesign name="camerao" size={38} />
+        <Icon_Dinamic name="add-a-photo" size={38} />
       </Pressable_Dinamic>
 
       <Input_Text

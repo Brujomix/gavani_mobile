@@ -1,6 +1,6 @@
 import { Dimensions, ActivityIndicator } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { Card_Product, Montserrat_Text } from "../components";
+import { Card_Favorite_Product, Montserrat_Text } from "../components";
 import { useGetFavoritesProductsQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
 
@@ -27,7 +27,7 @@ export function Carousel_Favorites_Products() {
           autoPlay={true}
           data={favoritesProducts}
           scrollAnimationDuration={10000}
-          renderItem={({ item }) => <Card_Product product={item} />}
+          renderItem={({ item }) => <Card_Favorite_Product favoriteProduct={item} />}
         />
       )}
     </>

@@ -1,25 +1,27 @@
 //CARDS
-export * from "./cards/Card_Category"
-export * from "./cards/Card_Product"
-export * from "./cards/Card_Product_Cart"
-export * from "./cards/Card_Order"
+export * from "./cards/Card_Category";
+export * from "./cards/Card_Product";
+export * from "./cards/Card_Product_Cart";
+export * from "./cards/Card_Order";
+export * from "./cards/Card_Favorite_Product";
 
 //UI
-export * from "./ui/Image_Dianamic"
-export * from "./ui/Montserrat_Text"
-export * from "./ui/Icons"
-export * from "./ui/Pressable_Dinamic"
-export * from "./ui/Avatar_User"
-export * from "./ui/Input_Text"
+export * from "./ui/Image_Dianamic";
+export * from "./ui/Montserrat_Text";
+export * from "./ui/Icon_Dinamic";
+export * from "./ui/Pressable_Dinamic";
+export * from "./ui/Avatar_User";
+export * from "./ui/Input_Text";
+export * from "./ui/Icon_Dinamic";
 
 //MODALS
-export * from "./modals/Modal_Dinamic"
-export * from "./modals/Modal_PopUP"
+export * from "./modals/Modal_Dinamic";
+export * from "./modals/Modal_PopUP";
 
 //FORMS
-export * from "./forms/Form_Login"
-export * from "./forms/Form_Register"
+export * from "./forms/Form_Login";
+export * from "./forms/Form_Register";
 
 //OTHERS
-export * from "./Business_OnLine"
-export * from "./Cart_Buttons"
+export * from "./Business_OnLine";
+export * from "./Cart_Buttons";

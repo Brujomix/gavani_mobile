@@ -9,45 +9,45 @@ import { ShadowBox_Wrapper } from "../../wrappers";
 
 export function Card_Product({ product }) {
   return (
-    <ShadowBox_Wrapper style={styles.shadowBox}>
+    <ShadowBox_Wrapper styleChildrensBoxShadow={styles.containershadowBox}>
       <Montserrat_Text style={styles.textPro_name}>
         {product.pro_name}
       </Montserrat_Text>
-
-      <View style={styles.containerInfoWithImage}>
+      <View style={styles.containerInfoImagen}>
         <Image_Dianamic
+          styleImage={styles.containerImage}
           uriURL={product.pro_url_image}
           altProp={`Imagen del Producto ${product.pro_name}`}
         />
-        <Montserrat_Text style={styles.textPro_Desc}>
-          {product.pro_desc}
-        </Montserrat_Text>
-      </View>
+        <View>
+          <Montserrat_Text style={styles.textPro_Precio}>
+            {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
+          </Montserrat_Text>
 
-      <View style={styles.containerPrice}>
-        <Montserrat_Text style={styles.textPrecio}>Precio</Montserrat_Text>
-        <Montserrat_Text style={styles.textPro_Precio}>
-          {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
-        </Montserrat_Text>
+          <Cart_Buttons product={product} />
+        </View>
       </View>
-
-      <Cart_Buttons product={product} />
+      <Montserrat_Text style={styles.textPro_Desc}>
+        {product.pro_desc}
+      </Montserrat_Text>
     </ShadowBox_Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  shadowBox: {
-    padding: 10,
-  },
-  containerInfoWithImage: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  containerPrice: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+  containershadowBox: {
+    justifyContent: "center",
     alignItems: "center",
+  },
+  containerImage: {
+    width: 150,
+    height: 150,
+  },
+  containerInfoImagen:{
+    width:"100%",
+    flexDirection:"row",
+    justifyContent:"space-around",
+    alignItems:"center"
   },
   textPro_name: {
     fontSize: 25,
@@ -56,17 +56,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   textPro_Desc: {
-    width: "50%",
+    textAlign: "justify",
     fontSize: 18,
-    alignSelf: "center",
     color: paletOfColors.black,
   },
   textPro_Precio: {
     fontSize: 25,
-    color: paletOfColors.black,
-  },
-  textPrecio: {
-    fontSize: 18,
     color: paletOfColors.black,
   },
 });

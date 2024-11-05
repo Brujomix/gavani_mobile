@@ -5,7 +5,7 @@ import { ShadowBox_Wrapper } from "../../wrappers";
 
 export function Card_Category({ category, index, navigation }) {
   return (
-    <ShadowBox_Wrapper>
+    <ShadowBox_Wrapper styleChildrensBoxShadow={styles.containerBoxShadow}>
       <Pressable
         onPress={() => {
           navigation.navigate("Products By Categories", {
@@ -22,14 +22,11 @@ export function Card_Category({ category, index, navigation }) {
           }
         >
           <Image_Dianamic
+            styleImage={styles.styleImage}
             uriURL={category.cat_url_image}
             altProp={`imagen de la categoria ${category.cat_name}`}
           />
-          <Montserrat_Text
-            style={
-              index % 2 === 0 ? styles.textStyleGrey : styles.textStyleBlack
-            }
-          >
+          <Montserrat_Text style={styles.textStyleBlack}>
             {category.cat_name}
           </Montserrat_Text>
         </View>
@@ -41,21 +38,21 @@ export function Card_Category({ category, index, navigation }) {
 const styles = StyleSheet.create({
   containerChildrenRow: {
     flexDirection: "row",
-    justifyContent:"space-around",
-    alignItems: "center",    
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   containerChildrenRow_Reverse: {
     flexDirection: "row-reverse",
     justifyContent: "space-around",
     alignItems: "center",
   },
-  textStyleGrey: {
-    fontSize: 19,
-    color: paletOfColors.black,
-    letterSpacing: 2,
+  containerBoxShadow: {
+    width: "100%",
+    justifyContent: "space-around",
   },
+  styleImage: { width: 120, height: 120 },
   textStyleBlack: {
-    fontSize: 19,
+    fontSize: 22,
     color: paletOfColors.black,
     letterSpacing: 2,
   },

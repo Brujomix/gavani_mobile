@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { Pressable_Dinamic, Material_Icon } from "../components";
+import { Pressable_Dinamic, Icon_Dinamic } from "../components";
 import { paletOfColors } from "../utils/colors";
 import {
   addCartProduct,
@@ -7,14 +7,13 @@ import {
 } from "../redux/slices/carritoSlice";
 import { useDispatch } from "react-redux";
 
-export function Cart_Buttons({ product }) {
-  
+export function Cart_Buttons({ product, styleContianerButtonsCart }) {
   const dispatch = useDispatch();
 
   return (
-    <View style={styles.containerButtonsCart}>
+    <View style={[styles.containerButtonsCart, styleContianerButtonsCart]}>
       <Pressable_Dinamic onPress={() => dispatch(addCartProduct(product))}>
-        <Material_Icon
+        <Icon_Dinamic
           name={"add-shopping-cart"}
           size={30}
           color={paletOfColors.black}
@@ -23,7 +22,7 @@ export function Cart_Buttons({ product }) {
       <Pressable_Dinamic
         onPress={() => dispatch(removeCartProduct(product.pro_iden))}
       >
-        <Material_Icon
+        <Icon_Dinamic
           name={"remove-shopping-cart"}
           size={30}
           color={paletOfColors.black}
@@ -35,9 +34,7 @@ export function Cart_Buttons({ product }) {
 
 const styles = StyleSheet.create({
   containerButtonsCart: {
-    borderTopWidth: 2,
     padding: 5,
-    borderColor: paletOfColors.black,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },

@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Carrito_Screen, Orders_Screen } from "../screens";
 import { Stack_Navigation_Home } from "./Stack_Navigation_Home";
-import { AntDesing_Icon,Material_Icon, Business_OnLine } from "../components";
+import { Icon_Dinamic, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
 import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
@@ -30,7 +30,7 @@ export function Tab_Navigation() {
           options={{
             title: "",
             tabBarIcon: ({ focused }) => (
-              <AntDesing_Icon
+              <Icon_Dinamic
                 name={"home"}
                 size={40}
                 color={focused ? paletOfColors.black : paletOfColors.darkGray}
@@ -46,8 +46,8 @@ export function Tab_Navigation() {
             title: "",
             tabBarBadge: TotalProductCart(cartProducts),
             tabBarIcon: ({ focused }) => (
-              <AntDesing_Icon
-                name={"shoppingcart"}
+              <Icon_Dinamic
+                name={"shopping-cart"}
                 size={40}
                 color={focused ? paletOfColors.black : paletOfColors.darkGray}
               />
@@ -61,7 +61,7 @@ export function Tab_Navigation() {
             title: "",
             tabBarBadge: 0,
             tabBarIcon: ({ focused }) => (
-              <Material_Icon
+              <Icon_Dinamic
                 name={"receipt-long"}
                 size={40}
                 color={focused ? paletOfColors.black : paletOfColors.darkGray}
@@ -76,8 +76,8 @@ export function Tab_Navigation() {
           options={{
             title: "",
             tabBarIcon: ({ focused }) => (
-              <AntDesing_Icon
-                name={"user"}
+              <Icon_Dinamic
+                name={"person"}
                 size={40}
                 color={focused ? paletOfColors.black : paletOfColors.darkGray}
               />
