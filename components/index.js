@@ -5,11 +5,9 @@ export * from "./cards/Card_Product_Cart"
 export * from "./cards/Card_Order"
 
 //UI
-export * from "./ui/Header_App"
 export * from "./ui/Image_Dianamic"
 export * from "./ui/Montserrat_Text"
 export * from "./ui/Icons"
-export * from "./ui/Header_User"
 export * from "./ui/Pressable_Dinamic"
 export * from "./ui/Avatar_User"
 export * from "./ui/Input_Text"

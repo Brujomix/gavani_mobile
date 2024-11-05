@@ -1,15 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import { Avatar_User, Form_Register } from "../components";
+import { Form_Register } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { paletOfColors } from "../utils/colors";
 
 export function Registration_Screen({navigation}) {
+
   return (
     <ScreenWrapper>
       <View style={styles.containerLoginScreen}>
-        <View>
-          <Avatar_User />
-        </View>
         <Form_Register navigation={navigation} />
       </View>
     </ScreenWrapper>

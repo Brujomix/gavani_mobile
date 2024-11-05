@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Dimensions, Modal, StyleSheet, View } from "react-native";
+import { Dimensions, Modal, StyleSheet, View } from "react-native";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { Entypo } from "@expo/vector-icons";
@@ -7,8 +7,7 @@ import { paletOfColors } from "../../utils/colors";
 
 const { width, height } = Dimensions.get("screen");
 
-export function Modal_Dinamic({ children, textButton, disabled, styleOpenmodal }) {
-
+export function Modal_Dinamic({ children, textButton, disabled }) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -17,19 +16,17 @@ export function Modal_Dinamic({ children, textButton, disabled, styleOpenmodal }
         animationType="fade"
         transparent={true}
         visible={openModal}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setOpenModal(!openModal);
-        }}
       >
-        <View style={[styles.modalView, styleOpenmodal]}>
-          <View style={styles.containerBodyModal}>{children}</View>
+        <View style={styles.modalView}>
           <Pressable_Dinamic
             style={styles.buttonCloseModal}
             onPress={() => setOpenModal(!openModal)}
           >
             <Entypo name="cross" size={35} color={paletOfColors.black} />
           </Pressable_Dinamic>
+          <View style={styles.modalViewChildren}>
+            <View style={styles.containerBodyModal}>{children}</View>
+          </View>
         </View>
       </Modal>
       <Pressable_Dinamic disabled={disabled} onPress={() => setOpenModal(true)}>
@@ -43,30 +40,34 @@ export function Modal_Dinamic({ children, textButton, disabled, styleOpenmodal }
 
 const styles = StyleSheet.create({
   modalView: {
-    backgroundColor: "white",
+    flex: 1,
     width: width,
     height: height,
-    borderRadius: 20,
-    padding: 35,
+    justifyContent: "center",
     alignItems: "center",
-    justifyContent:"center",
-    shadowColor: paletOfColors.white,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    backgroundColor:paletOfColors.black,
+    opacity:.8
+  },
+  modalViewChildren: {
+    backgroundColor: paletOfColors.white,
+    width: width * 0.8,
+    height: height * 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
     elevation: 5,
+    shadowColor: paletOfColors.white,
   },
 
   buttonCloseModal: {
-    position: "absolute",
-    top: 30,
-    right: 30,
+    zIndex:100,
+    position:"absolute",
+    right:-150,
+    top:15
   },
+
   textOpenModal: {
-    alignSelf:"center",
+    alignSelf: "center",
     fontSize: 16,
   },
 });

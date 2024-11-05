@@ -1,20 +1,22 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { paletOfColors } from "../../utils/colors";
 
 export function Pressable_Dinamic({ children, disabled, onPress, style }) {
-  
+ 
   return (
-    <Pressable
-      onPress={onPress}
-      disabled={disabled}
-      style={({ pressed }) => [
-        styles.childrenPresableDinamic,
-        style,
-        { opacity: pressed ? 0.8 : 1 },
-      ]}
-    >
-      {children}
-    </Pressable>
+    <View>
+      <Pressable
+        onPress={onPress}
+        disabled={disabled}
+        style={({ pressed }) => [
+          styles.childrenPresableDinamic,
+          style,
+          { opacity: pressed ? 0.8 : 1 },
+        ]}
+      >
+        {children}
+      </Pressable>
+    </View>
   );
 }
 

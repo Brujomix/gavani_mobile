@@ -7,43 +7,13 @@ import { useRegisterMutation } from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePiker from "expo-image-picker";
+import { Avatar_User } from "../ui/Avatar_User";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/usersSlice";
 
 export function Form_Register({ navigation }) {
-  const [triggerRegistration, result] = useRegisterMutation();
+  const dispatch = useDispatch();
 
-  const verifyCameraPermision = async () => {
-    const { granted } = await ImagePiker.requestCameraPermissionsAsync();
-    if (!granted) return false;
-    else true;
-  };
-
-  
-  const handleAddProfileImage = async () => {
-    
-    const permissionOk = await verifyCameraPermision()
-    if (permissionOk) {
-      
-      let result = await ImagePiker.launchCameraAsync({
-        mediaTypes: ImagePiker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [1,1],
-        base64: true,
-        quality: .5
-      })
-
-      setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
-
-    }else{
-      setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
-    }
-    
-  };
-
-  const handlePressConfirmar = () => {
-    const { email, password } = datosUser;
-
-    triggerRegistration({ email, password });
-  };
   const [errors, setErrors] = useState({
     errorEmail: "",
     errorPassword: "",
@@ -57,7 +27,34 @@ export function Form_Register({ navigation }) {
     imageProfile: "",
   });
 
- 
+  const [triggerRegistration, result] = useRegisterMutation();
+
+  const handleAddProfileImage = async () => {
+    const { granted } = await ImagePiker.requestCameraPermissionsAsync();
+
+    if (granted) {
+      let result = await ImagePiker.launchCameraAsync({
+        mediaTypes: ImagePiker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        base64: true,
+        quality: 0.5,
+      });
+
+      setDatosUser((pv) => ({
+        ...pv,
+        imageProfile: `data:image/jpg;base64,${result.assets[0].base64}`,
+      }));
+    } else {
+      setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
+    }
+  };
+
+  const handlePressConfirmar = () => {
+    const { email, password } = datosUser;
+
+    triggerRegistration({ email, password });
+  };
 
   const checkPasswords = (text) => {
     if (datosUser.password === text && text) {
@@ -118,6 +115,7 @@ export function Form_Register({ navigation }) {
 
   return (
     <View style={styles.containerLogin}>
+      <Avatar_User imageProfile={datosUser.imageProfile} />
       <Pressable_Dinamic
         onPress={handleAddProfileImage}
         style={styles.buttonCamera}
@@ -164,8 +162,8 @@ const styles = StyleSheet.create({
   },
   buttonCamera: {
     position: "absolute",
-    right: 75,
-    top: -50,
+    left: 180,
+    top: -70,
     backgroundColor: paletOfColors.lightGray,
   },
   pressableLogin: {

@@ -5,22 +5,15 @@ import {
   addCartProduct,
   removeCartProduct,
 } from "../redux/slices/carritoSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export function Cart_Buttons({ product }) {
-
-  const dispatch = useDispatch();
   
-  const { isOnLine } = useSelector(
-    (state) => state.Global
-  );
- 
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.containerButtonsCart}>
-      <Pressable_Dinamic
-        disabled={!isOnLine}
-        onPress={() => dispatch(addCartProduct(product))}
-      >
+      <Pressable_Dinamic onPress={() => dispatch(addCartProduct(product))}>
         <Material_Icon
           name={"add-shopping-cart"}
           size={30}
@@ -28,7 +21,6 @@ export function Cart_Buttons({ product }) {
         />
       </Pressable_Dinamic>
       <Pressable_Dinamic
-        disabled={!isOnLine}
         onPress={() => dispatch(removeCartProduct(product.pro_iden))}
       >
         <Material_Icon

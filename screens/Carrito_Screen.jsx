@@ -46,7 +46,7 @@ export function Carrito_Screen({ navigation }) {
       </View>
 
       <Modal_Dinamic
-        disabled={cartProducts.length === 0 ? true : false}
+        disabled={cartProducts.length === 0 || !isOnLine ? true : false}
         textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
       >
         <View style={styles.containerBodyModalCart}>

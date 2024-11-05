@@ -1,21 +1,31 @@
 import { Avatar } from "react-native-elements";
 import { paletOfColors } from "../../utils/colors";
 import { StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
 
-export function Avatar_User({ uri }) {
+export function Avatar_User({ imageProfile }) {
+
+  const { userInfo } = useSelector((state) => state.User);
+  
   return (
     <View style={styles.containerAvatar}>
       <Avatar
         rounded
         size="xlarge"
-        source={{ uri }}
-        title="US"
-        titleStyle={{color:paletOfColors.black}}
+        source={
+          userInfo && userInfo.imageProfile
+            ? { uri: userInfo.imageProfile }
+            : imageProfile
+            ? { uri: imageProfile }
+            : null
+        }
+        title={!userInfo?.imageProfile && !imageProfile ? "US" : ""}
+        titleStyle={{ color: paletOfColors.black }}
         containerStyle={{
-          backgroundColor: paletOfColors.darkGray,
+          backgroundColor: paletOfColors.lightGray,
           borderWidth: 3,
-          borderColor: paletOfColors.black,
-          marginBottom:20
+          borderColor: paletOfColors.lightGray,
+          marginBottom: 20,
         }}
       />
     </View>

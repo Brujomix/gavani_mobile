@@ -13,15 +13,15 @@ const Tab = createBottomTabNavigator();
 
 export function Tab_Navigation() {
 
-  const {isOnLine} = useSelector(state=>state.Global)
   const {cartProducts} = useSelector(state=>state.Cart)
+
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="HomePage"
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
-          header: () => <Business_OnLine isOnLine={isOnLine} />,
+          header: () => <Business_OnLine />,
         }}
       >
         <Tab.Screen

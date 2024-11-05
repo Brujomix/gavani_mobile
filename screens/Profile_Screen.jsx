@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { ScreenWrapper } from "../wrappers";
 import { View, StyleSheet } from "react-native";
 import {
@@ -10,55 +10,51 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { changeLogged, setUser } from "../redux/slices/usersSlice";
 import { paletOfColors } from "../utils/colors";
-import { AntDesign } from "@expo/vector-icons";
 
 export function Profile_Screen({ navigation }) {
   const dispatch = useDispatch();
+
   const { userInfo } = useSelector((state) => state.User);
-
-  const handleAddProfileImage = () => {
-    console.warn("Click");
-  };
-
+   
   return (
     <ScreenWrapper>
       <View style={styles.containerProfileScreen}>
-        <Avatar_User />
-        <Pressable_Dinamic
-          onPress={handleAddProfileImage}
-          style={styles.buttonCamera}
-        >
-          <AntDesign name="camerao" size={38} />
-        </Pressable_Dinamic>
-        <Montserrat_Text style={styles.textUserEmail}>
-          {userInfo ? userInfo.email : "Email User"}
+        <Montserrat_Text style={styles.textWelcome}>
+          Hola !
         </Montserrat_Text>
-      </View>
-      <Modal_Dinamic textButton={"Cerrar Session"}>
-        <View style={styles.containerBodyModalLogOut}>
-          <Montserrat_Text style={styles.textBodyModalLogOut}>
-            Deseas Cerrar Session ?
-          </Montserrat_Text>
-          <Pressable_Dinamic
-            style={styles.confirmPressable}
-            onPress={() => {
-              dispatch(changeLogged(false));
-              dispatch(setUser(null));
-              navigation.navigate("HomePage");
-            }}
-          >
-            <Montserrat_Text style={styles.textConfirButtonLogOut}>
-              Cerrar Session
+        <Montserrat_Text style={styles.textUserEmail}>
+          {userInfo.email}
+        </Montserrat_Text>
+
+        <Avatar_User imageProfile={""}/>
+
+        <Modal_Dinamic textButton={"Cerrar Session"}>
+          <View style={styles.containerBodyModalLogOut}>
+            <Montserrat_Text style={styles.textBodyModalLogOut}>
+              Deseas Cerrar Session ?
             </Montserrat_Text>
-          </Pressable_Dinamic>
-        </View>
-      </Modal_Dinamic>
+            <Pressable_Dinamic
+              style={styles.confirmPressable}
+              onPress={() => {
+                dispatch(changeLogged(false));
+                dispatch(setUser(null));
+                navigation.navigate("HomePage");
+              }}
+            >
+              <Montserrat_Text style={styles.textConfirButtonLogOut}>
+                Cerrar Session
+              </Montserrat_Text>
+            </Pressable_Dinamic>
+          </View>
+        </Modal_Dinamic>
+      </View>
     </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   containerProfileScreen: {
+    gap: 35,
     width: "80%",
   },
   containerButtonsModal: {
@@ -75,21 +71,16 @@ const styles = StyleSheet.create({
   },
 
   textConfirButtonLogOut: {
+    color: paletOfColors.red,
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: 22,
   },
   textUserEmail: {
     alignSelf: "center",
-    fontSize: 18,
+    fontSize: 25,
   },
-  textLogOut: {
-    color: paletOfColors.red,
-    fontSize: 16,
-  },
-  buttonCamera: {
-    position: "absolute",
-    right: 75,
-    top: 100,
-    backgroundColor: paletOfColors.lightGray,
+  textWelcome: {
+    fontSize: 35,
+    alignSelf: "center",
   },
 });

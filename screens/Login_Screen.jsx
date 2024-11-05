@@ -1,19 +1,17 @@
 import { StyleSheet, View } from "react-native";
-import {
-  Form_Login,
-  Montserrat_Text,
-  Pressable_Dinamic,
-} from "../components";
+import { Form_Login, Montserrat_Text, Pressable_Dinamic } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { paletOfColors } from "../utils/colors";
 
 export function Login_Screen({ navigation }) {
-
   return (
     <ScreenWrapper>
       <View style={styles.containerLoginScreen}>
         <Form_Login navigation={navigation} />
-        <View style={styles.containerButtons}>
+        <View style={styles.containerCreateAccountButton}>
+          <Montserrat_Text style={styles.textQuestion}>
+            No Tienes Cuenta ?
+          </Montserrat_Text>
           <Pressable_Dinamic
             onPress={() => navigation.navigate("Registration")}
           >
@@ -30,13 +28,19 @@ export function Login_Screen({ navigation }) {
 const styles = StyleSheet.create({
   containerLoginScreen: {
     width: "80%",
+    gap: 20,
   },
-  containerButtons:{
-    flexDirection:"row",
-    justifyContent:"space-evenly"
+  containerCreateAccountButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
   textRegistration: {
     color: paletOfColors.blue,
     fontSize: 16,
-  }
+  },
+  textQuestion: {
+    fontStyle: "italic",
+    fontSize: 16,
+  },
 });
