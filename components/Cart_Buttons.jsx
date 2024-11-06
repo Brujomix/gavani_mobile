@@ -8,6 +8,7 @@ import {
 import { useDispatch } from "react-redux";
 
 export function Cart_Buttons({ product, styleContianerButtonsCart }) {
+  
   const dispatch = useDispatch();
 
   return (

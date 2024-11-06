@@ -9,12 +9,19 @@ import { Icon_Dinamic } from "../../components";
 import * as ImagePiker from "expo-image-picker";
 import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
-import { ShadowBox_Wrapper } from "../../wrappers";
+import { setUser } from "../../redux/slices/usersSlice";
+import { usePostImageProfileMutation } from "../../services/app_Service";
 
-const {width} = Dimensions.get("screen")
+const { width } = Dimensions.get("screen");
 
 export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
+
+  const [triggerRegistration, resultRegister] = useRegisterMutation();
+  const [triggerPostImage, resultImage] = usePostImageProfileMutation();
+
+  //console.warn("result de REGISTER", resultRegister);
+  //console.warn("result de IMAGE", resultImage);
 
   const [errors, setErrors] = useState({
     errorEmail: "",
@@ -29,13 +36,11 @@ export function Form_Register({ navigation }) {
     imageProfile: "",
   });
 
-  const [triggerRegistration, result] = useRegisterMutation();
-
   const handleAddProfileImage = async () => {
     const { granted } = await ImagePiker.requestCameraPermissionsAsync();
 
     if (granted) {
-      let result = await ImagePiker.launchCameraAsync({
+      let cameraData = await ImagePiker.launchCameraAsync({
         mediaTypes: ImagePiker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [1, 1],
@@ -45,7 +50,7 @@ export function Form_Register({ navigation }) {
 
       setDatosUser((pv) => ({
         ...pv,
-        imageProfile: `data:image/jpg;base64,${result.assets[0].base64}`,
+        imageProfile: `data:image/jpg;base64,${cameraData.assets[0].base64}`,
       }));
     } else {
       setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
@@ -99,9 +104,28 @@ export function Form_Register({ navigation }) {
   };
 
   useEffect(() => {
-    switch (result.status) {
+    switch (resultRegister.status) {
       case "fulfilled":
-        navigation.navigate("HomePage");
+        const { email, idToken, localId, refreshToken } = resultRegister.data;
+
+        triggerPostImage({
+          localID: localId,
+          imageProfile: datosUser.imageProfile,
+        });
+
+        if (resultImage.status === "fulfilled") {
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: email,
+              imageProfile: resultImage.originalArgs.imageProfile,
+              id_Token: idToken,
+              local_Id: localId,
+              refresh_Token: refreshToken,
+            })
+          )
+          navigation.navigate("Usuarios");
+        }
         break;
       case "rejected":
         setErrors((pv) => ({
@@ -113,7 +137,7 @@ export function Form_Register({ navigation }) {
         setErrors((pv) => ({ ...pv, errorRegister: "" }));
         break;
     }
-  }, [result]);
+  }, [resultRegister]);
 
   return (
     <View style={styles.containerLogin}>
@@ -141,14 +165,14 @@ export function Form_Register({ navigation }) {
         error={errors.errorConfirmPassword}
       />
 
-        <Pressable_Dinamic
-          style={styles.pressableRegister}
-          onPress={() => handlePressConfirmar()}
-        >
-          <Montserrat_Text style={styles.textPressableRegister}>
-            Confimar
-          </Montserrat_Text>
-        </Pressable_Dinamic>
+      <Pressable_Dinamic
+        style={styles.pressableRegister}
+        onPress={() => handlePressConfirmar()}
+      >
+        <Montserrat_Text style={styles.textPressableRegister}>
+          Confimar
+        </Montserrat_Text>
+      </Pressable_Dinamic>
 
       <Montserrat_Text style={styles.errorRegister}>
         {errors.errorRegister ? errors.errorRegister : ""}
@@ -171,12 +195,12 @@ const styles = StyleSheet.create({
     backgroundColor: paletOfColors.lightGray,
   },
   pressableRegister: {
-    width: width * .8,
+    width: width * 0.8,
     marginTop: 20,
-    borderWidth:1,
-    borderColor:paletOfColors.black,
-    padding:2,
-    backgroundColor:paletOfColors.lightGray
+    borderWidth: 1,
+    borderColor: paletOfColors.black,
+    padding: 2,
+    backgroundColor: paletOfColors.lightGray,
   },
   textPressableRegister: {
     fontSize: 18,

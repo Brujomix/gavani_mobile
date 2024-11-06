@@ -7,7 +7,7 @@ import {
   Pressable_Dinamic,
 } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLogged, setUser } from "../redux/slices/usersSlice";
+import { setUser } from "../redux/slices/usersSlice";
 import { paletOfColors } from "../utils/colors";
 
 const { width } = Dimensions.get("screen");
@@ -17,6 +17,8 @@ export function Profile_Screen({ navigation }) {
 
   const { userInfo } = useSelector((state) => state.User);
 
+  console.warn("Datos User desde Profile", userInfo);
+
   return (
     <ScreenWrapper>
       <View style={styles.containerProfileScreen}>
@@ -25,7 +27,9 @@ export function Profile_Screen({ navigation }) {
           {userInfo.email}
         </Montserrat_Text>
 
-        <Avatar_User imageProfile={""} />
+        <Avatar_User
+          imageProfile={userInfo.imageProfile ? userInfo.imageProfile : null}
+        />
 
         <Modal_Dinamic textButton={"Cerrar Session"}>
           <View style={styles.containerBodyModalLogOut}>
@@ -35,7 +39,6 @@ export function Profile_Screen({ navigation }) {
             <Pressable_Dinamic
               style={styles.pressableConfirmLogOut}
               onPress={() => {
-                dispatch(changeLogged(false));
                 dispatch(setUser(null));
                 navigation.navigate("HomePage");
               }}
@@ -46,6 +49,16 @@ export function Profile_Screen({ navigation }) {
             </Pressable_Dinamic>
           </View>
         </Modal_Dinamic>
+        <Pressable_Dinamic
+          style={styles.pressableSeeProducts}
+          onPress={() => {
+            navigation.navigate("HomePage");
+          }}
+        >
+          <Montserrat_Text style={styles.textPressableSeeProducts}>
+            Ver Productos
+          </Montserrat_Text>
+        </Pressable_Dinamic>
       </View>
     </ScreenWrapper>
   );
@@ -53,9 +66,10 @@ export function Profile_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerProfileScreen: {
-    gap: 35,
+    gap: 32,
     width: "80%",
   },
+
   containerButtonsModal: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -64,9 +78,24 @@ const styles = StyleSheet.create({
   containerBodyModalLogOut: {
     gap: 40,
   },
+
   textBodyModalLogOut: {
     alignSelf: "center",
     fontSize: 28,
+  },
+
+  pressableSeeProducts: {
+    width: width * 0.5,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: paletOfColors.black,
+    padding: 2,
+    backgroundColor: paletOfColors.lightGray,
+  },
+
+  textPressableSeeProducts: {
+    alignSelf: "center",
+    fontSize: 25,
   },
 
   pressableConfirmLogOut: {

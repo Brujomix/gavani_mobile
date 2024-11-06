@@ -6,13 +6,21 @@ import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { useLoginMutation } from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
-import { changeLogged, setUser } from "../../redux/slices/usersSlice";
+import { setUser } from "../../redux/slices/usersSlice";
+import { useGetImageProfileQuery } from "../../services/app_Service";
 
-const {width} = Dimensions.get("screen")
+const { width } = Dimensions.get("screen");
 
-export function Form_Login({navigation}) {
-const dispatch = useDispatch()
-  const [triggerLogin, result] = useLoginMutation();
+export function Form_Login({ navigation }) {
+  const dispatch = useDispatch();
+
+  const [triggerLogin, resultLogin] = useLoginMutation();
+  
+  //console.warn("Fomr Login", resultLogin);
+  
+  const [local_Id, setLocal_Id] = useState("");
+
+  const { data, error } = useGetImageProfileQuery(local_Id);
 
   const handlePressIniciar = () => {
     const { email, password } = datosUser;
@@ -72,12 +80,26 @@ const dispatch = useDispatch()
   };
 
   useEffect(() => {
-  
-    switch (result.status) {
+    switch (resultLogin.status) {
       case "fulfilled":
-        dispatch(changeLogged(true))
-        dispatch(setUser({email: result.data.email, idToken: result.data.idToken}))
-        navigation.navigate("HomePage")
+        const { email, idToken, localId, refreshToken } = resultLogin.data;
+
+        setLocal_Id(localId);
+
+        if (data.length !== 0) {
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: email,
+              imageProfile: data[0].imageProfile,
+              id_Token: idToken,
+              local_Id: localId,
+              refresh_Token: refreshToken,
+            })
+          );
+          navigation.navigate("Usuarios");
+        }
+
         break;
       case "rejected":
         setErrors((pv) => ({
@@ -89,7 +111,7 @@ const dispatch = useDispatch()
         setErrors((pv) => ({ ...pv, errorRegister: "" }));
         break;
     }
-  }, [result]);
+  }, [resultLogin]);
 
   return (
     <View style={styles.containerLogin}>
@@ -133,12 +155,12 @@ const styles = StyleSheet.create({
     gap: 18,
   },
   pressableLogin: {
-    width: width * .8,
+    width: width * 0.8,
     marginTop: 20,
-    borderWidth:1,
-    borderColor:paletOfColors.black,
-    padding:2,
-    backgroundColor:paletOfColors.lightGray
+    borderWidth: 1,
+    borderColor: paletOfColors.black,
+    padding: 2,
+    backgroundColor: paletOfColors.lightGray,
   },
   textPressableLogin: {
     fontSize: 18,

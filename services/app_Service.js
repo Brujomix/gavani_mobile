@@ -22,6 +22,20 @@ export const app_Api = createApi({
       transformResponse: (response) =>
         response ? Object.values(response) : [],
     }),
+    getImageProfile: builder.query({
+      query: (localID) => {
+        return `profileUsers.json?orderBy="localID"&equalTo=${localID}`;
+      },
+      transformResponse: (response) =>
+        response ? Object.values(response) : [],
+    }),
+    postImageProfile: builder.mutation({
+      query: ({...dataProfileImage }) => ({
+        url: "profileUsers.json",
+        method: "POST",
+        body: dataProfileImage ,
+      }),
+    }),
   }),
 });
 
@@ -29,4 +43,6 @@ export const {
   useGetCategoriesQuery,
   useGetProductsByCategoryQuery,
   useGetFavoritesProductsQuery,
+  useGetImageProfileQuery,
+  usePostImageProfileMutation,
 } = app_Api;

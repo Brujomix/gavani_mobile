@@ -10,12 +10,13 @@ import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Pr
 import { ScreenWrapper } from "../wrappers";
 import { useGetCategoriesQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
+
 const { width } = Dimensions.get("screen");
 
 export function Home_Screen({ navigation }) {
 
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
-
+ 
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleText}>

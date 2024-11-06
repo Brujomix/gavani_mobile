@@ -8,10 +8,13 @@ import { Pressable_Dinamic, Icon_Dinamic } from "../components";
 const Stack = createNativeStackNavigator();
 
 export function Stack_Navigation_Users() {
-  const { isLogged } = useSelector((state) => state.User);
+
+  const { userInfo } = useSelector((state) => state.User);
+  //console.warn("Log desde stack user", userInfo);
+  
   return (
     <>
-      {isLogged ? (
+      {userInfo ? (
         <Stack.Navigator>
           <Stack.Screen
             name="Perfil"

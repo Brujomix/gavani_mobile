@@ -16,16 +16,17 @@ import { paletOfColors } from "../utils/colors";
 const { width } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
+
   const { cartProducts } = useSelector((state) => state.Cart);
 
   const dispatch = useDispatch();
 
   const { isOnLine } = useSelector((state) => state.Global);
   const { isLogged } = useSelector((state) => state.User);
-  console.warn(`is logged desde cart : ${isLogged}`);
-  console.warn(`cart Product desde cart : ${cartProducts}`);
 
   const [triggerPost, result] = usePostOrderMutation();
+
+  //console.log("result desde carrito screen", result);
 
   return (
     <ScreenWrapper style={styles.containerCartPrincipal}>
@@ -54,16 +55,13 @@ export function Carrito_Screen({ navigation }) {
         </Montserrat_Text>
       </View>
 
-      <Modal_Dinamic
-        
-        textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
-      >
+      <Modal_Dinamic textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}>
         <View style={styles.containerBodyModalCart}>
           <Montserrat_Text style={styles.textBodyModalCart}>
             Confirmar Pedido ?
           </Montserrat_Text>
           <Pressable_Dinamic
-          disabled={cartProducts.length === 0 || !isOnLine ? true : false}
+            disabled={cartProducts.length === 0 || !isOnLine ? true : false}
             style={styles.pressableConfirmar}
             onPress={() => {
               if (isLogged) {
