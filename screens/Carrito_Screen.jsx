@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList, View, Dimensions } from "react-native";
 import {
   Montserrat_Text,
   Card_Product_Cart,
@@ -11,14 +11,20 @@ import { Total_Cart } from "../utils/funtions";
 import { clearCart } from "../redux/slices/carritoSlice";
 import { usePostOrderMutation } from "../services/orders_Services";
 import { formated_Date } from "../utils/formated_Date";
+import { paletOfColors } from "../utils/colors";
+
+const {width} = Dimensions.get("screen")
 
 export function Carrito_Screen({ navigation }) {
+
   const { cartProducts } = useSelector((state) => state.Cart);
+
   const dispatch = useDispatch();
+
   const { isOnLine } = useSelector((state) => state.Global);
   const { isLogged } = useSelector((state) => state.User);
+
   const [triggerPost, result] = usePostOrderMutation();
-  console.log(result);
 
   return (
     <ScreenWrapper>
@@ -30,9 +36,11 @@ export function Carrito_Screen({ navigation }) {
         </Montserrat_Text>
       ) : (
         <FlatList
+          style={styles.flatListCartProducts}
           data={cartProducts}
           keyExtractor={(item) => item.pro_iden}
           renderItem={({ item }) => <Card_Product_Cart product={item} />}
+          contentContainerStyle={styles.containerChildrenCarProducts}
         />
       )}
 
@@ -54,6 +62,7 @@ export function Carrito_Screen({ navigation }) {
             Confirmar Pedido ?
           </Montserrat_Text>
           <Pressable_Dinamic
+          style={styles.pressableConfirmar}
             onPress={() => {
               if (isLogged) {
                 triggerPost({
@@ -83,6 +92,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 35,
   },
+  flatListCartProducts: { marginTop:20},
+  containerChildrenCarProducts:{gap:15},
   containerTotalCart: {
     marginHorizontal: 10,
     flexDirection: "row",
@@ -96,6 +107,14 @@ const styles = StyleSheet.create({
   },
   containerBodyModalCart: {
     gap: 40,
+  },
+  pressableConfirmar:{
+    width: width * 0.5,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: paletOfColors.black,
+    padding: 2,
+    backgroundColor: paletOfColors.lightGray,
   },
   textWithoutProducts: {
     alignSelf: "center",

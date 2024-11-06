@@ -1,6 +1,5 @@
-import React, { useId } from "react";
 import { ScreenWrapper } from "../wrappers";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import {
   Avatar_User,
   Modal_Dinamic,
@@ -11,22 +10,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLogged, setUser } from "../redux/slices/usersSlice";
 import { paletOfColors } from "../utils/colors";
 
+const { width } = Dimensions.get("screen");
+
 export function Profile_Screen({ navigation }) {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.User);
-   
+
   return (
     <ScreenWrapper>
       <View style={styles.containerProfileScreen}>
-        <Montserrat_Text style={styles.textWelcome}>
-          Hola !
-        </Montserrat_Text>
+        <Montserrat_Text style={styles.textWelcome}>Hola !</Montserrat_Text>
         <Montserrat_Text style={styles.textUserEmail}>
           {userInfo.email}
         </Montserrat_Text>
 
-        <Avatar_User imageProfile={""}/>
+        <Avatar_User imageProfile={""} />
 
         <Modal_Dinamic textButton={"Cerrar Session"}>
           <View style={styles.containerBodyModalLogOut}>
@@ -34,7 +33,7 @@ export function Profile_Screen({ navigation }) {
               Deseas Cerrar Session ?
             </Montserrat_Text>
             <Pressable_Dinamic
-              style={styles.confirmPressable}
+              style={styles.pressableConfirmLogOut}
               onPress={() => {
                 dispatch(changeLogged(false));
                 dispatch(setUser(null));
@@ -70,11 +69,21 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
 
+  pressableConfirmLogOut: {
+    width: width * 0.5,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: paletOfColors.black,
+    padding: 2,
+    backgroundColor: paletOfColors.lightGray,
+  },
+
   textConfirButtonLogOut: {
     color: paletOfColors.red,
+    fontSize: 18,
     alignSelf: "center",
-    fontSize: 22,
   },
+
   textUserEmail: {
     alignSelf: "center",
     fontSize: 25,

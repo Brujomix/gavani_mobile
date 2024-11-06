@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
@@ -7,6 +7,8 @@ import { useLoginMutation } from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
 import { changeLogged, setUser } from "../../redux/slices/usersSlice";
+
+const {width} = Dimensions.get("screen")
 
 export function Form_Login({navigation}) {
 const dispatch = useDispatch()
@@ -131,11 +133,15 @@ const styles = StyleSheet.create({
     gap: 18,
   },
   pressableLogin: {
-    width: "100%",
+    width: width * .8,
     marginTop: 20,
+    borderWidth:1,
+    borderColor:paletOfColors.black,
+    padding:2,
+    backgroundColor:paletOfColors.lightGray
   },
   textPressableLogin: {
-    fontSize: 16,
+    fontSize: 18,
     alignSelf: "center",
   },
   errorRegister: {

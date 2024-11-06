@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
@@ -9,6 +9,9 @@ import { Icon_Dinamic } from "../../components";
 import * as ImagePiker from "expo-image-picker";
 import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
+import { ShadowBox_Wrapper } from "../../wrappers";
+
+const {width} = Dimensions.get("screen")
 
 export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
@@ -137,14 +140,16 @@ export function Form_Register({ navigation }) {
         onChange={(text) => checkPasswords(text)}
         error={errors.errorConfirmPassword}
       />
-      <Pressable_Dinamic
-        style={styles.pressableLogin}
-        onPress={() => handlePressConfirmar()}
-      >
-        <Montserrat_Text style={styles.textPressableLogin}>
-          Confimar
-        </Montserrat_Text>
-      </Pressable_Dinamic>
+
+        <Pressable_Dinamic
+          style={styles.pressableRegister}
+          onPress={() => handlePressConfirmar()}
+        >
+          <Montserrat_Text style={styles.textPressableRegister}>
+            Confimar
+          </Montserrat_Text>
+        </Pressable_Dinamic>
+
       <Montserrat_Text style={styles.errorRegister}>
         {errors.errorRegister ? errors.errorRegister : ""}
       </Montserrat_Text>
@@ -161,16 +166,20 @@ const styles = StyleSheet.create({
   },
   buttonCamera: {
     position: "absolute",
-    left: 180,
-    top: -70,
+    right: 95,
+    top: 118,
     backgroundColor: paletOfColors.lightGray,
   },
-  pressableLogin: {
-    width: "100%",
+  pressableRegister: {
+    width: width * .8,
     marginTop: 20,
+    borderWidth:1,
+    borderColor:paletOfColors.black,
+    padding:2,
+    backgroundColor:paletOfColors.lightGray
   },
-  textPressableLogin: {
-    fontSize: 16,
+  textPressableRegister: {
+    fontSize: 18,
     alignSelf: "center",
   },
   errorRegister: {

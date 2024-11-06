@@ -5,7 +5,6 @@ import { useGetProductsByCategoryQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
 
 export function Products_Filter_Screen({ route }) {
-  
   const { cat_iden } = route.params;
 
   const {
@@ -22,9 +21,11 @@ export function Products_Filter_Screen({ route }) {
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (
         <FlatList
+          style={styles.flatListProductsFilter}
           data={productFilteredByCategory}
           keyExtractor={(item) => item.pro_iden}
           renderItem={({ item }) => <Card_Product product={item} />}
+        contentContainerStyle={styles.containerChildrenFlat}
         />
       )}
     </ScreenWrapper>
@@ -32,5 +33,6 @@ export function Products_Filter_Screen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  
+  flatListProductsFilter: { marginTop:20},
+  containerChildrenFlat:{gap:15}
 });

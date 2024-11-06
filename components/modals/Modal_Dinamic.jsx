@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Dimensions, Modal, StyleSheet, View } from "react-native";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
-import { Entypo } from "@expo/vector-icons";
 import { paletOfColors } from "../../utils/colors";
+import { Icon_Dinamic } from "../ui/Icon_Dinamic";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -12,24 +12,24 @@ export function Modal_Dinamic({ children, textButton, disabled }) {
 
   return (
     <View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={openModal}
-      >
+      <Modal animationType="fade" transparent={true} visible={openModal}>
         <View style={styles.modalView}>
           <Pressable_Dinamic
             style={styles.buttonCloseModal}
             onPress={() => setOpenModal(!openModal)}
           >
-            <Entypo name="cross" size={35} color={paletOfColors.black} />
+            <Icon_Dinamic name="close" size={35} color={paletOfColors.black} />
           </Pressable_Dinamic>
           <View style={styles.modalViewChildren}>
             <View style={styles.containerBodyModal}>{children}</View>
           </View>
         </View>
       </Modal>
-      <Pressable_Dinamic disabled={disabled} onPress={() => setOpenModal(true)}>
+      <Pressable_Dinamic
+        style={styles.pressableOpenModal}
+        disabled={disabled}
+        onPress={() => setOpenModal(true)}
+      >
         <Montserrat_Text style={styles.textOpenModal}>
           {textButton}
         </Montserrat_Text>
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     height: height,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:paletOfColors.black,
-    opacity:.8
+    backgroundColor: paletOfColors.black,
+    opacity: 0.9,
   },
   modalViewChildren: {
     backgroundColor: paletOfColors.white,
@@ -58,16 +58,19 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowColor: paletOfColors.white,
   },
+  buttonCloseModal: { zIndex: 100, position: "relative", top: 50, right: -125 },
 
-  buttonCloseModal: {
-    zIndex:100,
-    position:"absolute",
-    right:-150,
-    top:15
+  pressableOpenModal: {
+    width: width * 0.5,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: paletOfColors.black,
+    padding: 2,
+    backgroundColor: paletOfColors.lightGray,
   },
 
   textOpenModal: {
     alignSelf: "center",
-    fontSize: 16,
+    fontSize: 18,
   },
 });

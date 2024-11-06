@@ -3,6 +3,7 @@ import { Login_Screen, Profile_Screen, Registration_Screen } from "../screens";
 import { StyleSheet } from "react-native";
 import { paletOfColors } from "../utils/colors";
 import { useSelector } from "react-redux";
+import { Pressable_Dinamic, Icon_Dinamic } from "../components";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,17 @@ export function Stack_Navigation_Users() {
               title: "Perfil",
               headerTitleStyle: styles.textHeaderStack,
               headerStyle: styles.containerHeaderStack,
+              headerTintColor: "#FFF",
+              headerTitleAlign: "center",
+              headerRight: () => (
+                <Pressable_Dinamic onPress={() => alert("Button HELP")}>
+                  <Icon_Dinamic
+                    name={"help"}
+                    size={25}
+                    color={paletOfColors.white}
+                  />
+                </Pressable_Dinamic>
+              ),
             }}
             component={Profile_Screen}
           />
@@ -30,6 +42,17 @@ export function Stack_Navigation_Users() {
               title: "Iniciar Session",
               headerTitleStyle: styles.textHeaderStack,
               headerStyle: styles.containerHeaderStack,
+              headerTintColor: "#FFF",
+              headerTitleAlign: "center",
+              headerRight: () => (
+                <Pressable_Dinamic onPress={() => alert("Button HELP")}>
+                  <Icon_Dinamic
+                    name={"help"}
+                    size={25}
+                    color={paletOfColors.white}
+                  />
+                </Pressable_Dinamic>
+              ),
             }}
             component={Login_Screen}
           />
@@ -39,6 +62,17 @@ export function Stack_Navigation_Users() {
               title: "Crear Cuenta",
               headerTitleStyle: styles.textHeaderStack,
               headerStyle: styles.containerHeaderStack,
+              headerTintColor: "#FFF",
+              headerTitleAlign: "center",
+              headerRight: () => (
+                <Pressable_Dinamic onPress={() => alert("Button HELP")}>
+                  <Icon_Dinamic
+                    name={"help"}
+                    size={25}
+                    color={paletOfColors.white}
+                  />
+                </Pressable_Dinamic>
+              ),
             }}
             component={Registration_Screen}
           />

@@ -16,7 +16,6 @@ export * from "./ui/Icon_Dinamic";
 
 //MODALS
 export * from "./modals/Modal_Dinamic";
-export * from "./modals/Modal_PopUP";
 
 //FORMS
 export * from "./forms/Form_Login";
