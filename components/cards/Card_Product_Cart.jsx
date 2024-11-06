@@ -11,7 +11,7 @@ export function Card_Product_Cart({ product }) {
   const dispatch = useDispatch();
 
   return (
-    <ShadowBox_Wrapper styleChildrensBoxShadow={styles.containerShadowBox}>
+    <ShadowBox_Wrapper style={styles.containerShadowBox}>
       <Montserrat_Text style={styles.textName}>
         {product.pro_name}
       </Montserrat_Text>
@@ -40,7 +40,10 @@ export function Card_Product_Cart({ product }) {
 }
 
 const styles = StyleSheet.create({
-  containerShadowBox: {},
+  containerShadowBox: {
+    padding:8,
+    borderRadius:10
+  },
   containerPrice: {
     flexDirection: "row",
     justifyContent: "center",

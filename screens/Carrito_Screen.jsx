@@ -13,21 +13,21 @@ import { usePostOrderMutation } from "../services/orders_Services";
 import { formated_Date } from "../utils/formated_Date";
 import { paletOfColors } from "../utils/colors";
 
-const {width} = Dimensions.get("screen")
+const { width, height } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
-
   const { cartProducts } = useSelector((state) => state.Cart);
 
   const dispatch = useDispatch();
 
   const { isOnLine } = useSelector((state) => state.Global);
   const { isLogged } = useSelector((state) => state.User);
+  console.log(`is logged desde cart : ${isLogged}`);
 
   const [triggerPost, result] = usePostOrderMutation();
 
   return (
-    <ScreenWrapper>
+    <ScreenWrapper style={styles.containerCartPrincipal}>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
 
       {cartProducts.length === 0 ? (
@@ -62,7 +62,7 @@ export function Carrito_Screen({ navigation }) {
             Confirmar Pedido ?
           </Montserrat_Text>
           <Pressable_Dinamic
-          style={styles.pressableConfirmar}
+            style={styles.pressableConfirmar}
             onPress={() => {
               if (isLogged) {
                 triggerPost({
@@ -88,18 +88,20 @@ export function Carrito_Screen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  containerCartPrincipal: {},
   titleCart: {
     alignSelf: "center",
     fontSize: 35,
   },
-  flatListCartProducts: { marginTop:20},
-  containerChildrenCarProducts:{gap:15},
+  flatListCartProducts: { marginTop: 20 },
+  containerChildrenCarProducts: { gap: 8 },
+
   containerTotalCart: {
-    marginHorizontal: 10,
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
+
   containerButtonsModal: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   containerBodyModalCart: {
     gap: 40,
   },
-  pressableConfirmar:{
+  pressableConfirmar: {
     width: width * 0.5,
     marginTop: 20,
     borderWidth: 1,
