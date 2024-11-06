@@ -14,8 +14,6 @@ const { width } = Dimensions.get("screen");
 export function Orders_Screen({ route }) {
   const { dateNow } = route.params;
 
-  console.warn(dateNow);
-
   const { data: orders, error, isLoading } = useGetOrdersQuery(dateNow);
 
   return (

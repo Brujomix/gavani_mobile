@@ -51,7 +51,7 @@ export function Carrito_Screen({ navigation }) {
           Total Carrito:{" "}
         </Montserrat_Text>
         <Montserrat_Text style={styles.textTotalCart}>
-          $ {Total_Cart(cartProducts)}
+          $ {Total_Cart(cartProducts).toLocaleString("de-DE")}
         </Montserrat_Text>
       </View>
 
