@@ -17,8 +17,6 @@ export function Profile_Screen({ navigation }) {
 
   const { userInfo } = useSelector((state) => state.User);
 
-  console.warn("Datos User desde Profile", userInfo);
-
   return (
     <ScreenWrapper>
       <View style={styles.containerProfileScreen}>

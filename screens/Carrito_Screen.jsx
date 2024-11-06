@@ -16,17 +16,14 @@ import { paletOfColors } from "../utils/colors";
 const { width } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
-
   const { cartProducts } = useSelector((state) => state.Cart);
 
   const dispatch = useDispatch();
 
   const { isOnLine } = useSelector((state) => state.Global);
-  const { isLogged } = useSelector((state) => state.User);
+  const { userInfo } = useSelector((state) => state.User);
 
   const [triggerPost, result] = usePostOrderMutation();
-
-  //console.log("result desde carrito screen", result);
 
   return (
     <ScreenWrapper style={styles.containerCartPrincipal}>
@@ -55,7 +52,10 @@ export function Carrito_Screen({ navigation }) {
         </Montserrat_Text>
       </View>
 
-      <Modal_Dinamic textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}>
+      <Modal_Dinamic
+        disabled={userInfo ? false : true}
+        textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
+      >
         <View style={styles.containerBodyModalCart}>
           <Montserrat_Text style={styles.textBodyModalCart}>
             Confirmar Pedido ?
@@ -64,14 +64,16 @@ export function Carrito_Screen({ navigation }) {
             disabled={cartProducts.length === 0 || !isOnLine ? true : false}
             style={styles.pressableConfirmar}
             onPress={() => {
-              if (isLogged) {
+              if (userInfo) {
                 triggerPost({
                   order_date: formated_Date(),
                   order_products: cartProducts,
                   order_total: Total_Cart(cartProducts),
                 });
-                navigation.navigate("Orders");
-                dispatch(clearCart());
+                if (result.status === "fullfilled") {
+                  navigation.navigate("Orders");
+                  dispatch(clearCart());
+                }
               } else {
                 navigation.navigate("Usuarios");
               }
@@ -93,7 +95,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 35,
   },
-  flatListCartProducts: { marginTop: 20 },
+
+  flatListCartProducts: { marginTop: 20},
   containerChildrenCarProducts: { gap: 8 },
 
   containerTotalCart: {

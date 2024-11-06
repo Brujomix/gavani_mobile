@@ -8,6 +8,7 @@ import { ShadowBox_Wrapper } from "../../wrappers";
 const { width } = Dimensions.get("screen");
 
 export function Card_Order({ order }) {
+  
   return (
     <ShadowBox_Wrapper style={styles.shadowBox}>
       <View style={styles.containerInfoIden}>

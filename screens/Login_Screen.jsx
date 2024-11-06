@@ -6,6 +6,7 @@ import { paletOfColors } from "../utils/colors";
 const {width} = Dimensions.get("screen")
 
 export function Login_Screen({ navigation }) {
+  
   return (
     <ScreenWrapper>
       <View style={styles.containerLoginScreen}>

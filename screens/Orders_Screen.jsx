@@ -12,6 +12,7 @@ import { paletOfColors } from "../utils/colors";
 const { width } = Dimensions.get("screen");
 
 export function Orders_Screen({ route }) {
+
   const { dateNow } = route.params;
 
   const { data: orders, error, isLoading } = useGetOrdersQuery(dateNow);
@@ -27,7 +28,7 @@ export function Orders_Screen({ route }) {
           style={styles.flatListOrders}
           data={orders}
           keyExtractor={(item) => item.key}
-          renderItem={({ item }) => <Card_Order order={item} />}
+          renderItem={({ item}) => <Card_Order order={item} />}
           contentContainerStyle={styles.contianerChildrenFlat}
         />
       )}
