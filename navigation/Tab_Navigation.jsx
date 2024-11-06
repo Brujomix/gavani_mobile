@@ -8,12 +8,12 @@ import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { TotalProductCart } from "../utils/funtions";
 import { Stack_Navigation_Users } from "./Stack_Navigation_Users";
+import { formated_Date } from "../utils/formated_Date";
 
 const Tab = createBottomTabNavigator();
 
 export function Tab_Navigation() {
-
-  const {cartProducts} = useSelector(state=>state.Cart)
+  const { cartProducts } = useSelector((state) => state.Cart);
 
   return (
     <NavigationContainer>
@@ -55,6 +55,7 @@ export function Tab_Navigation() {
           }}
         />
         <Tab.Screen
+          initialParams={{ dateNow: formated_Date() }}
           name="Orders"
           component={Orders_Screen}
           options={{
@@ -90,7 +91,6 @@ export function Tab_Navigation() {
 }
 
 const styles = StyleSheet.create({
-  
   tabBarStyle: {
     padding: 8,
     height: 60,
