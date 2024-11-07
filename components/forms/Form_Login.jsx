@@ -8,6 +8,7 @@ import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
 import { useGetImageProfileQuery } from "../../services/app_Service";
+import { Icon_Dinamic } from "../../components";
 
 const { width } = Dimensions.get("screen");
 
@@ -15,10 +16,10 @@ export function Form_Login({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerLogin, resultLogin] = useLoginMutation();
-  
-  //console.warn("Fomr Login", resultLogin);
-  
+
   const [local_Id, setLocal_Id] = useState("");
+
+  const [rememberMe, setRememberMe] = useState(false);
 
   const { data, error } = useGetImageProfileQuery(local_Id);
 
@@ -97,9 +98,9 @@ export function Form_Login({ navigation }) {
               refresh_Token: refreshToken,
             })
           );
+
           navigation.navigate("Usuarios");
         }
-
         break;
       case "rejected":
         setErrors((pv) => ({
@@ -132,6 +133,26 @@ export function Form_Login({ navigation }) {
         onChange={(text) => checkPasswords(text)}
         error={errors.errorConfirmPassword}
       />
+      <View style={styles.containerRememberme}>
+        <Montserrat_Text>Recordarme ? </Montserrat_Text>
+        {rememberMe ? (
+          <Pressable_Dinamic onPress={() => setRememberMe(!rememberMe)}>
+            <Icon_Dinamic
+              name={"toggle_on"}
+              size={20}
+              color={paletOfColors.black}
+            />
+          </Pressable_Dinamic>
+        ) : (
+          <Pressable_Dinamic onPress={() => setRememberMe(!rememberMe)}>
+            <Icon_Dinamic
+              name={"toggle_off"}
+              size={20}
+              color={paletOfColors.black}
+            />
+          </Pressable_Dinamic>
+        )}
+      </View>
       <Pressable_Dinamic
         style={styles.pressableLogin}
         onPress={handlePressIniciar}
@@ -153,6 +174,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     gap: 18,
+  },
+  containerRememberme: {
+    flexDirection: "row",
+    alignSelf: "flex-end",
+    gap: 5,
   },
   pressableLogin: {
     width: width * 0.8,
