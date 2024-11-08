@@ -3,7 +3,7 @@ import { ScreenWrapper } from "../wrappers";
 
 const {width} = Dimensions.get("screen")
 
-export function Detail_Order_Screen({ navigation }) {
+export function Detail_Order_Screen({route, order}) {
   
   return (
     <ScreenWrapper>

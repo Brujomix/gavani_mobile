@@ -82,7 +82,7 @@ export function Form_Login({ navigation }) {
   useEffect(() => {
     switch (resultLogin.status) {
       case "fulfilled":
-        const { email, idToken, localId, refreshToken } = resultLogin.data;
+        const { email, idToken, localId } = resultLogin.data;
 
         //setLocal_Id(localId);
 
@@ -93,7 +93,6 @@ export function Form_Login({ navigation }) {
             //imageProfile: data[0].imageProfile,
             id_Token: idToken,
             local_Id: localId,
-            refresh_Token: refreshToken,
           })
         );
         navigation.navigate("Usuarios");

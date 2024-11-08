@@ -7,8 +7,12 @@ import { ShadowBox_Wrapper } from "../../wrappers";
 
 const { width } = Dimensions.get("screen");
 
-export function Card_Order({ order }) {
+export function Card_Order({ route }) {
   
+  const { order_iden } = route.params;
+
+  console.info("Order_Iden Order_Screen", order_iden);
+
   return (
     <ShadowBox_Wrapper style={styles.shadowBox}>
       <View style={styles.containerInfoIden}>
@@ -27,7 +31,11 @@ export function Card_Order({ order }) {
           </Montserrat_Text>
         </View>
         <Pressable_Dinamic onPress={() => console.log("ViewTicket")}>
-          <Icon_Dinamic name={"visibility"} size={30} color={paletOfColors.black} />
+          <Icon_Dinamic
+            name={"visibility"}
+            size={30}
+            color={paletOfColors.black}
+          />
         </Pressable_Dinamic>
       </View>
     </ShadowBox_Wrapper>

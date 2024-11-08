@@ -29,7 +29,7 @@ export function Carrito_Screen({ navigation }) {
     <ScreenWrapper style={styles.containerCartPrincipal}>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
 
-      {cartProducts.length === 0 ? (
+      {cartProducts?.length === 0 ? (
         <Montserrat_Text style={styles.textWithoutProducts}>
           Sin Productos En Carrito
         </Montserrat_Text>
@@ -53,7 +53,7 @@ export function Carrito_Screen({ navigation }) {
       </View>
       {userInfo ? (
         <View>
-          {cartProducts.length === 0 ? (
+          {cartProducts?.length === 0 ? (
             <Pressable_Dinamic
               style={styles.pressableConfirmar}
               onPress={() => navigation.navigate("HomePage")}

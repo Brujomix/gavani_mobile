@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Carrito_Screen, Orders_Screen } from "../screens";
+import { Carrito_Screen } from "../screens";
 import { Stack_Navigation_Home } from "./Stack_Navigation_Home";
 import { Icon_Dinamic, Business_OnLine } from "../components";
 import { paletOfColors } from "../utils/colors";
@@ -8,11 +8,12 @@ import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { TotalProductCart } from "../utils/funtions";
 import { Stack_Navigation_Users } from "./Stack_Navigation_Users";
-import { formated_Date } from "../utils/formated_Date";
+import { Stack_Navigation_Orders } from "./Stack_Navigation_Orders";
 
 const Tab = createBottomTabNavigator();
 
 export function Tab_Navigation() {
+  
   const { cartProducts } = useSelector((state) => state.Cart);
 
   return (
@@ -55,9 +56,8 @@ export function Tab_Navigation() {
           }}
         />
         <Tab.Screen
-          initialParams={{ dateNow: formated_Date() }}
           name="Orders"
-          component={Orders_Screen}
+          component={Stack_Navigation_Orders}
           options={{
             title: "",
             tabBarBadge: 0,

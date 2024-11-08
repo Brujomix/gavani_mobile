@@ -3,6 +3,7 @@ import { Home_Screen, Products_Filter_Screen } from "../screens";
 import { StyleSheet } from "react-native";
 import { paletOfColors } from "../utils/colors";
 import { Icon_Dinamic, Pressable_Dinamic } from "../components";
+
 const Stack = createNativeStackNavigator();
 
 export function Stack_Navigation_Home() {

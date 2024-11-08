@@ -10,33 +10,48 @@ import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Pr
 import { ScreenWrapper } from "../wrappers";
 import { useGetCategoriesQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createTable_User } from "../db/createTable";
+import { useEffect } from "react";
+import { fetchUser } from "../db/crudUsers";
+import { setUser } from "../redux/slices/usersSlice";
 
 const { width } = Dimensions.get("screen");
 
-/* createTableUser()
-  .then((res) => console.warn("tabla user ok", res))
-  .catch((error) => console.error("Error al Crear la Tabla User", error)); */
+createTable_User()
+  .then((res) => console.info("tabla user ok", res))
+  .catch((error) => console.error("Error al Crear la Tabla User", error));
 
 export function Home_Screen({ navigation }) {
-
-  //const { infoUser } = useSelector((state) => state.User);
+  const { infoUser } = useSelector((state) => state.User);
 
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
 
-  /* useEffect(() => {
-    if (infoUser) {
+  const dispatch = useDispatch();
+
+  console.warn("InfoUser desde Home", infoUser);
+
+  useEffect(() => {
+    if (!infoUser) {
       (async () => {
         try {
           const users = await fetchUser();
-          console.log(users);
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: users.email,
+              imageProfile: user.imageProfile,
+              id_Token: users.idToken,
+              local_Id: users.localId,
+            })
+          );
+          console.warn("Usuario resgistrados en DB", users);
         } catch (error) {
-          console.error("Error al Obtener Ussuarios", error);
+          console.info("No existen Usuarios en la Tabla", error);
         }
       })();
     }
-  }, [infoUser]); */
+  }, [infoUser]);
 
   return (
     <ScreenWrapper>
@@ -45,7 +60,7 @@ export function Home_Screen({ navigation }) {
       </Montserrat_Text>
 
       <View style={styles.containerCarousel}>
-        <Carousel_Favorites_Products navigation={navigation}/>
+        <Carousel_Favorites_Products navigation={navigation} />
       </View>
 
       <Montserrat_Text style={styles.titleText}>

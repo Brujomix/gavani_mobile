@@ -19,10 +19,10 @@ export function Card_Favorite_Product({ favoriteProduct, navigation }) {
       }
       style={styles.pressableProduct}
     >
-      <ShadowBox_Wrapper>
+      <ShadowBox_Wrapper style={styles.containerShadowBox}>
         <Image_Dianamic
           styleImage={styles.styleImage}
-          uriURL={"/"}
+          uriURL={favoriteProduct.pro_url_image}
           altProp={`Imagen Producto ${favoriteProduct.pro_name}`}
         />
         <Montserrat_Text style={styles.textPro_name}>
@@ -35,7 +35,12 @@ export function Card_Favorite_Product({ favoriteProduct, navigation }) {
 
 const styles = StyleSheet.create({
   styleImage: { width: 180, height: 180 },
-  pressableProduct: { width: width * 0.95 },
+  pressableProduct: {
+    width: width * 0.95,
+  },
+  containerShadowBox: {
+    borderRadius: 15,
+  },
   textPro_name: {
     fontSize: 25,
     alignSelf: "center",

@@ -13,13 +13,13 @@ const styles = StyleSheet.create({
   containerShadowBox: {
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: paletOfColors.black,
+    shadowColor: paletOfColors.white,
     shadowOffset: {
-      width: 0,
+      width: 2,
       height: 2,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 1,
   },
 });

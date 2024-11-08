@@ -106,7 +106,7 @@ export function Form_Register({ navigation }) {
   useEffect(() => {
     switch (resultRegister.status) {
       case "fulfilled":
-        const { email, idToken, localId, refreshToken } = resultRegister.data;
+        const { email, idToken, localId } = resultRegister.data;
 
         triggerPostImage({
           localID: localId,
@@ -121,7 +121,7 @@ export function Form_Register({ navigation }) {
               imageProfile: resultImage.originalArgs.imageProfile,
               id_Token: idToken,
               local_Id: localId,
-              refresh_Token: refreshToken,
+             
             })
           )
           navigation.navigate("Usuarios");

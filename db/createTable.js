@@ -1,16 +1,25 @@
 import { db } from ".";
 
 export const createTable_User = () => {
-  const promise = new Promise((resolve, reject) => {
-    const query = `CREATE TABLE IF NOT EXISTS user (localId TEXT PRIMARY KEY NOT NULL, email TEXT NOT NULL, token TEXT NOT NULL)`;
+  const query = `
+    CREATE TABLE IF NOT EXISTS users (
+      local_Id TEXT PRIMARY KEY NOT NULL, 
+      email TEXT NOT NULL, 
+      id_Token TEXT NOT NULL, 
+      isLogged INTEGER NOT NULL, 
+      imageProfile BLOB
+    )
+  `;
+
+  return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         query,
         [],
         (_, result) => resolve(result),
-        (_, result) => reject(result)
+        (_, error) => reject(error)
       );
     });
   });
-  return promise;
 };
+
