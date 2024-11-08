@@ -17,11 +17,10 @@ export function Form_Login({ navigation }) {
 
   const [triggerLogin, resultLogin] = useLoginMutation();
 
-  const [local_Id, setLocal_Id] = useState("");
+  //const [local_Id, setLocal_Id] = useState("");
+  //const { data, error } = useGetImageProfileQuery(local_Id);
 
   const [rememberMe, setRememberMe] = useState(false);
-
-  const { data, error } = useGetImageProfileQuery(local_Id);
 
   const handlePressIniciar = () => {
     const { email, password } = datosUser;
@@ -85,22 +84,22 @@ export function Form_Login({ navigation }) {
       case "fulfilled":
         const { email, idToken, localId, refreshToken } = resultLogin.data;
 
-        setLocal_Id(localId);
+        //setLocal_Id(localId);
 
-        if (data.length !== 0) {
-          dispatch(
-            setUser({
-              isLogged: true,
-              email: email,
-              imageProfile: data[0].imageProfile,
-              id_Token: idToken,
-              local_Id: localId,
-              refresh_Token: refreshToken,
-            })
-          );
+        dispatch(
+          setUser({
+            isLogged: true,
+            email: email,
+            //imageProfile: data[0].imageProfile,
+            id_Token: idToken,
+            local_Id: localId,
+            refresh_Token: refreshToken,
+          })
+        );
+        navigation.navigate("Usuarios");
+        /*if (data?.length !== 0) {
 
-          navigation.navigate("Usuarios");
-        }
+        } */
         break;
       case "rejected":
         setErrors((pv) => ({
@@ -133,26 +132,33 @@ export function Form_Login({ navigation }) {
         onChange={(text) => checkPasswords(text)}
         error={errors.errorConfirmPassword}
       />
-      <View style={styles.containerRememberme}>
-        <Montserrat_Text>Recordarme ? </Montserrat_Text>
-        {rememberMe ? (
-          <Pressable_Dinamic onPress={() => setRememberMe(!rememberMe)}>
-            <Icon_Dinamic
-              name={"toggle_on"}
-              size={20}
-              color={paletOfColors.black}
-            />
-          </Pressable_Dinamic>
-        ) : (
-          <Pressable_Dinamic onPress={() => setRememberMe(!rememberMe)}>
-            <Icon_Dinamic
-              name={"toggle_off"}
-              size={20}
-              color={paletOfColors.black}
-            />
-          </Pressable_Dinamic>
-        )}
-      </View>
+
+      {rememberMe ? (
+        <Pressable_Dinamic
+          style={styles.containerRememberme}
+          onPress={() => setRememberMe(!rememberMe)}
+        >
+          <Montserrat_Text>Recordarme </Montserrat_Text>
+          <Icon_Dinamic
+            name={"check-box"}
+            size={20}
+            color={paletOfColors.black}
+          />
+        </Pressable_Dinamic>
+      ) : (
+        <Pressable_Dinamic
+          style={styles.containerRememberme}
+          onPress={() => setRememberMe(!rememberMe)}
+        >
+          <Montserrat_Text>Recordarme </Montserrat_Text>
+          <Icon_Dinamic
+            name={"check-box-outline-blank"}
+            size={20}
+            color={paletOfColors.black}
+          />
+        </Pressable_Dinamic>
+      )}
+
       <Pressable_Dinamic
         style={styles.pressableLogin}
         onPress={handlePressIniciar}

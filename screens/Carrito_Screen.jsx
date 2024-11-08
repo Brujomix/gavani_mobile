@@ -51,40 +51,64 @@ export function Carrito_Screen({ navigation }) {
           $ {Total_Cart(cartProducts).toLocaleString("de-DE")}
         </Montserrat_Text>
       </View>
-
-      <Modal_Dinamic
-        disabled={userInfo ? false : true}
-        textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
-      >
-        <View style={styles.containerBodyModalCart}>
-          <Montserrat_Text style={styles.textBodyModalCart}>
-            Confirmar Pedido ?
-          </Montserrat_Text>
-          <Pressable_Dinamic
-            disabled={cartProducts.length === 0 || !isOnLine ? true : false}
-            style={styles.pressableConfirmar}
-            onPress={() => {
-              if (userInfo) {
-                triggerPost({
-                  order_date: formated_Date(),
-                  order_products: cartProducts,
-                  order_total: Total_Cart(cartProducts),
-                });
-                if (result.status === "fullfilled") {
-                  navigation.navigate("Orders");
-                  dispatch(clearCart());
-                }
-              } else {
-                navigation.navigate("Usuarios");
-              }
-            }}
-          >
-            <Montserrat_Text style={styles.textConfirButton}>
-              Confirmar
-            </Montserrat_Text>
-          </Pressable_Dinamic>
+      {userInfo ? (
+        <View>
+          {cartProducts.length === 0 ? (
+            <Pressable_Dinamic
+              style={styles.pressableConfirmar}
+              onPress={() => navigation.navigate("HomePage")}
+            >
+              <Montserrat_Text style={styles.textConfirButton}>
+                Ver Productos
+              </Montserrat_Text>
+            </Pressable_Dinamic>
+          ) : (
+            <Modal_Dinamic
+              textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
+            >
+              <View style={styles.containerBodyModalCart}>
+                <Montserrat_Text style={styles.textBodyModalCart}>
+                  Confirmar Pedido ?
+                </Montserrat_Text>
+                <Pressable_Dinamic
+                  disabled={
+                    cartProducts?.length === 0 || !isOnLine ? true : false
+                  }
+                  style={styles.pressableConfirmar}
+                  onPress={() => {
+                    if (userInfo) {
+                      triggerPost({
+                        order_date: formated_Date(),
+                        order_products: cartProducts,
+                        order_total: Total_Cart(cartProducts),
+                      });
+                      if (result.status === "fullfilled") {
+                        navigation.navigate("Orders");
+                        dispatch(clearCart());
+                      }
+                    } else {
+                      navigation.navigate("Usuarios");
+                    }
+                  }}
+                >
+                  <Montserrat_Text style={styles.textConfirButton}>
+                    Confirmar
+                  </Montserrat_Text>
+                </Pressable_Dinamic>
+              </View>
+            </Modal_Dinamic>
+          )}
         </View>
-      </Modal_Dinamic>
+      ) : (
+        <Pressable_Dinamic
+          style={styles.pressableConfirmar}
+          onPress={() => navigation.navigate("Usuarios")}
+        >
+          <Montserrat_Text style={styles.textConfirButton}>
+            Iniciar Session
+          </Montserrat_Text>
+        </Pressable_Dinamic>
+      )}
     </ScreenWrapper>
   );
 }
@@ -96,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
 
-  flatListCartProducts: { marginTop: 20},
+  flatListCartProducts: { marginTop: 20 },
   containerChildrenCarProducts: { gap: 8 },
 
   containerTotalCart: {

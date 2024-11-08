@@ -10,13 +10,34 @@ import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Pr
 import { ScreenWrapper } from "../wrappers";
 import { useGetCategoriesQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
+import { useSelector } from "react-redux";
+import { createTable_User } from "../db/createTable";
 
 const { width } = Dimensions.get("screen");
 
+/* createTableUser()
+  .then((res) => console.warn("tabla user ok", res))
+  .catch((error) => console.error("Error al Crear la Tabla User", error)); */
+
 export function Home_Screen({ navigation }) {
 
+  //const { infoUser } = useSelector((state) => state.User);
+
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
- 
+
+  /* useEffect(() => {
+    if (infoUser) {
+      (async () => {
+        try {
+          const users = await fetchUser();
+          console.log(users);
+        } catch (error) {
+          console.error("Error al Obtener Ussuarios", error);
+        }
+      })();
+    }
+  }, [infoUser]); */
+
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleText}>
