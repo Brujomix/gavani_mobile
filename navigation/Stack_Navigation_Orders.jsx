@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Detail_Order_Screen, Orders_Screen} from "../screens";
+import { Detail_Order_Screen, Orders_Screen } from "../screens";
 import { StyleSheet } from "react-native";
 import { paletOfColors } from "../utils/colors";
 import { Pressable_Dinamic, Icon_Dinamic } from "../components";
@@ -11,7 +11,7 @@ export function Stack_Navigation_Orders() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-      initialParams={{ dateNow: formated_Date() }}
+        initialParams={{ dateNow: formated_Date() }}
         name="Orders"
         options={{
           title: "Mis Ordenes",
@@ -32,7 +32,7 @@ export function Stack_Navigation_Orders() {
         component={Orders_Screen}
       />
       <Stack.Screen
-        name="Detalle Orden"
+        name="Detail Order"
         options={{
           title: "OrdersDetail",
           headerTitleStyle: styles.textHeaderStack,

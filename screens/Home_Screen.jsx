@@ -40,7 +40,7 @@ export function Home_Screen({ navigation }) {
             setUser({
               isLogged: true,
               email: users.email,
-              imageProfile: user.imageProfile,
+              //imageProfile: user.imageProfile,
               id_Token: users.idToken,
               local_Id: users.localId,
             })
@@ -55,7 +55,7 @@ export function Home_Screen({ navigation }) {
 
   return (
     <ScreenWrapper>
-      <Montserrat_Text style={styles.titleText}>
+      <Montserrat_Text style={styles.titleFavoriteProducts}>
         Productos Seleccionados
       </Montserrat_Text>
 
@@ -63,7 +63,7 @@ export function Home_Screen({ navigation }) {
         <Carousel_Favorites_Products navigation={navigation} />
       </View>
 
-      <Montserrat_Text style={styles.titleText}>
+      <Montserrat_Text style={styles.titleFavoriteProducts}>
         Nuestras Categorias
       </Montserrat_Text>
 
@@ -95,15 +95,19 @@ export function Home_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerCarousel: {
-    height: 250,
+    height: 210,
   },
   flatCategories: { width: width * 0.98 },
   footerListCategories: {
     marginBottom: 80,
   },
-  titleText: {
-    marginVertical: 10,
-    fontSize: 25,
+  titleFavoriteProducts: {
+    marginVertical: 12,
+    fontSize: 22,
+    backgroundColor:paletOfColors.black,
+    color:paletOfColors.white,
     alignSelf: "center",
+    padding:12,
+    borderRadius:12
   },
 });

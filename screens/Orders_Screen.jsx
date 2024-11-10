@@ -31,7 +31,7 @@ export function Orders_Screen({ route, navigation }) {
               </Montserrat_Text>
               <Pressable_Dinamic
                 style={styles.pressableSeeProducts}
-                onPress={() => navigation.navigate("HomePage")}
+                onPress={() => navigation.navigate("Stack Home")}
               >
                 <Montserrat_Text style={styles.textSeeProducts}>
                   Ver Productos

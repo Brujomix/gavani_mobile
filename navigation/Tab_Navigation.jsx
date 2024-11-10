@@ -19,14 +19,14 @@ export function Tab_Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="HomePage"
+        initialRouteName="Stack Home"
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
           header: () => <Business_OnLine />,
         }}
       >
         <Tab.Screen
-          name="HomePage"
+          name="Stack Home"
           component={Stack_Navigation_Home}
           options={{
             title: "",
@@ -56,7 +56,7 @@ export function Tab_Navigation() {
           }}
         />
         <Tab.Screen
-          name="Orders"
+          name="Stack Orders"
           component={Stack_Navigation_Orders}
           options={{
             title: "",
@@ -72,7 +72,7 @@ export function Tab_Navigation() {
         />
 
         <Tab.Screen
-          name="Usuarios"
+          name="Stack Users"
           component={Stack_Navigation_Users}
           options={{
             title: "",

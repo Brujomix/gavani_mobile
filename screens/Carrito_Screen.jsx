@@ -56,7 +56,7 @@ export function Carrito_Screen({ navigation }) {
           {cartProducts?.length === 0 ? (
             <Pressable_Dinamic
               style={styles.pressableConfirmar}
-              onPress={() => navigation.navigate("HomePage")}
+              onPress={() => navigation.navigate("Stack Home")}
             >
               <Montserrat_Text style={styles.textConfirButton}>
                 Ver Productos
@@ -102,7 +102,7 @@ export function Carrito_Screen({ navigation }) {
       ) : (
         <Pressable_Dinamic
           style={styles.pressableConfirmar}
-          onPress={() => navigation.navigate("Usuarios")}
+          onPress={() => navigation.navigate("Stack Users")}
         >
           <Montserrat_Text style={styles.textConfirButton}>
             Iniciar Session

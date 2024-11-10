@@ -6,8 +6,9 @@ export function ScreenWrapper({ children, style }) {
   return (
     <View style={[styles.containerPrincipal, style]}>
       <LinearGradient
-        colors={[paletOfColors.darkGray, paletOfColors.white]}
-        style={StyleSheet.absoluteFillObject} // Hace que el gradiente cubra toda la pantalla
+        colors={[paletOfColors.lightGray, paletOfColors.white]}
+        style={StyleSheet.absoluteFillObject} 
+        // Hace que el gradiente cubra toda la pantalla
       />
       {children}
     </View>
