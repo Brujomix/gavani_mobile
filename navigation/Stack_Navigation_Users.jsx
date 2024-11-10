@@ -10,8 +10,9 @@ const Stack = createNativeStackNavigator();
 export function Stack_Navigation_Users() {
 
   const { userInfo } = useSelector((state) => state.User);
-  //console.warn("Log desde stack user", userInfo);
-  
+
+  console.info(`user Info desde Stack Users, ${userInfo}`);
+
   return (
     <>
       {userInfo ? (

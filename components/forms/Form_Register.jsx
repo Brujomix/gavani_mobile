@@ -10,7 +10,7 @@ import * as ImagePiker from "expo-image-picker";
 import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
-import { usePostImageProfileMutation } from "../../services/app_Service";
+import { addUser, clearUser } from "../../db/crudUsers";
 
 const { width } = Dimensions.get("screen");
 
@@ -18,10 +18,8 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
-  const [triggerPostImage, resultImage] = usePostImageProfileMutation();
 
-  //console.warn("result de REGISTER", resultRegister);
-  //console.warn("result de IMAGE", resultImage);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const [errors, setErrors] = useState({
     errorEmail: "",
@@ -48,10 +46,14 @@ export function Form_Register({ navigation }) {
         quality: 0.5,
       });
 
-      setDatosUser((pv) => ({
-        ...pv,
-        imageProfile: `data:image/jpg;base64,${cameraData.assets[0].base64}`,
-      }));
+      if (cameraData.assets[0]?.base64) {
+        setDatosUser((pv) => ({
+          ...pv,
+          imageProfile: `data:image/jpg;base64,${cameraData.assets[0].base64}`,
+        }));
+      } else {
+        setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
+      }
     } else {
       setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
     }
@@ -104,30 +106,48 @@ export function Form_Register({ navigation }) {
   };
 
   useEffect(() => {
-    switch (resultRegister.status) {
-      case "fulfilled":
+    switch (resultRegister.isSuccess) {
+      
+      case true:
         const { email, idToken, localId } = resultRegister.data;
 
-        triggerPostImage({
-          localID: localId,
-          imageProfile: datosUser.imageProfile,
-        });
+        //Borrar La Tabla User
+        clearUser()
+          .then((_) => console.info("Tabla User Vacías"))
+          .catch((err) =>
+            console.error(`Error al Limpiar la tabla de users`, err)
+          );
 
-        if (resultImage.status === "fulfilled") {
-          dispatch(
-            setUser({
-              isLogged: true,
-              email: email,
-              imageProfile: resultImage.originalArgs.imageProfile,
-              id_Token: idToken,
-              local_Id: localId,
-             
+        //Cargamos usuario en reduc sin persistencia
+        dispatch(
+          setUser({
+            isLogged: true,
+            email: email,
+            imageProfile: datosUser.imageProfile,
+            id_Token: idToken,
+            local_Id: localId,
+          })
+        );
+
+        //Verificar Persistencia
+        if (rememberMe) {
+          //Agregar el User a la Tabla
+          addUser({
+            isLogged: true,
+            email: email,
+            imageProfile: datosUser.imageProfile,
+            id_Token: idToken,
+            local_Id: localId,
+          })
+            .then((res) => {
+              console.info(`Uasuario Insertado con Exito`, res);
             })
-          )
-          navigation.navigate("Usuarios");
+            .catch(console.error(`Error al Insertar user en la tabla`, err));
         }
+
+        navigation.navigate("Stack Home");
         break;
-      case "rejected":
+      case false:
         setErrors((pv) => ({
           ...pv,
           errorRegister: "Revisa Tus Credenciales",
@@ -150,20 +170,50 @@ export function Form_Register({ navigation }) {
       </Pressable_Dinamic>
 
       <Input_Text
+        iconName={"email"}
         label={"Email"}
         onChange={(text) => checkEmail(text)}
         error={errors.errorEmail}
       />
       <Input_Text
+        iconName={"password"}
+        isSecure={true}
         label={"Password"}
         onChange={(text) => checkPassword(text)}
         error={errors.errorPassword}
       />
       <Input_Text
+        iconName={"password"}
+        isSecure={true}
         label={"Confirmar Password"}
         onChange={(text) => checkPasswords(text)}
         error={errors.errorConfirmPassword}
       />
+      {rememberMe ? (
+        <Pressable_Dinamic
+          style={styles.containerRememberme}
+          onPress={() => setRememberMe(!rememberMe)}
+        >
+          <Montserrat_Text>Recordarme </Montserrat_Text>
+          <Icon_Dinamic
+            name={"check-box"}
+            size={20}
+            color={paletOfColors.black}
+          />
+        </Pressable_Dinamic>
+      ) : (
+        <Pressable_Dinamic
+          style={styles.containerRememberme}
+          onPress={() => setRememberMe(!rememberMe)}
+        >
+          <Montserrat_Text>Recordarme </Montserrat_Text>
+          <Icon_Dinamic
+            name={"check-box-outline-blank"}
+            size={20}
+            color={paletOfColors.black}
+          />
+        </Pressable_Dinamic>
+      )}
 
       <Pressable_Dinamic
         style={styles.pressableRegister}
@@ -201,6 +251,11 @@ const styles = StyleSheet.create({
     borderColor: paletOfColors.black,
     padding: 2,
     backgroundColor: paletOfColors.lightGray,
+  },
+  containerRememberme: {
+    flexDirection: "row",
+    alignSelf: "flex-end",
+    gap: 5,
   },
   textPressableRegister: {
     fontSize: 18,

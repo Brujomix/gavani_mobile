@@ -23,35 +23,35 @@ createTable_User()
   .catch((error) => console.error("Error al Crear la Tabla User", error));
 
 export function Home_Screen({ navigation }) {
-  const { infoUser } = useSelector((state) => state.User);
+  const { userInfo } = useSelector((state) => state.User);
 
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
 
   const dispatch = useDispatch();
 
-  console.warn("InfoUser desde Home", infoUser);
+  console.warn("InfoUser desde Home", userInfo);
+
+  const checkUserDatabase = async () => {
+    const users = await fetchUser();
+    return users.rows;
+  };
 
   useEffect(() => {
-    if (!infoUser) {
+    
+      
       (async () => {
-        try {
-          const users = await fetchUser();
-          dispatch(
-            setUser({
-              isLogged: true,
-              email: users.email,
-              //imageProfile: user.imageProfile,
-              id_Token: users.idToken,
-              local_Id: users.localId,
-            })
-          );
-          console.warn("Usuario resgistrados en DB", users);
-        } catch (error) {
-          console.info("No existen Usuarios en la Tabla", error);
-        }
+        
+          const resp =  await checkUserDatabase()
+          
+
+
+            console.warn("No existen usuarios en DB", resp);
+            
+        
       })();
-    }
-  }, [infoUser]);
+  
+    
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
   titleFavoriteProducts: {
     marginVertical: 12,
     fontSize: 22,
-    backgroundColor:paletOfColors.black,
-    color:paletOfColors.white,
+    backgroundColor: paletOfColors.black,
+    color: paletOfColors.white,
     alignSelf: "center",
-    padding:12,
-    borderRadius:12
+    padding: 12,
+    borderRadius: 12,
   },
 });

@@ -17,6 +17,7 @@ export function Form_Login({ navigation }) {
 
   const [triggerLogin, resultLogin] = useLoginMutation();
 
+  /* TRaer la imagen de Realtime Database */
   //const [local_Id, setLocal_Id] = useState("");
   //const { data, error } = useGetImageProfileQuery(local_Id);
 
@@ -95,7 +96,7 @@ export function Form_Login({ navigation }) {
             local_Id: localId,
           })
         );
-        navigation.navigate("Usuarios");
+        navigation.navigate("Stack Users");
         /*if (data?.length !== 0) {
 
         } */
@@ -115,6 +116,7 @@ export function Form_Login({ navigation }) {
   return (
     <View style={styles.containerLogin}>
       <Input_Text
+        iconName={"email"}
         label={"Email"}
         onChange={(text) => {
           checkEmail(text);
@@ -122,11 +124,15 @@ export function Form_Login({ navigation }) {
         error={errors.errorEmail}
       />
       <Input_Text
+        iconName={"password"}
+        isSecure={true}
         label={"Password"}
         onChange={(text) => checkPassword(text)}
         error={errors.errorPassword}
       />
       <Input_Text
+        iconName={"password"}
+        isSecure={true}
         label={"Confirmar Password"}
         onChange={(text) => checkPasswords(text)}
         error={errors.errorConfirmPassword}

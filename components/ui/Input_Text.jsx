@@ -2,8 +2,9 @@ import { View, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Montserrat_Text } from "./Montserrat_Text";
 import { paletOfColors } from "../../utils/colors";
+import { Icon_Dinamic } from "./Icon_Dinamic";
 
-export function Input_Text({ label, onChange, error = "", isSecure = false }) {
+export function Input_Text({ label, onChange, error = "", isSecure = false, iconName }) {
   const [input, setInput] = useState("");
   const onChangeText = (text) => {
     setInput(text);
@@ -12,12 +13,15 @@ export function Input_Text({ label, onChange, error = "", isSecure = false }) {
   return (
     <View style={styles.inputContainer}>
       <Montserrat_Text style={styles.label}>{label}</Montserrat_Text>
-      <TextInput
-        style={styles.input}
-        value={input}
-        onChangeText={onChangeText}
-        secureTextEntry={isSecure}
-      />
+      <View style={styles.containerInputIcon}>
+        <Icon_Dinamic name={iconName} size={20} />
+        <TextInput
+          style={styles.input}
+          value={input}
+          onChangeText={onChangeText}
+          secureTextEntry={isSecure}
+        />
+      </View>
       {error ? (
         <Montserrat_Text style={styles.error}>{error}</Montserrat_Text>
       ) : null}
@@ -27,18 +31,25 @@ export function Input_Text({ label, onChange, error = "", isSecure = false }) {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    width:"100%",
+    width: "100%",
+  },
+  containerInputIcon: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "baseline",
+    gap: 20,
   },
   label: {
     fontSize: 22,
   },
   input: {
+    width:"80%",
     borderBottomWidth: 2,
     borderBottomColor: paletOfColors.darkGray,
     padding: 5,
     fontSize: 22,
-    color:paletOfColors.black
-    
+    color: paletOfColors.black,
   },
   error: {
     fontSize: 16,

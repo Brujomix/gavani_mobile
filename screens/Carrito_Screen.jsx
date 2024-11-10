@@ -51,7 +51,7 @@ export function Carrito_Screen({ navigation }) {
           $ {Total_Cart(cartProducts).toLocaleString("de-DE")}
         </Montserrat_Text>
       </View>
-      {userInfo ? (
+      {!userInfo ? (
         <View>
           {cartProducts?.length === 0 ? (
             <Pressable_Dinamic

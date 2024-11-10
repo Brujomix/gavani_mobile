@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/usersSlice";
 import { paletOfColors } from "../utils/colors";
+import { clearUser } from "../db/crudUsers";
 
 const { width } = Dimensions.get("screen");
 
@@ -38,7 +39,17 @@ export function Profile_Screen({ navigation }) {
               style={styles.pressableConfirmLogOut}
               onPress={() => {
                 dispatch(setUser(null));
-                navigation.navigate("HomePage");
+                clearUser()
+                  .then((_) =>
+                    console.info("Borramos Tabla User Profile Screen")
+                  )
+                  .catch((err) =>
+                    console.error(
+                      `Error al Borrar tabla User Profile Screen`,
+                      err
+                    )
+                  );
+                navigation.navigate("Stack Home");
               }}
             >
               <Montserrat_Text style={styles.textConfirButtonLogOut}>
@@ -50,7 +61,7 @@ export function Profile_Screen({ navigation }) {
         <Pressable_Dinamic
           style={styles.pressableSeeProducts}
           onPress={() => {
-            navigation.navigate("HomePage");
+            navigation.navigate("Stack Home");
           }}
         >
           <Montserrat_Text style={styles.textPressableSeeProducts}>
