@@ -1,20 +1,15 @@
 import { db } from ".";
-import { convertBase64ToBlob } from "../utils/convertToBlob";
 
 export const addUser = (newUser) => {
+  const { local_Id, email, id_Token, imageProfile, isLogged } = newUser;
 
-  const { email, localId, token, imageProfileBase64 } = newUser;
-
-  const query = `INSERT INTO users (email, local_Id, id_Token, imageProfile) VALUES (?, ?, ?, ?)`;
+  const query = `INSERT INTO users ( local_Id, email, id_Token, imageProfile, isLogged) VALUES (?, ?, ?, ?, ?)`;
 
   return new Promise((resolve, reject) => {
-
-    const imageBlob = convertBase64ToBlob(imageProfileBase64);
-
     db.transaction((tx) => {
       tx.executeSql(
         query,
-        [email, localId, token, imageBlob],
+        [local_Id, email, id_Token, imageProfile, isLogged],
         (_, result) => resolve(result),
         (_, error) => reject(error)
       );

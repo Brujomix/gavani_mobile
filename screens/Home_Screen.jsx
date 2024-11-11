@@ -19,7 +19,7 @@ import { setUser } from "../redux/slices/usersSlice";
 const { width } = Dimensions.get("screen");
 
 createTable_User()
-  .then((res) => console.info("tabla user ok", res))
+  .then((res) => console.info("Tabla User Creada", res))
   .catch((error) => console.error("Error al Crear la Tabla User", error));
 
 export function Home_Screen({ navigation }) {
@@ -29,29 +29,32 @@ export function Home_Screen({ navigation }) {
 
   const dispatch = useDispatch();
 
-  console.warn("InfoUser desde Home", userInfo);
-
   const checkUserDatabase = async () => {
     const users = await fetchUser();
     return users.rows;
   };
 
   useEffect(() => {
-    
-      
-      (async () => {
-        
-          const resp =  await checkUserDatabase()
-          
-
-
-            console.warn("No existen usuarios en DB", resp);
-            
-        
-      })();
-  
-    
-  }, []);
+    (async () => {
+      const resp = await checkUserDatabase();
+      if (resp._array?.length === 0) {
+        console.warn("No existen usuarios en DB", resp._array);
+      } else {
+        const { email, localId, idToken, imageProfile, isLogged } = resp._array[0];
+        const isLoggedUser = isLogged === 1 ? true : false
+        dispatch(
+          setUser({
+            isLogged: isLoggedUser,
+            email: email,
+            imageProfile: imageProfile,
+            id_Token: idToken,
+            local_Id: localId,
+          })
+        );
+        console.warn("Existe un usuaro en la DB", resp._array);
+      }
+    })();
+  }, [userInfo]);
 
   return (
     <ScreenWrapper>

@@ -10,7 +10,8 @@ import * as ImagePiker from "expo-image-picker";
 import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
-import { addUser, clearUser } from "../../db/crudUsers";
+import { addUser } from "../../db/crudUsers";
+import { usePostImageProfileMutation } from "../../services/app_Service";
 
 const { width } = Dimensions.get("screen");
 
@@ -18,6 +19,7 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
+  const [triggerPostImage, resultPostImage] = usePostImageProfileMutation();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -63,6 +65,7 @@ export function Form_Register({ navigation }) {
     const { email, password } = datosUser;
 
     triggerRegistration({ email, password });
+
   };
 
   const checkPasswords = (text) => {
@@ -107,42 +110,45 @@ export function Form_Register({ navigation }) {
 
   useEffect(() => {
     switch (resultRegister.isSuccess) {
-      
       case true:
         const { email, idToken, localId } = resultRegister.data;
 
-        //Borrar La Tabla User
-        clearUser()
-          .then((_) => console.info("Tabla User Vacías"))
-          .catch((err) =>
-            console.error(`Error al Limpiar la tabla de users`, err)
+        if (resultPostImage.isSuccess && rememberMe) {
+          console.error(resultPostImage.isSuccess, rememberMe);
+          
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: email,
+              imageProfile: datosUser.imageProfile,
+              id_Token: idToken,
+              local_Id: localId,
+            })
           );
-
-        //Cargamos usuario en reduc sin persistencia
+          addUser({
+            isLogged: 1,
+            email: email,
+            id_Token: idToken,
+            imageProfile: datosUser.imageProfile,
+            local_Id: localId,
+          })
+          .then((res) => {
+            console.info(`Uasuario Insertado con Exito`, res);
+          })
+          .catch((err) =>
+            console.error(`Error al Insertar user en la tabla`, err)
+        );
+      } else {
+        console.error(resultPostImage.isSuccess, rememberMe);
         dispatch(
           setUser({
-            isLogged: true,
-            email: email,
-            imageProfile: datosUser.imageProfile,
-            id_Token: idToken,
-            local_Id: localId,
-          })
-        );
-
-        //Verificar Persistencia
-        if (rememberMe) {
-          //Agregar el User a la Tabla
-          addUser({
-            isLogged: true,
-            email: email,
-            imageProfile: datosUser.imageProfile,
-            id_Token: idToken,
-            local_Id: localId,
-          })
-            .then((res) => {
-              console.info(`Uasuario Insertado con Exito`, res);
+              isLogged: true,
+              email: email,
+              imageProfile: datosUser.imageProfile,
+              id_Token: idToken,
+              local_Id: localId,
             })
-            .catch(console.error(`Error al Insertar user en la tabla`, err));
+          );
         }
 
         navigation.navigate("Stack Home");

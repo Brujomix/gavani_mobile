@@ -6,8 +6,8 @@ export const createTable_User = () => {
       local_Id TEXT PRIMARY KEY NOT NULL, 
       email TEXT NOT NULL, 
       id_Token TEXT NOT NULL, 
-      isLogged INTEGER NOT NULL, 
-      imageProfile BLOB
+      imageProfile TEXT,
+      isLogged INTEGER NOT NULL
     )
   `;
 
