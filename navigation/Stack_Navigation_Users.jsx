@@ -18,7 +18,7 @@ export function Stack_Navigation_Users() {
       {userInfo ? (
         <Stack.Navigator>
           <Stack.Screen
-            name="Perfil"
+            name="Profile"
             options={{
               title: "Perfil",
               headerTitleStyle: styles.textHeaderStack,

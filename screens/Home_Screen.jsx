@@ -33,17 +33,29 @@ export function Home_Screen({ navigation }) {
     if (!userInfo) {
       (async () => {
         try {
-          const resp = await fetchUser()
+          const resp = await fetchUser();
           if (resp.rows._array?.length !== 0) {
-            const {email, local_Id, isLogged, id_Token, imageProfile} = resp.rows._array[0]
-            const logged = isLogged === 1 ? true : false
-            
+            const { email, local_Id, isLogged, id_Token, imageProfile } =
+              resp.rows._array[0];
+            const logged = isLogged === 1 ? true : false;
+            dispatch(
+              setUser({
+                isLogged: logged,
+                email: email,
+                imageProfile: imageProfile,
+                id_Token: id_Token,
+                local_Id: local_Id,
+              })
+            );
+          } else {
+            dispatch(setUser(null));
           }
-          console.info(`Usuarios en base de datos Home`, resp.rows._array.length);
-          
+          console.info(
+            `Usuarios en base de datos Home`,
+            resp.rows._array.length
+          );
         } catch (error) {
           console.info(`Error Al Obtener Usuarios DB Home`, error);
-          
         }
       })();
     }

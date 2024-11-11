@@ -49,7 +49,7 @@ export function Profile_Screen({ navigation }) {
                       err
                     )
                   );
-                navigation.navigate("Perfil");
+                navigation.navigate("Stack Users");
               }}
             >
               <Montserrat_Text style={styles.textConfirButtonLogOut}>

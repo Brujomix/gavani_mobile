@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
 import { useGetImageProfileQuery } from "../../services/app_Service";
 import { Icon_Dinamic } from "../../components";
+import { addUser } from "../../db/crudUsers";
 
 const { width } = Dimensions.get("screen");
 
@@ -17,9 +18,10 @@ export function Form_Login({ navigation }) {
 
   const [triggerLogin, resultLogin] = useLoginMutation();
 
-  /* TRaer la imagen de Realtime Database */
-  //const [local_Id, setLocal_Id] = useState("");
-  //const { data, error } = useGetImageProfileQuery(local_Id);
+  /* Traer la imagen de Realtime Database segun IdLogin */
+  const [local_Id, setLocal_Id] = useState("");
+
+  const { data, error } = useGetImageProfileQuery(local_Id);
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -81,37 +83,51 @@ export function Form_Login({ navigation }) {
   };
 
   useEffect(() => {
-    switch (resultLogin.status) {
-      case "fulfilled":
+  
+      if (resultLogin.isSuccess) {
+        
         const { email, idToken, localId } = resultLogin.data;
 
-        //setLocal_Id(localId);
+        setLocal_Id(localId);
 
-        dispatch(
-          setUser({
+        if (data?.length !== 0 && rememberMe) {
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: email,
+              imageProfile: data[0].imageProfile,
+              id_Token: idToken,
+              local_Id: localId,
+            })
+          );
+          addUser({
             isLogged: true,
             email: email,
-            //imageProfile: data[0].imageProfile,
+            imageProfile: data[0].imageProfile,
             id_Token: idToken,
             local_Id: localId,
-          })
-        );
-        navigation.navigate("Stack Users");
-        /*if (data?.length !== 0) {
-
-        } */
-        break;
-      case "rejected":
+          });
+          navigation.navigate("Stack Home");
+        } else {
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: email,
+              imageProfile: "",
+              id_Token: idToken,
+              local_Id: localId,
+            })
+          );
+          navigation.navigate("Stack Home");
+        }
+      }else{    
         setErrors((pv) => ({
           ...pv,
           errorRegister: "Revisa Tus Credenciales",
         }));
-        break;
-      default:
-        setErrors((pv) => ({ ...pv, errorRegister: "" }));
-        break;
-    }
-  }, [resultLogin]);
+      }
+    
+  }, [resultLogin, data, rememberMe]);
 
   return (
     <View style={styles.containerLogin}>
