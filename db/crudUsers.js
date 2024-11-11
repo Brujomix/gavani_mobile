@@ -18,7 +18,7 @@ export const addUser = (newUser) => {
 };
 
 export const fetchUser = () => {
-  const query = `SELECT * FROM user `;
+  const query = `SELECT * FROM users `;
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -32,7 +32,7 @@ export const fetchUser = () => {
 };
 
 export const clearUser = () => {
-  const query = `DELETE FROM user`;
+  const query = `DELETE FROM users`;
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(

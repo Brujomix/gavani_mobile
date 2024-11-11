@@ -29,31 +29,24 @@ export function Home_Screen({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const checkUserDatabase = async () => {
-    const users = await fetchUser();
-    return users.rows;
-  };
-
   useEffect(() => {
-    (async () => {
-      const resp = await checkUserDatabase();
-      if (resp._array?.length === 0) {
-        console.warn("No existen usuarios en DB", resp._array);
-      } else {
-        const { email, localId, idToken, imageProfile, isLogged } = resp._array[0];
-        const isLoggedUser = isLogged === 1 ? true : false
-        dispatch(
-          setUser({
-            isLogged: isLoggedUser,
-            email: email,
-            imageProfile: imageProfile,
-            id_Token: idToken,
-            local_Id: localId,
-          })
-        );
-        console.warn("Existe un usuaro en la DB", resp._array);
-      }
-    })();
+    if (!userInfo) {
+      (async () => {
+        try {
+          const resp = await fetchUser()
+          if (resp.rows._array?.length !== 0) {
+            const {email, local_Id, isLogged, id_Token, imageProfile} = resp.rows._array[0]
+            const logged = isLogged === 1 ? true : false
+            
+          }
+          console.info(`Usuarios en base de datos Home`, resp.rows._array.length);
+          
+        } catch (error) {
+          console.info(`Error Al Obtener Usuarios DB Home`, error);
+          
+        }
+      })();
+    }
   }, [userInfo]);
 
   return (

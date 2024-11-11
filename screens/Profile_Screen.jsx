@@ -27,7 +27,7 @@ export function Profile_Screen({ navigation }) {
         </Montserrat_Text>
 
         <Avatar_User
-          imageProfile={userInfo.imageProfile ? userInfo.imageProfile : null}
+          imageProfile={userInfo?.imageProfile ? userInfo?.imageProfile : null}
         />
 
         <Modal_Dinamic textButton={"Cerrar Session"}>
@@ -49,7 +49,7 @@ export function Profile_Screen({ navigation }) {
                       err
                     )
                   );
-                navigation.navigate("Stack Home");
+                navigation.navigate("Perfil");
               }}
             >
               <Montserrat_Text style={styles.textConfirButtonLogOut}>
