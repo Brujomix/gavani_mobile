@@ -34,7 +34,7 @@ export function Stack_Navigation_Orders() {
       <Stack.Screen
         name="Detail Order"
         options={{
-          title: "OrdersDetail",
+          title: "Detalle Orden",
           headerTitleStyle: styles.textHeaderStack,
           headerStyle: styles.containerHeaderStack,
           headerTintColor: "#FFF",

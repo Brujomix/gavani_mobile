@@ -12,6 +12,7 @@ import { clearCart } from "../redux/slices/carritoSlice";
 import { usePostOrderMutation } from "../services/orders_Services";
 import { formated_Date } from "../utils/formated_Date";
 import { paletOfColors } from "../utils/colors";
+import { generarId } from "../utils/generarId";
 
 const { width } = Dimensions.get("screen");
 
@@ -20,7 +21,6 @@ export function Carrito_Screen({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const { isOnLine } = useSelector((state) => state.Global);
   const { userInfo } = useSelector((state) => state.User);
 
   const [triggerPost, result] = usePostOrderMutation();
@@ -64,7 +64,7 @@ export function Carrito_Screen({ navigation }) {
             </Pressable_Dinamic>
           ) : (
             <Modal_Dinamic
-              textButton={isOnLine ? "Confirmar" : "Fuera de Línea"}
+              textButton={"Confirmar"}
             >
               <View style={styles.containerBodyModalCart}>
                 <Montserrat_Text style={styles.textBodyModalCart}>
@@ -72,22 +72,23 @@ export function Carrito_Screen({ navigation }) {
                 </Montserrat_Text>
                 <Pressable_Dinamic
                   disabled={
-                    cartProducts?.length === 0 || !isOnLine ? true : false
+                    cartProducts?.length === 0
                   }
                   style={styles.pressableConfirmar}
                   onPress={() => {
                     if (userInfo) {
                       triggerPost({
+                        order_iden: generarId(),
                         order_date: formated_Date(),
                         order_products: cartProducts,
                         order_total: Total_Cart(cartProducts),
                       });
-                      if (result.status === "fullfilled") {
-                        navigation.navigate("Orders");
+                      if (result.isSuccess) {
+                        navigation.navigate("Stack Orders");
                         dispatch(clearCart());
                       }
                     } else {
-                      navigation.navigate("Usuarios");
+                      navigation.navigate("Stack Home");
                     }
                   }}
                 >

@@ -9,12 +9,13 @@ const { width, height } = Dimensions.get("screen");
 import arrow_Off from "../../assets/arrow_Off.png";
 
 export function Card_Favorite_Product({ favoriteProduct, navigation }) {
+  
   return (
     <Pressable_Dinamic
       onPress={() =>
-        navigation.navigate("Products By Categories", {
-          cat_iden: favoriteProduct.pro_cat_iden,
-          cat_name: "Productos Selecionados",
+        navigation.navigate("Product Detail", {
+          pro_name: favoriteProduct.pro_name,
+          pro_iden: favoriteProduct.pro_iden,
         })
       }
       style={styles.pressableProduct}

@@ -15,6 +15,13 @@ export const app_Api = createApi({
       transformResponse: (response) =>
         response ? Object.values(response) : [],
     }),
+    getProductById: builder.query({
+      query: (pro_iden) => {
+        return `products.json?orderBy="pro_iden"&equalTo=${pro_iden}`;
+      },
+      transformResponse: (response) =>
+        response ? Object.values(response) : [],
+    }),
     getFavoritesProducts: builder.query({
       query: () => {
         return `products.json?orderBy="pro_top"&equalTo=true`;
@@ -43,6 +50,7 @@ export const {
   useGetCategoriesQuery,
   useGetProductsByCategoryQuery,
   useGetFavoritesProductsQuery,
+  useGetProductByIdQuery,
   useGetImageProfileQuery,
   usePostImageProfileMutation,
 } = app_Api;

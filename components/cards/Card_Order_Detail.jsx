@@ -1,15 +1,10 @@
 import { StyleSheet, View, Dimensions } from "react-native";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
-import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
-import { Icon_Dinamic } from "../ui/Icon_Dinamic";
-import { paletOfColors } from "../../utils/colors";
 import { ShadowBox_Wrapper } from "../../wrappers";
 
 const { width } = Dimensions.get("screen");
 
-export function Card_Order({ order, navigation }) {
-  
-  console.info("Order_Iden Order_Screen", order.order_iden);
+export function Card_Order_Detail({ order }) {
 
   return (
     <ShadowBox_Wrapper style={styles.shadowBox}>
@@ -28,19 +23,7 @@ export function Card_Order({ order, navigation }) {
             $ {order.order_total.toLocaleString("de-DE")}
           </Montserrat_Text>
         </View>
-        <Pressable_Dinamic
-          onPress={() =>
-            navigation.navigate("Detail Order", {
-              order_iden: order.order_iden,
-            })
-          }
-        >
-          <Icon_Dinamic
-            name={"visibility"}
-            size={30}
-            color={paletOfColors.black}
-          />
-        </Pressable_Dinamic>
+        
       </View>
     </ShadowBox_Wrapper>
   );

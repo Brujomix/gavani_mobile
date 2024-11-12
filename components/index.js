@@ -4,6 +4,7 @@ export * from "./cards/Card_Product";
 export * from "./cards/Card_Product_Cart";
 export * from "./cards/Card_Order";
 export * from "./cards/Card_Favorite_Product";
+export * from "./cards/Card_Order_Detail";
 
 //UI
 export * from "./ui/Image_Dianamic";

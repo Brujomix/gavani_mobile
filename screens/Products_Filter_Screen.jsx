@@ -7,7 +7,7 @@ import { paletOfColors } from "../utils/colors";
 export function Products_Filter_Screen({ route }) {
   
   const { cat_iden } = route.params;
-
+  
   const {
     data: productFilteredByCategory,
     error,
