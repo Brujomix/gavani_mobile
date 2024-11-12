@@ -15,6 +15,7 @@ import { createTable_User } from "../db/createTable";
 import { useEffect } from "react";
 import { fetchUser } from "../db/crudUsers";
 import { setUser } from "../redux/slices/usersSlice";
+import { ActivityLoadingStyle } from "../utils/globalStyles";
 
 const { width } = Dimensions.get("screen");
 
@@ -77,7 +78,7 @@ export function Home_Screen({ navigation }) {
 
       {/* Loading FlatList Categories */}
       {isLoading ? (
-        <ActivityIndicator size={"large"} color={paletOfColors.black} />
+        <ActivityIndicator style={ActivityLoadingStyle} size={90} color={paletOfColors.black} />
       ) : error ? (
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (

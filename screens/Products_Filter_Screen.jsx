@@ -3,6 +3,7 @@ import { Card_Product, Montserrat_Text } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { useGetProductsByCategoryQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
+import { ActivityLoadingStyle } from "../utils/globalStyles";
 
 export function Products_Filter_Screen({ route }) {
   
@@ -17,7 +18,7 @@ export function Products_Filter_Screen({ route }) {
   return (
     <ScreenWrapper>
       {isLoading ? (
-        <ActivityIndicator size={"large"} color={paletOfColors.black} />
+        <ActivityIndicator style={ActivityLoadingStyle} size={90} color={paletOfColors.black} />
       ) : error ? (
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (

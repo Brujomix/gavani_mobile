@@ -20,10 +20,14 @@ export function Card_Product({ product }) {
           altProp={`Imagen del Producto ${product.pro_name}`}
         />
         <View>
-          <Montserrat_Text style={styles.textPro_Precio}>
-            {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
-          </Montserrat_Text>
-
+          <View style={styles.containerPrice}>
+            <Montserrat_Text style={styles.textPro_Precio}>
+              {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
+            </Montserrat_Text>
+            <Montserrat_Text style={styles.textPro_Precio}>
+              Precio
+            </Montserrat_Text>
+          </View>
           <Cart_Buttons product={product} />
         </View>
       </View>
@@ -43,11 +47,15 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
-  containerInfoImagen:{
-    width:"100%",
-    flexDirection:"row",
-    justifyContent:"space-around",
-    alignItems:"center"
+  containerInfoImagen: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  containerPrice: {
+    flexDirection: "row-reverse",
+    gap: 10,
   },
   textPro_name: {
     fontSize: 25,

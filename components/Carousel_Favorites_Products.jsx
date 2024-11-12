@@ -1,13 +1,13 @@
 import { Dimensions, ActivityIndicator } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { Card_Favorite_Product, Montserrat_Text } from "../components";
+import { Card_Carousel_Product, Montserrat_Text } from "../components";
 import { useGetFavoritesProductsQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
+import { ActivityLoadingStyle } from "../utils/globalStyles";
 
 const { width } = Dimensions.get("screen");
 
-export function Carousel_Favorites_Products({navigation}) {
-    
+export function Carousel_Favorites_Products({ navigation }) {
   const {
     data: favoritesProducts,
     error,
@@ -17,7 +17,11 @@ export function Carousel_Favorites_Products({navigation}) {
   return (
     <>
       {isLoading ? (
-        <ActivityIndicator size={"large"} color={paletOfColors.black} />
+        <ActivityIndicator
+          style={ActivityLoadingStyle}
+          size={90}
+          color={paletOfColors.black}
+        />
       ) : error ? (
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (
@@ -27,7 +31,12 @@ export function Carousel_Favorites_Products({navigation}) {
           autoPlay={true}
           data={favoritesProducts}
           scrollAnimationDuration={10000}
-          renderItem={({ item }) => <Card_Favorite_Product favoriteProduct={item} navigation={navigation} />}
+          renderItem={({ item }) => (
+            <Card_Carousel_Product
+              favoriteProduct={item}
+              navigation={navigation}
+            />
+          )}
         />
       )}
     </>

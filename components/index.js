@@ -3,8 +3,9 @@ export * from "./cards/Card_Category";
 export * from "./cards/Card_Product";
 export * from "./cards/Card_Product_Cart";
 export * from "./cards/Card_Order";
-export * from "./cards/Card_Favorite_Product";
+export * from "./cards/Card_Carousel_Product";
 export * from "./cards/Card_Order_Detail";
+export * from "./cards/Card_Offer_Product";
 
 //UI
 export * from "./ui/Image_Dianamic";

@@ -16,7 +16,7 @@ export function Cart_Buttons({ product, styleContianerButtonsCart }) {
       <Pressable_Dinamic onPress={() => dispatch(addCartProduct(product))}>
         <Icon_Dinamic
           name={"add-shopping-cart"}
-          size={30}
+          size={40}
           color={paletOfColors.black}
         />
       </Pressable_Dinamic>
@@ -25,7 +25,7 @@ export function Cart_Buttons({ product, styleContianerButtonsCart }) {
       >
         <Icon_Dinamic
           name={"remove-shopping-cart"}
-          size={30}
+          size={40}
           color={paletOfColors.black}
         />
       </Pressable_Dinamic>

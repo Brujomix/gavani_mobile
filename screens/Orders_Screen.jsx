@@ -8,6 +8,7 @@ import { Montserrat_Text, Card_Order, Pressable_Dinamic } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { useGetOrdersQuery } from "../services/orders_Services";
 import { paletOfColors } from "../utils/colors";
+import { ActivityLoadingStyle } from "../utils/globalStyles";
 
 const { width } = Dimensions.get("screen");
 
@@ -20,7 +21,7 @@ export function Orders_Screen({ route, navigation }) {
   return (
     <ScreenWrapper>
       {isLoading ? (
-        <ActivityIndicator size={"large"} color={paletOfColors.black} />
+        <ActivityIndicator style={ActivityLoadingStyle} size={90} color={paletOfColors.black} />
       ) : error ? (
         <Montserrat_Text>Error !</Montserrat_Text>
       ) : (

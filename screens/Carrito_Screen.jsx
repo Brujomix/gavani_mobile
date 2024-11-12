@@ -14,7 +14,7 @@ import { formated_Date } from "../utils/formated_Date";
 import { paletOfColors } from "../utils/colors";
 import { generarId } from "../utils/generarId";
 
-const { width } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
   const { cartProducts } = useSelector((state) => state.Cart);
@@ -26,7 +26,7 @@ export function Carrito_Screen({ navigation }) {
   const [triggerPost, result] = usePostOrderMutation();
 
   return (
-    <ScreenWrapper style={styles.containerCartPrincipal}>
+    <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
 
       {cartProducts?.length === 0 ? (
@@ -34,23 +34,24 @@ export function Carrito_Screen({ navigation }) {
           Sin Productos En Carrito
         </Montserrat_Text>
       ) : (
-        <FlatList
-          style={styles.flatListCartProducts}
-          data={cartProducts}
-          keyExtractor={(item) => item.pro_iden}
-          renderItem={({ item }) => <Card_Product_Cart product={item} />}
-          contentContainerStyle={styles.containerChildrenCarProducts}
-        />
+        <View style={{ width: width * 0.98, height: height * 0.6 }}>
+          <FlatList
+            style={styles.flatListCartProducts}
+            data={cartProducts}
+            keyExtractor={(item) => item.pro_iden}
+            renderItem={({ item }) => <Card_Product_Cart product={item} />}
+            contentContainerStyle={styles.containerChildrenCarProducts}
+          />
+          <View style={styles.containerTotalCart}>
+            <Montserrat_Text style={styles.textTotalCart}>
+              Precio Final
+            </Montserrat_Text>
+            <Montserrat_Text style={styles.textTotalCart}>
+              $ {Total_Cart(cartProducts).toLocaleString("de-DE")}
+            </Montserrat_Text>
+          </View>
+        </View>
       )}
-
-      <View style={styles.containerTotalCart}>
-        <Montserrat_Text style={styles.textTotalCart}>
-          Total Carrito:{" "}
-        </Montserrat_Text>
-        <Montserrat_Text style={styles.textTotalCart}>
-          $ {Total_Cart(cartProducts).toLocaleString("de-DE")}
-        </Montserrat_Text>
-      </View>
       {userInfo ? (
         <View>
           {cartProducts?.length === 0 ? (
@@ -63,17 +64,13 @@ export function Carrito_Screen({ navigation }) {
               </Montserrat_Text>
             </Pressable_Dinamic>
           ) : (
-            <Modal_Dinamic
-              textButton={"Confirmar"}
-            >
+            <Modal_Dinamic textButton={"Confirmar"}>
               <View style={styles.containerBodyModalCart}>
                 <Montserrat_Text style={styles.textBodyModalCart}>
                   Confirmar Pedido ?
                 </Montserrat_Text>
                 <Pressable_Dinamic
-                  disabled={
-                    cartProducts?.length === 0
-                  }
+                  disabled={cartProducts?.length === 0}
                   style={styles.pressableConfirmar}
                   onPress={() => {
                     if (userInfo) {
@@ -115,8 +112,8 @@ export function Carrito_Screen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  containerCartPrincipal: {},
   titleCart: {
+    marginTop: 20,
     alignSelf: "center",
     fontSize: 35,
   },
@@ -125,6 +122,7 @@ const styles = StyleSheet.create({
   containerChildrenCarProducts: { gap: 8 },
 
   containerTotalCart: {
+    width: width,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",

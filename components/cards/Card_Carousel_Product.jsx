@@ -1,15 +1,11 @@
 import { Dimensions, Image, StyleSheet } from "react-native";
-import {
-  Image_Dianamic,
-  Montserrat_Text,
-  Pressable_Dinamic,
-} from "../../components";
+import { Image_Dianamic, Montserrat_Text, Pressable_Dinamic } from "..";
 import { paletOfColors } from "../../utils/colors";
-const { width, height } = Dimensions.get("screen");
 import arrow_Off from "../../assets/arrow_Off.png";
 
-export function Card_Favorite_Product({ favoriteProduct, navigation }) {
-  
+const { width, height } = Dimensions.get("screen");
+
+export function Card_Carousel_Product({ favoriteProduct, navigation }) {
   return (
     <Pressable_Dinamic
       onPress={() =>
@@ -25,11 +21,7 @@ export function Card_Favorite_Product({ favoriteProduct, navigation }) {
         uriURL={favoriteProduct.pro_url_image}
         altProp={`Imagen Producto ${favoriteProduct.pro_name}`}
       />
-      <Image
-        style={styles.arrow_Off}
-        source={arrow_Off}
-        alt="Click Here"
-      />
+      <Image style={styles.arrow_Off} source={arrow_Off} alt="Click Here" />
       <Montserrat_Text style={styles.textPro_name}>
         {favoriteProduct.pro_name}
       </Montserrat_Text>
@@ -43,7 +35,7 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "absolute",
   },
-  arrow_Off:{
+  arrow_Off: {
     width: 110,
     height: 110,
     position: "absolute",
@@ -56,17 +48,17 @@ const styles = StyleSheet.create({
     height: height * 0.22,
     justifyContent: "center",
     alignItems: "center",
-    padding:5,
+    padding: 5,
   },
   textPro_name: {
     fontSize: 30,
-    backgroundColor:paletOfColors.whiteTransparent,
-    padding:10,
+    backgroundColor: paletOfColors.whiteTransparent,
+    padding: 10,
     color: paletOfColors.black,
     marginBottom: 5,
     position: "absolute",
     bottom: 0,
     right: 0,
-    borderRadius:15
+    borderRadius: 15,
   },
 });
