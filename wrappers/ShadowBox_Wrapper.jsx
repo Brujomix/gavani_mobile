@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 0.5,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowRadius: 3,
+    elevation: 3,
   },
 });

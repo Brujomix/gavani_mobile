@@ -7,6 +7,11 @@ const { width, height } = Dimensions.get("screen");
 export function Card_Offer_Product({ product }) {
   return (
     <View style={styles.containerProductDetail}>
+
+      <Montserrat_Text style={styles.textPro_Desc}>
+        {product.pro_desc}
+      </Montserrat_Text>
+
       <Image_Dianamic
         styleImage={styles.containerImage}
         uriURL={product.pro_url_image}
@@ -19,11 +24,9 @@ export function Card_Offer_Product({ product }) {
           {`$ ${product.pro_precio.toLocaleString("de-DE")}`}
         </Montserrat_Text>
       </View>
-      <Montserrat_Text style={styles.textPro_Desc}>
-        {product.pro_desc}
-      </Montserrat_Text>
+
       <Cart_Buttons
-        styleContianerButtonsCart={styles.containerButtonsCart}
+        style={styles.containerButtonsCart}
         product={product}
       />
     </View>
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginVertical:35
+    marginVertical: 35,
   },
   containerButtonsCart: { width: width },
 

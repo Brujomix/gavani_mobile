@@ -7,12 +7,12 @@ import {
 } from "../redux/slices/carritoSlice";
 import { useDispatch } from "react-redux";
 
-export function Cart_Buttons({ product, styleContianerButtonsCart }) {
+export function Cart_Buttons({ product, style }) {
   
   const dispatch = useDispatch();
 
   return (
-    <View style={[styles.containerButtonsCart, styleContianerButtonsCart]}>
+    <View style={[styles.containerButtonsCart, style]}>
       <Pressable_Dinamic onPress={() => dispatch(addCartProduct(product))}>
         <Icon_Dinamic
           name={"add-shopping-cart"}

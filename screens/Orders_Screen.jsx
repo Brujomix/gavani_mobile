@@ -57,17 +57,12 @@ export function Orders_Screen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   flatListOrders: {
-    width: width * 0.85,
+    width: width * 0.98,
   },
   contianerChildrenFlat: {
     gap: 15,
   },
-  containerTicketsScreen: {
-    flex: 1,
-    gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
   textWithoutOrders: {
     alignSelf: "center",
     marginVertical: 35,
