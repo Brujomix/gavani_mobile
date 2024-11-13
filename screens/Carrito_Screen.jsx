@@ -13,6 +13,7 @@ import { usePostOrderMutation } from "../services/orders_Services";
 import { formated_Date } from "../utils/formated_Date";
 import { paletOfColors } from "../utils/colors";
 import { generarId } from "../utils/generarId";
+import { useEffect } from "react";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -25,6 +26,22 @@ export function Carrito_Screen({ navigation }) {
 
   const [triggerPost, result] = usePostOrderMutation();
 
+  const handleConfirmOrder = () => {
+    triggerPost({
+      order_iden: generarId(),
+      order_date: formated_Date(),
+      order_products: cartProducts,
+      order_total: Total_Cart(cartProducts),
+    });
+  };
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      navigation.navigate("Stack Orders");
+      dispatch(clearCart());
+    }
+  }, [result]);
+  
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
@@ -72,22 +89,7 @@ export function Carrito_Screen({ navigation }) {
                 <Pressable_Dinamic
                   disabled={cartProducts?.length === 0}
                   style={styles.pressableConfirmar}
-                  onPress={() => {
-                    if (userInfo) {
-                      triggerPost({
-                        order_iden: generarId(),
-                        order_date: formated_Date(),
-                        order_products: cartProducts,
-                        order_total: Total_Cart(cartProducts),
-                      });
-                      if (result.isSuccess) {
-                        navigation.navigate("Stack Orders");
-                        dispatch(clearCart());
-                      }
-                    } else {
-                      navigation.navigate("Stack Home");
-                    }
-                  }}
+                  onPress={() => handleConfirmOrder}
                 >
                   <Montserrat_Text style={styles.textConfirButton}>
                     Confirmar
