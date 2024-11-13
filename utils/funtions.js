@@ -16,7 +16,7 @@ export const Total_Cart = (array)=>{
       total += precio * cantidad;
     }
   }
-  return total;
+  return total.toLocaleString("de-DE");
 }
 
 export const TotalProductCart = (array) =>{
@@ -24,5 +24,13 @@ export const TotalProductCart = (array) =>{
   for (const obj of array) {
     total += obj.Cantidad
   }
-  return total
+  return total;
+}
+
+export const TotalPriceQuantity = (objProduct) =>{
+ 
+  const {Cantidad, pro_precio} = objProduct
+  const Total = Cantidad * pro_precio
+
+  return Total.toLocaleString("de-DE");
 }

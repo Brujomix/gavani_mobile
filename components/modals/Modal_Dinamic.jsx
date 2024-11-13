@@ -20,9 +20,7 @@ export function Modal_Dinamic({ children, textButton, disabled }) {
           >
             <Icon_Dinamic name="close" size={35} color={paletOfColors.black} />
           </Pressable_Dinamic>
-          <View style={styles.modalViewChildren}>
-            <View style={styles.containerBodyModal}>{children}</View>
-          </View>
+          <View style={styles.modalViewChildren}>{children}</View>
         </View>
       </Modal>
       <Pressable_Dinamic
@@ -46,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: paletOfColors.black,
-    opacity: 0.9,
+    opacity: 0.87,
   },
   modalViewChildren: {
     backgroundColor: paletOfColors.white,
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    elevation: 5,
+    elevation: 8,
     shadowColor: paletOfColors.white,
   },
   buttonCloseModal: { zIndex: 100, position: "relative", top: 50, right: -125 },

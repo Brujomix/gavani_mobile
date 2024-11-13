@@ -11,7 +11,6 @@ import boleta from "../../assets/boletas.png";
 const { width } = Dimensions.get("screen");
 
 export function Card_Order({ order, navigation }) {
-  console.info("Order_Iden Order_Screen", order.order_iden);
 
   return (
     <View style={styles.containerChildrenCardOrder}>

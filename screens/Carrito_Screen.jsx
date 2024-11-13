@@ -4,6 +4,7 @@ import {
   Card_Product_Cart,
   Modal_Dinamic,
   Pressable_Dinamic,
+  Icon_Dinamic,
 } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ import { useEffect } from "react";
 const { width, height } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
+  
   const { cartProducts } = useSelector((state) => state.Cart);
 
   const dispatch = useDispatch();
@@ -47,9 +49,13 @@ export function Carrito_Screen({ navigation }) {
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
 
       {cartProducts?.length === 0 ? (
+        <View>
+          <Icon_Dinamic name={"shopping-cart-checkout"} size={300} color={paletOfColors.darkGray}/>
         <Montserrat_Text style={styles.textWithoutProducts}>
           Sin Productos En Carrito
         </Montserrat_Text>
+
+        </View>
       ) : (
         <View style={{ width: width * 0.98, height: height * 0.6 }}>
           <FlatList
@@ -64,7 +70,7 @@ export function Carrito_Screen({ navigation }) {
               Precio Final
             </Montserrat_Text>
             <Montserrat_Text style={styles.textTotalCart}>
-              $ {Total_Cart(cartProducts).toLocaleString("de-DE")}
+              $ {Total_Cart(cartProducts)}
             </Montserrat_Text>
           </View>
         </View>
@@ -89,7 +95,7 @@ export function Carrito_Screen({ navigation }) {
                 <Pressable_Dinamic
                   disabled={cartProducts?.length === 0}
                   style={styles.pressableConfirmar}
-                  onPress={() => handleConfirmOrder}
+                  onPress={() => handleConfirmOrder()}
                 >
                   <Montserrat_Text style={styles.textConfirButton}>
                     Confirmar

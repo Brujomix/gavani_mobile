@@ -60,7 +60,7 @@ export function Tab_Navigation() {
           component={Stack_Navigation_Orders}
           options={{
             title: "",
-            tabBarBadge: 0,
+            //tabBarBadge: 0,
             tabBarIcon: ({ focused }) => (
               <Icon_Dinamic
                 name={"receipt-long"}

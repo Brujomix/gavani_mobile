@@ -6,6 +6,7 @@ import { removeCartProduct } from "../../redux/slices/carritoSlice";
 import { Icon_Dinamic } from "../ui/Icon_Dinamic";
 import { paletOfColors } from "../../utils/colors";
 import { ShadowBox_Wrapper } from "../../wrappers";
+import { TotalPriceQuantity } from "../../utils/funtions";
 
 export function Card_Product_Cart({ product }) {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export function Card_Product_Cart({ product }) {
           </Montserrat_Text>
         </View>
         <Montserrat_Text style={styles.textPrice}>
-          $ {product.pro_precio.toLocaleString("de-DE")}
+          $ {TotalPriceQuantity(product)}
         </Montserrat_Text>
         <Pressable_Dinamic
           onPress={() => dispatch(removeCartProduct(product.pro_iden))}

@@ -1,63 +1,36 @@
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { ShadowBox_Wrapper } from "../../wrappers";
 
 const { width } = Dimensions.get("screen");
 
 export function Card_Order_Detail({ order }) {
+  console.info("Order desde Card Order", order);
 
   return (
-    <ShadowBox_Wrapper style={styles.shadowBox}>
-      <View style={styles.containerInfoIden}>
-        <View style={styles.containerInfoIden}>
-          <Montserrat_Text style={styles.textInfo}>
-            Fecha de Orden
-          </Montserrat_Text>
-
-          <Montserrat_Text>{order.order_date}</Montserrat_Text>
-        </View>
-      </View>
-      <View style={styles.containerInfo}>
-        <View style={styles.containerPrice}>
-          <Montserrat_Text style={styles.textPrice}>
-            $ {order.order_total.toLocaleString("de-DE")}
-          </Montserrat_Text>
-        </View>
-        
-      </View>
+    <ShadowBox_Wrapper style={styles.containerOrderDetailProduct}>
+      <Montserrat_Text style={styles.textCant}>
+        x {order.Cantidad}
+      </Montserrat_Text>
+      <Montserrat_Text style={styles.textName}>
+        {order.pro_name}
+      </Montserrat_Text>
+      <Montserrat_Text style={styles.textPrice}>
+        $ {order.pro_precio.toLocaleString("de")}
+      </Montserrat_Text>
     </ShadowBox_Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  shadowBox: {
-    marginVertical: 10,
-  },
-  containerInfoIden: {
+  containerOrderDetailProduct: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
-  },
-  containerInfo: {
+    borderWidth: 2,
     padding: 8,
-    width: width,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
   },
-
-  containerPrice: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  textInfo: {
-    fontSize: 20,
-    alignSelf: "center",
-  },
-
-  textPrice: {
-    fontSize: 23,
-  },
+  textCant: { fontSize: 18, fontStyle: "italic" },
+  textName: { fontSize: 18, fontStyle: "italic", width: 120 },
+  textPrice: { fontSize: 18, fontStyle: "italic" },
 });

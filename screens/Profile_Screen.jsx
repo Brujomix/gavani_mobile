@@ -14,6 +14,7 @@ import { clearUser } from "../db/crudUsers";
 const { width } = Dimensions.get("screen");
 
 export function Profile_Screen({ navigation }) {
+  
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.User);
@@ -75,8 +76,8 @@ export function Profile_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerProfileScreen: {
+    marginTop:20,
     gap: 32,
-    width: "80%",
   },
 
   containerButtonsModal: {
