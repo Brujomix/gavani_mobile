@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseURL } from "../firebase/database";
 
 export const orders_Api = createApi({
   reducerPath: "orders_Api",
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.EXPO_PUBLIC_BASE_URL}),
   tagTypes:["orders"],
   endpoints: (builder) => ({
     postOrder: builder.mutation({

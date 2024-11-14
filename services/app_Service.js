@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseURL } from "../firebase/database";
 
 export const app_Api = createApi({
   reducerPath: "app_Api",
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.EXPO_PUBLIC_BASE_URL }),
   endpoints: (builder) => ({
     getCategories: builder.query({
       query: () => "categories.json",
