@@ -113,19 +113,19 @@ export function Form_Register({ navigation }) {
   useEffect(() => {
     switch (resultRegister.status) {
       case "fulfilled":
-        const { email, idToken, localId } = resultRegister;
+        const { email, idToken, localId } = resultRegister.data;
         clearUser();
-        dispatch(
-          setUser({
-            isLogged: true,
-            email: email,
-            imageProfile: datosUser.imageProfile,
-            id_Token: idToken,
-            local_Id: localId,
-          })
-        );
-
         if (rememberMe) {
+          dispatch(
+            setUser({
+              isLogged: true,
+              email: email,
+              imageProfile: datosUser.imageProfile,
+              id_Token: idToken,
+              local_Id: localId,
+            })
+          );
+
           addUser({
             isLogged: 1,
             email: email,
@@ -141,7 +141,7 @@ export function Form_Register({ navigation }) {
             );
         }
 
-        navigation.navigate("Profile");
+        navigation.navigate("Stack Home");
         break;
       case "rejected":
         setErrors((pv) => ({
@@ -160,7 +160,7 @@ export function Form_Register({ navigation }) {
         });
         break;
     }
-  }, [resultRegister, rememberMe]);
+  }, [resultRegister]);
 
   return (
     <View style={styles.containerLogin}>

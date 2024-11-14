@@ -11,7 +11,7 @@ import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
 import { Icon_Dinamic } from "../../components";
-import { addUser } from "../../db/crudUsers";
+import { addUser, clearUser } from "../../db/crudUsers";
 
 const { width } = Dimensions.get("screen");
 
@@ -83,11 +83,13 @@ export function Form_Login({ navigation }) {
     }
   };
 
+  console.log(resultLogin.data);
+
   useEffect(() => {
     switch (resultLogin.status) {
       case "fulfilled":
-        const { email, idToken, localId } = resultLogin;
-
+        const { email, idToken, localId } = resultLogin.data;
+        clearUser();
         dispatch(
           setUser({
             isLogged: true,
@@ -100,14 +102,20 @@ export function Form_Login({ navigation }) {
 
         if (rememberMe) {
           addUser({
-            isLogged: true,
+            isLogged: 1,
             email: email,
-            imageProfile: "",
             id_Token: idToken,
+            imageProfile: "",
             local_Id: localId,
-          });
+          })
+            .then((res) => {
+              console.info(`Uasuario Insertado con Exito`, res);
+            })
+            .catch((err) =>
+              console.error(`Error al Insertar user en la tabla`, err)
+            );
         }
-        navigation.navigate("Profile");
+        navigation.navigate("Stack Home");
         break;
       case "rejected":
         setErrors((pv) => ({
@@ -121,11 +129,11 @@ export function Form_Login({ navigation }) {
           errorEmail: "",
           errorPassword: "",
           errorConfirmPassword: "",
-          errorRegister: ""
+          errorRegister: "",
         });
         break;
     }
-  }, [resultLogin, rememberMe]);
+  }, [resultLogin]);
 
   return (
     <View style={styles.containerLogin}>
