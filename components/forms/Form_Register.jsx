@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
-import { useRegisterMutation } from "../../services/auth_Service";
+import {
+  usePostImageProfileMutation,
+  useRegisterMutation,
+} from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
 import { Icon_Dinamic } from "../../components";
 import * as ImagePiker from "expo-image-picker";
@@ -11,7 +14,6 @@ import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
 import { addUser, clearUser } from "../../db/crudUsers";
-import { usePostImageProfileMutation } from "../../services/app_Service";
 
 const { width } = Dimensions.get("screen");
 
@@ -19,7 +21,7 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
-  const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
+  //const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -109,18 +111,9 @@ export function Form_Register({ navigation }) {
   };
 
   useEffect(() => {
-    if (resultRegister.isSuccess) {
-      const { email, idToken, localId } = resultRegister.data;
-
-      triggerPostImage({
-        localId: localId,
-        imageProfile: datosUser.imageProfile,
-      });
-
-      if (
-        rememberMe &&
-        resultRegister.isSuccess
-      ) {
+    switch (resultRegister.status) {
+      case "fulfilled":
+        const { email, idToken, localId } = resultRegister;
         clearUser();
         dispatch(
           setUser({
@@ -131,35 +124,43 @@ export function Form_Register({ navigation }) {
             local_Id: localId,
           })
         );
-        addUser({
-          isLogged: 1,
-          email: email,
-          id_Token: idToken,
-          imageProfile: datosUser.imageProfile,
-          local_Id: localId,
-        })
-          .then((res) => {
-            console.info(`Uasuario Insertado con Exito`, res);
-          })
-          .catch((err) =>
-            console.error(`Error al Insertar user en la tabla`, err)
-        );
-      } else {
-        dispatch(
-          setUser({
-            isLogged: true,
+
+        if (rememberMe) {
+          addUser({
+            isLogged: 1,
             email: email,
-            imageProfile: datosUser.imageProfile,
             id_Token: idToken,
+            imageProfile: datosUser.imageProfile,
             local_Id: localId,
           })
-        );
-        console.info(`Agregamos User a Redux sin persistencia`)
-      }
+            .then((res) => {
+              console.info(`Uasuario Insertado con Exito`, res);
+            })
+            .catch((err) =>
+              console.error(`Error al Insertar user en la tabla`, err)
+            );
+        }
 
-      navigation.navigate("Stack Home");
+        navigation.navigate("Profile");
+        break;
+      case "rejected":
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "Error Al Registrar Usuario",
+        }));
+        break;
+
+      default:
+        setErrors({
+          errorEmail: "",
+          errorPassword: "",
+          errorConfirmPassword: "",
+          errorRegister: "",
+          imageProfile: "",
+        });
+        break;
     }
-  }, [resultRegister, rememberMe, resultImageProfile]);
+  }, [resultRegister, rememberMe]);
 
   return (
     <View style={styles.containerLogin}>

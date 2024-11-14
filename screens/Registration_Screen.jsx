@@ -1,10 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { Form_Register } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { paletOfColors } from "../utils/colors";
 
-export function Registration_Screen({navigation}) {
+const { width } = Dimensions.get("screen");
 
+export function Registration_Screen({ navigation }) {
   return (
     <ScreenWrapper>
       <View style={styles.containerLoginScreen}>
@@ -16,7 +17,8 @@ export function Registration_Screen({navigation}) {
 
 const styles = StyleSheet.create({
   containerLoginScreen: {
-    width: "80%",
+    width: width * 0.8,
+    marginTop: 20,
   },
   buttonCreateAccount: {
     alignSelf: "flex-end",

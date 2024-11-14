@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
-import { useLoginMutation } from "../../services/auth_Service";
+import {
+  useGetImageProfileQuery,
+  useLoginMutation,
+} from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
-import { useGetImageProfileQuery } from "../../services/app_Service";
 import { Icon_Dinamic } from "../../components";
 import { addUser } from "../../db/crudUsers";
 
@@ -18,10 +20,9 @@ export function Form_Login({ navigation }) {
 
   const [triggerLogin, resultLogin] = useLoginMutation();
 
-  /* Traer la imagen de Realtime Database segun IdLogin */
-  const [local_Id, setLocal_Id] = useState("");
+  //const [local_Id, setLocal_Id] = useState("");
 
-  const { data, error } = useGetImageProfileQuery(local_Id);
+  //const { data, error } = useGetImageProfileQuery(local_Id);
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -83,51 +84,48 @@ export function Form_Login({ navigation }) {
   };
 
   useEffect(() => {
-  
-      if (resultLogin.isSuccess) {
-        
-        const { email, idToken, localId } = resultLogin.data;
+    switch (resultLogin.status) {
+      case "fulfilled":
+        const { email, idToken, localId } = resultLogin;
 
-        setLocal_Id(localId);
+        dispatch(
+          setUser({
+            isLogged: true,
+            email: email,
+            imageProfile: "",
+            id_Token: idToken,
+            local_Id: localId,
+          })
+        );
 
-        if (data?.length !== 0 && rememberMe) {
-          dispatch(
-            setUser({
-              isLogged: true,
-              email: email,
-              imageProfile: data[0].imageProfile,
-              id_Token: idToken,
-              local_Id: localId,
-            })
-          );
+        if (rememberMe) {
           addUser({
             isLogged: true,
             email: email,
-            imageProfile: data[0].imageProfile,
+            imageProfile: "",
             id_Token: idToken,
             local_Id: localId,
           });
-          navigation.navigate("Stack Home");
-        } else {
-          dispatch(
-            setUser({
-              isLogged: true,
-              email: email,
-              imageProfile: "",
-              id_Token: idToken,
-              local_Id: localId,
-            })
-          );
-          navigation.navigate("Stack Home");
         }
-      }else{    
+        navigation.navigate("Profile");
+        break;
+      case "rejected":
         setErrors((pv) => ({
           ...pv,
-          errorRegister: "Revisa Tus Credenciales",
+          errorRegister: "Error Al Loguear Usuario",
         }));
-      }
-    
-  }, [resultLogin, data, rememberMe]);
+        break;
+
+      default:
+        setErrors({
+          errorEmail: "",
+          errorPassword: "",
+          errorConfirmPassword: "",
+          errorRegister: ""
+        });
+        break;
+    }
+  }, [resultLogin, rememberMe]);
 
   return (
     <View style={styles.containerLogin}>

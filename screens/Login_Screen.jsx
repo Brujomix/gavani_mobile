@@ -31,8 +31,9 @@ export function Login_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerLoginScreen: {
-    width: "80%",
+    width: width * .8,
     gap: 20,
+    marginTop:20
   },
   containerCreateAccountButton: {
     flexDirection: "row",

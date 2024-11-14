@@ -19,7 +19,26 @@ export const auth_Api = createApi({
         body: user,
       }),
     }),
+    getImageProfile: builder.query({
+      query: (localID) => {
+        return `profileUsers.json?orderBy="localID"&equalTo=${localID}`;
+      },
+      transformResponse: (response) =>
+        response ? Object.values(response) : [],
+    }),
+    postImageProfile: builder.mutation({
+      query: ({ ...dataProfileImage }) => ({
+        url: "profileUsers.json",
+        method: "POST",
+        body: dataProfileImage,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = auth_Api;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetImageProfileQuery,
+  usePostImageProfileMutation,
+} = auth_Api;
