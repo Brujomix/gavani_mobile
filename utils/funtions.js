@@ -34,3 +34,4 @@ export const TotalPriceQuantity = (objProduct) =>{
 
   return Total.toLocaleString("de-DE");
 }
+

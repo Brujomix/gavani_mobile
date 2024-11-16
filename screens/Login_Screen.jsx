@@ -3,10 +3,9 @@ import { Form_Login, Montserrat_Text, Pressable_Dinamic } from "../components";
 import { ScreenWrapper } from "../wrappers";
 import { paletOfColors } from "../utils/colors";
 
-const {width} = Dimensions.get("screen")
+const { width } = Dimensions.get("screen");
 
 export function Login_Screen({ navigation }) {
-  
   return (
     <ScreenWrapper>
       <View style={styles.containerLoginScreen}>
@@ -31,9 +30,9 @@ export function Login_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerLoginScreen: {
-    width: width * .8,
+    width: width * 0.8,
     gap: 20,
-    marginTop:20
+    marginTop: 20,
   },
   containerCreateAccountButton: {
     flexDirection: "row",
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
   textRegistration: {
     color: paletOfColors.blue,
     fontSize: 18,
-    alignSelf:"center"
+    alignSelf: "center",
   },
   textAnswer: {
     fontStyle: "italic",

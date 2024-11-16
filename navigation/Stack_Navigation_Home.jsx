@@ -1,13 +1,20 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home_Screen, Product_Detail_Screen, Products_Filter_Screen } from "../screens";
+import {
+  Home_Screen,
+  Product_Detail_Screen,
+  Products_Filter_Screen,
+} from "../screens";
 import { StyleSheet } from "react-native";
 import { paletOfColors } from "../utils/colors";
-import { Icon_Dinamic, Pressable_Dinamic } from "../components";
+import { Modal_Help } from "../components";
 
 const Stack = createNativeStackNavigator();
 
 export function Stack_Navigation_Home() {
-  return (
+  const textInfoHome =
+    "En esta página encontrarás los productos que seleccionamos para ti, promociones y descuentos en productos más vendidos. También podrás navegar a nuestras categorias de productos y recorrerer el amplio listado de exquisiteces que tenemos para ofrecerte. ";
+  const textInfoFilter = "Elavoramos nuestros productos con materia prima de excelente calidad."
+    return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
@@ -16,12 +23,10 @@ export function Stack_Navigation_Home() {
           headerTitleStyle: styles.textHeaderStack,
           headerStyle: styles.containerHeaderStack,
           headerTintColor: "#FFF",
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerRight: () => (
-            <Pressable_Dinamic onPress={()=>alert("Button HELP")}>
-              <Icon_Dinamic name={"help"} size={25} color={paletOfColors.white}/>
-            </Pressable_Dinamic>
-          )
+            <Modal_Help title={"Página Principal"} textInfo={textInfoHome} />
+          ),
         }}
         component={Home_Screen}
       />
@@ -29,15 +34,11 @@ export function Stack_Navigation_Home() {
         name="Products By Categories"
         options={({ route }) => ({
           title: route.params?.cat_name,
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerTintColor: "#FFF",
           headerTitleStyle: styles.textHeaderStack,
           headerStyle: styles.containerHeaderStack,
-          headerRight: () => (
-            <Pressable_Dinamic onPress={()=>alert("Button HELP")}>
-              <Icon_Dinamic name={"help"} size={25} color={paletOfColors.white}/>
-            </Pressable_Dinamic>
-          )
+          headerRight: () => <Modal_Help title={route.params?.cat_name} textInfo={textInfoFilter} />,
         })}
         component={Products_Filter_Screen}
       />
@@ -45,15 +46,10 @@ export function Stack_Navigation_Home() {
         name="Product Detail"
         options={({ route }) => ({
           title: route.params?.pro_name,
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerTintColor: "#FFF",
           headerTitleStyle: styles.textHeaderStack,
           headerStyle: styles.containerHeaderStack,
-          headerRight: () => (
-            <Pressable_Dinamic onPress={()=>alert("Button HELP")}>
-              <Icon_Dinamic name={"help"} size={25} color={paletOfColors.white}/>
-            </Pressable_Dinamic>
-          )
         })}
         component={Product_Detail_Screen}
       />
@@ -62,11 +58,11 @@ export function Stack_Navigation_Home() {
 }
 const styles = StyleSheet.create({
   containerHeaderStack: {
-    padding:2,
+    padding: 2,
     backgroundColor: paletOfColors.black,
   },
   textHeaderStack: {
     fontSize: 24,
-    color:paletOfColors.white
+    color: paletOfColors.white,
   },
 });

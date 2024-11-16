@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { fetchUser } from "../db/crudUsers";
 import { setUser } from "../redux/slices/usersSlice";
 import { ActivityLoadingStyle } from "../utils/globalStyles";
+import { ScrollView } from "react-native";
 
 const { width } = Dimensions.get("screen");
 
@@ -24,6 +25,7 @@ createTable_User()
   .catch((error) => console.error("Error al Crear la Tabla User", error));
 
 export function Home_Screen({ navigation }) {
+  
   const { userInfo } = useSelector((state) => state.User);
 
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
@@ -64,40 +66,40 @@ export function Home_Screen({ navigation }) {
 
   return (
     <ScreenWrapper>
-      <Montserrat_Text style={styles.titleFavoriteProducts}>
-        Productos Seleccionados
-      </Montserrat_Text>
+      <ScrollView>
+        <Montserrat_Text style={styles.titleFavoriteProducts}>
+          Productos Seleccionados
+        </Montserrat_Text>
 
-      <View style={styles.containerCarousel}>
-        <Carousel_Favorites_Products navigation={navigation} />
-      </View>
+        <View style={styles.containerCarousel}>
+          <Carousel_Favorites_Products navigation={navigation} />
+        </View>
 
-      <Montserrat_Text style={styles.titleFavoriteProducts}>
-        Nuestras Categorias
-      </Montserrat_Text>
+        <Montserrat_Text style={styles.titleFavoriteProducts}>
+          Nuestras Categorias
+        </Montserrat_Text>
 
-      {/* Loading FlatList Categories */}
-      {isLoading ? (
-        <ActivityIndicator style={ActivityLoadingStyle} size={90} color={paletOfColors.black} />
-      ) : error ? (
-        <Montserrat_Text>Error !</Montserrat_Text>
-      ) : (
-        <FlatList
-          style={styles.flatCategories}
-          ListFooterComponent={
-            <View style={styles.footerListCategories}></View>
-          }
-          data={Categories}
-          keyExtractor={(item) => item.cat_iden}
-          renderItem={({ item, index }) => (
-            <Card_Category
-              category={item}
-              index={index}
-              navigation={navigation}
-            />
-          )}
-        />
-      )}
+        {isLoading ? (
+          <ActivityIndicator
+            style={ActivityLoadingStyle}
+            size={90}
+            color={paletOfColors.black}
+          />
+        ) : error ? (
+          <Montserrat_Text>Error !</Montserrat_Text>
+        ) : (
+          <View>
+            {Categories.map((e, index) => (
+              <Card_Category
+                key={e.cat_iden}
+                category={e}
+                index={index}
+                navigation={navigation}
+              />
+            ))}
+          </View>
+        )}
+      </ScrollView>
     </ScreenWrapper>
   );
 }

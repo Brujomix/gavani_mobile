@@ -3,7 +3,7 @@ import { Login_Screen, Profile_Screen, Registration_Screen } from "../screens";
 import { StyleSheet } from "react-native";
 import { paletOfColors } from "../utils/colors";
 import { useSelector } from "react-redux";
-import { Pressable_Dinamic, Icon_Dinamic } from "../components";
+import { Pressable_Dinamic, Icon_Dinamic, Modal_Help } from "../components";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +12,8 @@ export function Stack_Navigation_Users() {
   const { userInfo } = useSelector((state) => state.User);
 
   console.info(`user Info desde Stack Users, ${userInfo}`);
+
+  const textInfoLogin = "En esta páginas podrás acceder con tus crendenciales para poder tener acceso total al carrito y la posibiladad de generar una orden. Recuerda que no estar logueado no permitirá que puedas generar tus ordenes de compra. En dicho dirigete a la sección de registro con el boton de Crear Cuenta"
 
   return (
     <>
@@ -49,13 +51,7 @@ export function Stack_Navigation_Users() {
               headerTintColor: "#FFF",
               headerTitleAlign: "center",
               headerRight: () => (
-                <Pressable_Dinamic onPress={() => alert("Button HELP")}>
-                  <Icon_Dinamic
-                    name={"help"}
-                    size={25}
-                    color={paletOfColors.white}
-                  />
-                </Pressable_Dinamic>
+                <Modal_Help title={"Inicio de Sessión"} textInfo={textInfoLogin}/>
               ),
             }}
             component={Login_Screen}
@@ -68,15 +64,6 @@ export function Stack_Navigation_Users() {
               headerStyle: styles.containerHeaderStack,
               headerTintColor: "#FFF",
               headerTitleAlign: "center",
-              headerRight: () => (
-                <Pressable_Dinamic onPress={() => alert("Button HELP")}>
-                  <Icon_Dinamic
-                    name={"help"}
-                    size={25}
-                    color={paletOfColors.white}
-                  />
-                </Pressable_Dinamic>
-              ),
             }}
             component={Registration_Screen}
           />

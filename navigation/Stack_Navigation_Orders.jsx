@@ -2,12 +2,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Detail_Order_Screen, Orders_Screen } from "../screens";
 import { StyleSheet } from "react-native";
 import { paletOfColors } from "../utils/colors";
-import { Pressable_Dinamic, Icon_Dinamic } from "../components";
+import { Modal_Help } from "../components";
 import { formated_Date } from "../utils/formated_Date";
 
 const Stack = createNativeStackNavigator();
 
 export function Stack_Navigation_Orders() {
+  const textInfoOrders =
+    "En esta página encontraras las ordenes generadas en el día de hoy. Podrás navegar a ver su detalla y cancelar la orden si haz cambiado de parecer. Recuerda que tienes un timepo limitado para cancelar tus pedidos que corresponde a un tiempo aproximado de 15min. En caso de excederse ese tiempo deberás recibir la orden generada de manera obligatoria.";
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -20,13 +22,7 @@ export function Stack_Navigation_Orders() {
           headerTintColor: "#FFF",
           headerTitleAlign: "center",
           headerRight: () => (
-            <Pressable_Dinamic onPress={() => alert("Button HELP")}>
-              <Icon_Dinamic
-                name={"help"}
-                size={25}
-                color={paletOfColors.white}
-              />
-            </Pressable_Dinamic>
+            <Modal_Help title={"Mis Ordenes"} textInfo={textInfoOrders} />
           ),
         }}
         component={Orders_Screen}
@@ -39,15 +35,6 @@ export function Stack_Navigation_Orders() {
           headerStyle: styles.containerHeaderStack,
           headerTintColor: "#FFF",
           headerTitleAlign: "center",
-          headerRight: () => (
-            <Pressable_Dinamic onPress={() => alert("Button HELP")}>
-              <Icon_Dinamic
-                name={"help"}
-                size={25}
-                color={paletOfColors.white}
-              />
-            </Pressable_Dinamic>
-          ),
         }}
         component={Detail_Order_Screen}
       />

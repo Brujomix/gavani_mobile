@@ -20,9 +20,9 @@ export function Form_Login({ navigation }) {
 
   const [triggerLogin, resultLogin] = useLoginMutation();
 
-  //const [local_Id, setLocal_Id] = useState("");
+  const [local_Id, setLocal_Id] = useState("");
 
-  //const { data, error } = useGetImageProfileQuery(local_Id);
+  const { data, error } = useGetImageProfileQuery(local_Id);
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -83,13 +83,17 @@ export function Form_Login({ navigation }) {
     }
   };
 
-  console.log(resultLogin.data);
-
   useEffect(() => {
     switch (resultLogin.status) {
       case "fulfilled":
-        const { email, idToken, localId } = resultLogin.data;
         clearUser();
+        const { email, idToken, localId } = resultLogin.data;
+        
+        setLocal_Id(localId)
+
+        console.info(data);
+        console.error(error);
+        
         dispatch(
           setUser({
             isLogged: true,
@@ -133,7 +137,7 @@ export function Form_Login({ navigation }) {
         });
         break;
     }
-  }, [resultLogin]);
+  }, [resultLogin, local_Id]);
 
   return (
     <View style={styles.containerLogin}>
