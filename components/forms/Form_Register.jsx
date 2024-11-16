@@ -21,7 +21,7 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
-  //const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
+  const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -110,11 +110,21 @@ export function Form_Register({ navigation }) {
     }
   };
 
+  console.warn("Result de post USER", resultRegister);
+
   useEffect(() => {
     switch (resultRegister.status) {
       case "fulfilled":
         const { email, idToken, localId } = resultRegister.data;
         clearUser();
+
+        triggerPostImage({
+          localId: localId,
+          imageProfile: datosUser.imageProfile,
+        });
+
+        console.warn("Result de post image", resultImageProfile);
+        
         if (rememberMe) {
           dispatch(
             setUser({
