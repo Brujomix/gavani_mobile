@@ -7,14 +7,14 @@ export const auth_Api = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: ({ ...user }) => ({
-        url: `accounts:signInWithPassword?key=${process.env.EXPO_PUBLIC_KEY_APi}`,
+        url: `accounts:signInWithPassword?key=${process.env.EXPO_PUBLIC_KEY_API}`,
         method: "POST",
         body: user,
       }),
     }),
     register: builder.mutation({
       query: ({ ...user }) => ({
-        url: `accounts:signUp?key=${process.env.EXPO_PUBLIC_KEY_APi}`,
+        url: `accounts:signUp?key=${process.env.EXPO_PUBLIC_KEY_API}`,
         method: "POST",
         body: user,
       }),
