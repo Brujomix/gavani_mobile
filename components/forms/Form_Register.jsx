@@ -110,65 +110,55 @@ export function Form_Register({ navigation }) {
     }
   };
 
-  console.warn("Result de post USER", resultRegister);
+  console.info("Result USER", resultRegister);
+  console.info("Result Image", resultImageProfile);
 
   useEffect(() => {
-    switch (resultRegister.status) {
-      case "fulfilled":
-        const { email, idToken, localId } = resultRegister.data;
-        clearUser();
+    if (resultRegister.isSuccess) {
+      clearUser();
 
-        triggerPostImage({
-          localId: localId,
+      const { email, localId } = resultRegister.data;
+
+      triggerPostImage({
+        localId: localId,
+        imageProfile: datosUser.imageProfile,
+      });
+
+      if (rememberMe) {
+        addUser({
+          email: email,
           imageProfile: datosUser.imageProfile,
-        });
-
-        console.warn("Result de post image", resultImageProfile);
-        
-        if (rememberMe) {
-          dispatch(
-            setUser({
-              isLogged: true,
-              email: email,
-              imageProfile: datosUser.imageProfile,
-              id_Token: idToken,
-              local_Id: localId,
-            })
+          local_Id: localId,
+        })
+          .then((res) => {
+            console.info("Usuario Registrado en DB", res.rows._array[0])
+            dispatch(
+              setUser({
+                email: email,
+                imageProfile: datosUser.imageProfile,
+                local_Id: localId,
+              })
+            );
+          })
+          .catch((err) =>
+            console.error(`Error al Insertar user en la tabla`, err)
           );
-
-          addUser({
-            isLogged: 1,
+      } else {
+        dispatch(
+          setUser({
             email: email,
-            id_Token: idToken,
             imageProfile: datosUser.imageProfile,
             local_Id: localId,
           })
-            .then((res) => {
-              console.info(`Uasuario Insertado con Exito`, res);
-            })
-            .catch((err) =>
-              console.error(`Error al Insertar user en la tabla`, err)
-            );
-        }
+        );
+      }
 
-        navigation.navigate("Stack Home");
-        break;
-      case "rejected":
-        setErrors((pv) => ({
-          ...pv,
-          errorRegister: "Error Al Registrar Usuario",
-        }));
-        break;
-
-      default:
-        setErrors({
-          errorEmail: "",
-          errorPassword: "",
-          errorConfirmPassword: "",
-          errorRegister: "",
-          imageProfile: "",
-        });
-        break;
+      navigation.navigate("Stack Home");
+    } else {
+      setErrors((pv) => ({
+        ...pv,
+        errorRegister: "Error Al Registrar Usuario",
+      }));
     }
   }, [resultRegister]);
 

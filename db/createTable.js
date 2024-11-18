@@ -5,9 +5,7 @@ export const createTable_User = () => {
     CREATE TABLE IF NOT EXISTS users (
       local_Id TEXT PRIMARY KEY NOT NULL, 
       email TEXT NOT NULL, 
-      id_Token TEXT NOT NULL, 
-      imageProfile TEXT,
-      isLogged INTEGER NOT NULL
+      imageProfile TEXT
     )
   `;
 
@@ -22,4 +20,3 @@ export const createTable_User = () => {
     });
   });
 };
-

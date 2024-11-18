@@ -25,7 +25,6 @@ createTable_User()
   .catch((error) => console.error("Error al Crear la Tabla User", error));
 
 export function Home_Screen({ navigation }) {
-  
   const { userInfo } = useSelector((state) => state.User);
 
   const { data: Categories, error, isLoading } = useGetCategoriesQuery();
@@ -38,15 +37,12 @@ export function Home_Screen({ navigation }) {
         try {
           const resp = await fetchUser();
           if (resp.rows._array?.length !== 0) {
-            const { email, local_Id, isLogged, id_Token, imageProfile } =
-              resp.rows._array[0];
-            const logged = isLogged === 1 ? true : false;
+            const { email, local_Id, imageProfile } = resp.rows._array[0];
+
             dispatch(
               setUser({
-                isLogged: logged,
                 email: email,
                 imageProfile: imageProfile,
-                id_Token: id_Token,
                 local_Id: local_Id,
               })
             );
