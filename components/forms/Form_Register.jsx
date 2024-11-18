@@ -4,7 +4,7 @@ import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import {
-  usePostImageProfileMutation,
+  usePutImageProfileMutation,
   useRegisterMutation,
 } from "../../services/auth_Service";
 import { paletOfColors } from "../../utils/colors";
@@ -21,7 +21,7 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
-  const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
+  const [triggerPutImage, resultImageProfile] = usePutImageProfileMutation();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -43,7 +43,7 @@ export function Form_Register({ navigation }) {
     const { granted } = await ImagePiker.requestCameraPermissionsAsync();
 
     if (granted) {
-      let cameraData = await ImagePiker.launchCameraAsync({
+      let result = await ImagePiker.launchCameraAsync({
         mediaTypes: ImagePiker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [1, 1],
@@ -51,11 +51,14 @@ export function Form_Register({ navigation }) {
         quality: 0.5,
       });
 
-      if (cameraData.assets[0]?.base64) {
+      if (!result.canceled) {
         setDatosUser((pv) => ({
           ...pv,
-          imageProfile: `data:image/jpg;base64,${cameraData.assets[0].base64}`,
+          imageProfile: `data:image/jpg;base64,${result.assets[0].base64}`,
         }));
+      }
+
+      if (result.assets[0]?.base64) {
       } else {
         setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
       }
@@ -110,61 +113,52 @@ export function Form_Register({ navigation }) {
     }
   };
 
-  console.info("Result USER", resultRegister);
   console.info("Result Image", resultImageProfile);
 
   useEffect(() => {
-    if (resultRegister.isSuccess) {
-      clearUser();
+    switch (resultRegister.status) {
+      case "fulfilled":
+        const { email, localId } = resultRegister.data;
 
-      const { email, localId } = resultRegister.data;
-
-      triggerPostImage({
-        localId: localId,
-        imageProfile: datosUser.imageProfile,
-      });
-
-      if (rememberMe) {
-        addUser({
-          email: email,
+        triggerPutImage({
+          localID: localId,
           imageProfile: datosUser.imageProfile,
-          local_Id: localId,
-        })
-          .then((res) => {
-            console.info("Usuario Registrado en DB", res.rows._array[0])
-            dispatch(
-              setUser({
-                email: email,
-                imageProfile: datosUser.imageProfile,
-                local_Id: localId,
-              })
-            );
-          })
-          .catch((err) =>
-            console.error(`Error al Insertar user en la tabla`, err)
-          );
-      } else {
-        dispatch(
-          setUser({
-            email: email,
-            imageProfile: datosUser.imageProfile,
-            local_Id: localId,
-          })
-        );
-      }
+        });
 
-      navigation.navigate("Stack Home");
-    } else {
-      setErrors((pv) => ({
-        ...pv,
-        errorRegister: "Error Al Registrar Usuario",
-      }));
+        if (resultImageProfile.status === "fulfilled") {
+          dispatch(
+            setUser({
+              email: email,
+              imageProfile: resultImageProfile.originalArgs.imageProfile,
+              local_Id: localId,
+            })
+          );
+          navigation.navigate("Stack Users");
+        } else {
+          setErrors((pv) => ({
+            ...pv,
+            imageProfile: "Error al Guardar Image",
+          }));
+        }
+        break;
+      case "rejected":
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "Revisa Tus Credenciales",
+        }));
+        break;
+      default:
+        setErrors((pv) => ({ ...pv, errorRegister: "" }));
+        break;
     }
   }, [resultRegister]);
 
   return (
     <View style={styles.containerLogin}>
       <Avatar_User imageProfile={datosUser.imageProfile} />
+      <Montserrat_Text style={styles.errorRegister}>
+        {errors.imageProfile}
+      </Montserrat_Text>
       <Pressable_Dinamic
         onPress={handleAddProfileImage}
         style={styles.buttonCamera}

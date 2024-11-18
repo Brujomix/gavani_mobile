@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const auth_Api = createApi({
   reducerPath: "auth_Api",
   baseQuery: fetchBaseQuery({ baseUrl: process.env.EXPO_PUBLIC_BASE_AUTH_URL }),
-  tagTypes:["imageProfile"],
+  tagTypes: ["imageProfile"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: ({ ...user }) => ({
@@ -21,33 +21,26 @@ export const auth_Api = createApi({
     }),
     getImageProfile: builder.query({
       query: (localID) => {
-        return `profileUsers.json?orderBy="localID"&equalTo=${localID}`;
+        return `profileUsers/${localID}.json`;
       },
-      providesTags:["imageProfile"],
-      transformResponse: (response) =>
-        response
-          ? Object.entries(response).map(([key, profileImage]) => ({
-              imageProfile_key_firebase: key,
-              ...profileImage,
-            }))
-          : [],
+      providesTags: ["imageProfile"],
     }),
 
-    postImageProfile: builder.mutation({
+    putImageProfile: builder.mutation({
       query: ({ ...dataProfileImage }) => ({
-        url: "profileUsers.json",
-        method: "POST",
-        body: dataProfileImage,
+        url: `profileUsers/${dataProfileImage.localID}.json`,
+        method: "PUT",
+        body: { imageProfile: dataProfileImage.imageProfile },
       }),
-      invalidatesTags:["imageProfile"]
+      invalidatesTags: ["imageProfile"],
     }),
 
     deleteImagePorfileByLocalId: builder.mutation({
-      query: (imageProfile_key) => ({
-        url: `profileUsers/${imageProfile_key}.json`,
+      query: (localId) => ({
+        url: `profileUsers/${localId}.json`,
         method: "DELETE",
       }),
-      invalidatesTags:["imageProfile"]
+      invalidatesTags: ["imageProfile"],
     }),
   }),
 });
@@ -56,6 +49,6 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useGetImageProfileQuery,
-  usePostImageProfileMutation,
-  useDeleteImagePorfileByLocalIdMutation
+  usePutImageProfileMutation,
+  useDeleteImagePorfileByLocalIdMutation,
 } = auth_Api;

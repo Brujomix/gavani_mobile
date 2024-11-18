@@ -1,7 +1,6 @@
 import {
   View,
   StyleSheet,
-  FlatList,
   ActivityIndicator,
   Dimensions,
 } from "react-native";
