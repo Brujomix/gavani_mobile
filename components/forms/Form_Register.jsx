@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
-import {
-  usePutImageProfileMutation,
-  useRegisterMutation,
-} from "../../services/auth_Service";
+import { useRegisterMutation } from "../../services/auth_Service";
+import { usePostImageProfileMutation } from "../../services/profile_Service";
 import { paletOfColors } from "../../utils/colors";
 import { Icon_Dinamic } from "../../components";
 import * as ImagePiker from "expo-image-picker";
@@ -21,7 +19,7 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
-  const [triggerPutImage, resultImageProfile] = usePutImageProfileMutation();
+  const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -113,43 +111,45 @@ export function Form_Register({ navigation }) {
     }
   };
 
-  console.info("Result Image", resultImageProfile);
-
   useEffect(() => {
-    switch (resultRegister.status) {
-      case "fulfilled":
-        const { email, localId } = resultRegister.data;
+    if (resultRegister.isSuccess) {
+      clearUser();
+      const { email, localId } = resultRegister.data;
 
-        triggerPutImage({
-          localID: localId,
+      triggerPostImage({
+        local_Id: localId,
+        imageProfile: datosUser.imageProfile,
+      });
+
+      if (resultImageProfile.isSuccess && rememberMe) {
+        dispatch(
+          setUser({
+            email: email,
+            imageProfile: datosUser.imageProfile,
+            local_Id: localId,
+          })
+        );
+        addUser({
+          email: email,
           imageProfile: datosUser.imageProfile,
+          local_Id: localId,
         });
-
-        if (resultImageProfile.status === "fulfilled") {
-          dispatch(
-            setUser({
-              email: email,
-              imageProfile: resultImageProfile.originalArgs.imageProfile,
-              local_Id: localId,
-            })
-          );
-          navigation.navigate("Stack Users");
-        } else {
-          setErrors((pv) => ({
-            ...pv,
-            imageProfile: "Error al Guardar Image",
-          }));
-        }
-        break;
-      case "rejected":
-        setErrors((pv) => ({
-          ...pv,
-          errorRegister: "Revisa Tus Credenciales",
-        }));
-        break;
-      default:
-        setErrors((pv) => ({ ...pv, errorRegister: "" }));
-        break;
+        navigation.navigate("Profile");
+      } else {
+        dispatch(
+          setUser({
+            email: email,
+            imageProfile: datosUser.imageProfile,
+            local_Id: localId,
+          })
+        );
+        navigation.navigate("Profile");
+      }
+    } else {
+      setErrors((pv) => ({
+        ...pv,
+        errorRegister: "Error Al Registrar Usuario",
+      }));
     }
   }, [resultRegister]);
 

@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
-import {
-  useGetImageProfileQuery,
-  useLoginMutation,
-} from "../../services/auth_Service";
+import { useLoginMutation } from "../../services/auth_Service";
+import { useGetImageProfileQuery } from "../../services/profile_Service";
 import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
@@ -84,58 +82,51 @@ export function Form_Login({ navigation }) {
   };
 
   useEffect(() => {
-    switch (resultLogin.status) {
-      case "fulfilled":
-        clearUser();
-        const { email, idToken, localId } = resultLogin.data;
-        
-        setLocal_Id(localId)
+    if (resultLogin.isSuccess) {
+      clearUser();
+      const { email, idToken, localId } = resultLogin.data;
 
-        console.info(data);
-        console.error(error);
-        
-        dispatch(
-          setUser({
-            isLogged: true,
-            email: email,
-            imageProfile: "",
-            id_Token: idToken,
-            local_Id: localId,
+      setLocal_Id(localId);
+
+      console.info("DATA get IMAGE", data);
+      console.error("Error GET Image", error);
+
+      dispatch(
+        setUser({
+          isLogged: true,
+          email: email,
+          imageProfile: "",
+          id_Token: idToken,
+          local_Id: localId,
+        })
+      );
+
+      if (rememberMe) {
+        addUser({
+          isLogged: 1,
+          email: email,
+          id_Token: idToken,
+          imageProfile: "",
+          local_Id: localId,
+        })
+          .then((res) => {
+            console.info(`Uasuario Insertado con Exito`, res);
           })
-        );
-
-        if (rememberMe) {
-          addUser({
-            isLogged: 1,
-            email: email,
-            id_Token: idToken,
-            imageProfile: "",
-            local_Id: localId,
-          })
-            .then((res) => {
-              console.info(`Uasuario Insertado con Exito`, res);
-            })
-            .catch((err) =>
-              console.error(`Error al Insertar user en la tabla`, err)
-            );
-        }
-        navigation.navigate("Stack Home");
-        break;
-      case "rejected":
-        setErrors((pv) => ({
-          ...pv,
-          errorRegister: "Error Al Loguear Usuario",
-        }));
-        break;
-
-      default:
-        setErrors({
-          errorEmail: "",
-          errorPassword: "",
-          errorConfirmPassword: "",
-          errorRegister: "",
-        });
-        break;
+          .catch((err) =>
+            console.error(`Error al Insertar user en la tabla`, err)
+          );
+      }
+      navigation.navigate("Stack Home");
+    } else if (resultLogin.isUninitialized) {
+      setErrors((pv) => ({
+        ...pv,
+        errorRegister: "",
+      }));
+    } else {
+      setErrors((pv) => ({
+        ...pv,
+        errorRegister: "Error Al Loguear Usuario",
+      }));
     }
   }, [resultLogin, local_Id]);
 

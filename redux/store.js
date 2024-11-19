@@ -5,6 +5,7 @@ import UsersSlice from "./slices/usersSlice";
 import { app_Api } from "../services/app_Service";
 import { orders_Api } from "../services/orders_Services";
 import { auth_Api } from "../services/auth_Service";
+import { profile_Api } from "../services/profile_Service";
 
 export const store = configureStore({
   reducer: {
@@ -14,10 +15,12 @@ export const store = configureStore({
     [app_Api.reducerPath]: app_Api.reducer,
     [orders_Api.reducerPath]: orders_Api.reducer,
     [auth_Api.reducerPath]: auth_Api.reducer,
+    [profile_Api.reducerPath]: profile_Api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(app_Api.middleware)
       .concat(orders_Api.middleware)
-      .concat(auth_Api.middleware),
+      .concat(auth_Api.middleware)
+      .concat(profile_Api.middleware),
 });
