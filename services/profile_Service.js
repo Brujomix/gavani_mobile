@@ -9,13 +9,13 @@ export const profile_Api = createApi({
       query: (local_Id) => {
         return `profileUsers.json?orderBy="local_Id"&equalTo="${local_Id}"`;
       },
-/*       transformResponse: (response) =>
+      transformResponse: (response) =>
         response
-          ? Object.entries(response).map(([key, e]) => ({
-              profile_key_firebase: key,
-              ...e,
+          ? Object.entries(response).map(([key, objProfile]) => ({
+              image_key_firebase: key,
+              ...objProfile,
             }))
-          : [], */
+          : {},
       providesTags: ["imageProfile"],
     }),
 

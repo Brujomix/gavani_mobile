@@ -4,7 +4,6 @@ import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { useLoginMutation } from "../../services/auth_Service";
-import { useGetImageProfileQuery } from "../../services/profile_Service";
 import { paletOfColors } from "../../utils/colors";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
@@ -17,10 +16,6 @@ export function Form_Login({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerLogin, resultLogin] = useLoginMutation();
-
-  const [local_Id, setLocal_Id] = useState("");
-
-  const { data, error } = useGetImageProfileQuery(local_Id);
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -84,29 +79,19 @@ export function Form_Login({ navigation }) {
   useEffect(() => {
     if (resultLogin.isSuccess) {
       clearUser();
-      const { email, idToken, localId } = resultLogin.data;
 
-      setLocal_Id(localId);
-
-      console.info("DATA get IMAGE", data);
-      console.error("Error GET Image", error);
+      const { email, localId } = resultLogin.data;
 
       dispatch(
         setUser({
-          isLogged: true,
           email: email,
-          imageProfile: "",
-          id_Token: idToken,
           local_Id: localId,
         })
       );
 
       if (rememberMe) {
         addUser({
-          isLogged: 1,
           email: email,
-          id_Token: idToken,
-          imageProfile: "",
           local_Id: localId,
         })
           .then((res) => {
@@ -116,7 +101,7 @@ export function Form_Login({ navigation }) {
             console.error(`Error al Insertar user en la tabla`, err)
           );
       }
-      navigation.navigate("Stack Home");
+      navigation.navigate("Profile", { local_Id: localId });
     } else if (resultLogin.isUninitialized) {
       setErrors((pv) => ({
         ...pv,
@@ -128,7 +113,7 @@ export function Form_Login({ navigation }) {
         errorRegister: "Error Al Loguear Usuario",
       }));
     }
-  }, [resultLogin, local_Id]);
+  }, [resultLogin]);
 
   return (
     <View style={styles.containerLogin}>

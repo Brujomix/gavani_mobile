@@ -113,7 +113,9 @@ export function Form_Register({ navigation }) {
 
   useEffect(() => {
     if (resultRegister.isSuccess) {
+      
       clearUser();
+
       const { email, localId } = resultRegister.data;
 
       triggerPostImage({
@@ -125,26 +127,28 @@ export function Form_Register({ navigation }) {
         dispatch(
           setUser({
             email: email,
-            imageProfile: datosUser.imageProfile,
             local_Id: localId,
           })
         );
         addUser({
           email: email,
-          imageProfile: datosUser.imageProfile,
           local_Id: localId,
         });
-        navigation.navigate("Profile");
+        navigation.navigate("Profile", { local_Id: localId });
       } else {
         dispatch(
           setUser({
             email: email,
-            imageProfile: datosUser.imageProfile,
             local_Id: localId,
           })
         );
-        navigation.navigate("Profile");
+        navigation.navigate("Profile", { local_Id: localId });
       }
+    } else if (resultImageProfile.isUninitialized) {
+      setErrors((pv) => ({
+        ...pv,
+        errorRegister: "",
+      }));
     } else {
       setErrors((pv) => ({
         ...pv,

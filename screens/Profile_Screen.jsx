@@ -1,5 +1,5 @@
 import { ScreenWrapper } from "../wrappers";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
 import {
   Avatar_User,
   Modal_Dinamic,
@@ -10,12 +10,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/usersSlice";
 import { paletOfColors } from "../utils/colors";
 import { clearUser } from "../db/crudUsers";
+import { useGetImageProfileQuery } from "../services/profile_Service";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { ActivityLoadingStyle } from "../utils/globalStyles";
 
 const { width } = Dimensions.get("screen");
 
-export function Profile_Screen({ navigation }) {
-  
+export function Profile_Screen({ navigation, route }) {
   const dispatch = useDispatch();
+
+  const { local_Id } = route.params;
+
+  const {
+    data: objImageProfile,
+    error,
+    isLoading,
+  } = useGetImageProfileQuery(local_Id || skipToken);
 
   const { userInfo } = useSelector((state) => state.User);
 
@@ -24,13 +34,20 @@ export function Profile_Screen({ navigation }) {
       <View style={styles.containerProfileScreen}>
         <Montserrat_Text style={styles.textWelcome}>Hola !</Montserrat_Text>
         <Montserrat_Text style={styles.textUserEmail}>
-          {userInfo.email}
+          {""}
         </Montserrat_Text>
 
-        <Avatar_User
-          imageProfile={userInfo?.imageProfile ? userInfo?.imageProfile : null}
-        />
-
+        {isLoading ? (
+          <ActivityIndicator
+            style={ActivityLoadingStyle}
+            size={60}
+            color={paletOfColors.black}
+          />
+        ) : error ? (
+          <Avatar_User imageProfile={null} />
+        ) : (
+          <Avatar_User imageProfile={objImageProfile[0]?.imageProfile} />
+        )}
         <Modal_Dinamic textButton={"Cerrar Session"}>
           <View style={styles.containerBodyModalLogOut}>
             <Montserrat_Text style={styles.textBodyModalLogOut}>
@@ -76,7 +93,7 @@ export function Profile_Screen({ navigation }) {
 
 const styles = StyleSheet.create({
   containerProfileScreen: {
-    marginTop:20,
+    marginTop: 20,
     gap: 32,
   },
 

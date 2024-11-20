@@ -1,15 +1,15 @@
 import { db } from ".";
 
 export const addUser = (newUser) => {
-  const { local_Id, email, imageProfile } = newUser;
+  const { local_Id, email } = newUser;
 
-  const query = `INSERT INTO users ( local_Id, email, imageProfile) VALUES (?, ?, ?)`;
+  const query = `INSERT INTO users ( local_Id, email) VALUES (?, ?)`;
 
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         query,
-        [local_Id, email, imageProfile],
+        [local_Id, email],
         (_, result) => resolve(result),
         (_, error) => reject(error)
       );
