@@ -3,13 +3,13 @@ import { db } from ".";
 export const addUser = (newUser) => {
   const { local_Id, email } = newUser;
 
-  const query = `INSERT INTO users ( local_Id, email) VALUES (?, ?)`;
+  const query = `INSERT INTO users ( local_Id, email, refreshToken) VALUES (?, ?, ?)`;
 
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         query,
-        [local_Id, email],
+        [local_Id, email, refreshToken],
         (_, result) => resolve(result),
         (_, error) => reject(error)
       );

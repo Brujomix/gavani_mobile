@@ -9,8 +9,8 @@ export function Avatar_User({ imageProfile }) {
       <Avatar
         rounded
         size="xlarge"
-        source={{uri:imageProfile ? imageProfile : null}}
-        title={"US"}
+        source={imageProfile ? { uri: imageProfile } : null}
+        title={!imageProfile ? "IMG" : ""}
         titleStyle={{ color: paletOfColors.black }}
         containerStyle={{
           backgroundColor: paletOfColors.lightGray,

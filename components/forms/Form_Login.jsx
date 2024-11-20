@@ -80,19 +80,23 @@ export function Form_Login({ navigation }) {
     if (resultLogin.isSuccess) {
       clearUser();
 
-      const { email, localId } = resultLogin.data;
-
+      const { email, localId, refreshToken } = resultLogin.data;
+      console.log(resultLogin.data);
+      
+      
       dispatch(
         setUser({
-          email: email,
           local_Id: localId,
+          email: email,
+          refreshToken: refreshToken,
         })
       );
 
       if (rememberMe) {
         addUser({
-          email: email,
           local_Id: localId,
+          email: email,
+          refreshToken: refreshToken,
         })
           .then((res) => {
             console.info(`Uasuario Insertado con Exito`, res);
@@ -101,12 +105,15 @@ export function Form_Login({ navigation }) {
             console.error(`Error al Insertar user en la tabla`, err)
           );
       }
-      navigation.navigate("Profile", { local_Id: localId });
+
+      navigation.navigate("Stack Users");
+
     } else if (resultLogin.isUninitialized) {
       setErrors((pv) => ({
         ...pv,
         errorRegister: "",
       }));
+      
     } else {
       setErrors((pv) => ({
         ...pv,

@@ -4,7 +4,8 @@ export const createTable_User = () => {
   const query = `
     CREATE TABLE IF NOT EXISTS users (
       local_Id TEXT PRIMARY KEY NOT NULL, 
-      email TEXT NOT NULL
+      email TEXT NOT NULL,
+      refreshToken TEXT NOT NULL
     )
   `;
 

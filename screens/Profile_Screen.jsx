@@ -13,34 +13,48 @@ import { clearUser } from "../db/crudUsers";
 import { useGetImageProfileQuery } from "../services/profile_Service";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { ActivityLoadingStyle } from "../utils/globalStyles";
+import { useDeleteAccountMutation, useRefreshTokenMutation } from "../services/auth_Service";
+import { useEffect } from "react";
 
 const { width } = Dimensions.get("screen");
 
-export function Profile_Screen({ navigation, route }) {
+export function Profile_Screen({ navigation }) {
   const dispatch = useDispatch();
 
-  const { local_Id } = route.params;
+  const { userInfo } = useSelector((state) => state.User);
 
   const {
     data: objImageProfile,
     error,
     isLoading,
-  } = useGetImageProfileQuery(local_Id || skipToken);
+  } = useGetImageProfileQuery(userInfo?.local_Id || skipToken);
 
-  const { userInfo } = useSelector((state) => state.User);
+  const [triggerDeleteAccount, resultDelete] = useDeleteAccountMutation()
+  const [triggerIdToken, resultToken] = useRefreshTokenMutation()
+
+  const handlePressDeleteAccount = () => {
+    triggerIdToken(userInfo.refreshToken) 
+  };
+
+  useEffect(()=>{
+    if (resultToken.isSuccess) {
+      console.log(resultToken.data.id_token);
+      
+    }
+  },[resultToken])
 
   return (
     <ScreenWrapper>
       <View style={styles.containerProfileScreen}>
         <Montserrat_Text style={styles.textWelcome}>Hola !</Montserrat_Text>
         <Montserrat_Text style={styles.textUserEmail}>
-          {""}
+          {userInfo?.email}
         </Montserrat_Text>
 
         {isLoading ? (
           <ActivityIndicator
             style={ActivityLoadingStyle}
-            size={60}
+            size={40}
             color={paletOfColors.black}
           />
         ) : error ? (
@@ -48,6 +62,7 @@ export function Profile_Screen({ navigation, route }) {
         ) : (
           <Avatar_User imageProfile={objImageProfile[0]?.imageProfile} />
         )}
+
         <Modal_Dinamic textButton={"Cerrar Session"}>
           <View style={styles.containerBodyModalLogOut}>
             <Montserrat_Text style={styles.textBodyModalLogOut}>
@@ -72,6 +87,21 @@ export function Profile_Screen({ navigation, route }) {
             >
               <Montserrat_Text style={styles.textConfirButtonLogOut}>
                 Cerrar Session
+              </Montserrat_Text>
+            </Pressable_Dinamic>
+          </View>
+        </Modal_Dinamic>
+        <Modal_Dinamic textButton={"Eliminar Cuenta"}>
+          <View style={styles.containerBodyModalLogOut}>
+            <Montserrat_Text style={styles.textBodyModalLogOut}>
+              Eliminar Cuenta ?
+            </Montserrat_Text>
+            <Pressable_Dinamic
+              style={styles.pressableConfirmLogOut}
+              onPress={handlePressDeleteAccount}
+            >
+              <Montserrat_Text style={styles.textConfirButtonLogOut}>
+                Eliminar Cuenta
               </Montserrat_Text>
             </Pressable_Dinamic>
           </View>

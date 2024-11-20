@@ -8,7 +8,7 @@ export const auth_Api = createApi({
       query: ({ ...user }) => ({
         url: `accounts:signInWithPassword?key=${process.env.EXPO_PUBLIC_KEY_API}`,
         method: "POST",
-        body: user,
+        body: { ...user, returnSecureToken: true },
       }),
     }),
     register: builder.mutation({
@@ -18,7 +18,25 @@ export const auth_Api = createApi({
         body: user,
       }),
     }),
+    deleteAccount: builder.mutation({
+      query: (idToken) => ({
+        url: `accounts:delete?key=${process.env.EXPO_PUBLIC_KEY_API}`,
+        method: "POST",
+        body: idToken,
+      }),
+    }),
+    refreshToken: builder.mutation({
+      query: (refreshToken) => ({
+        url: `${process.env.EXPO_PUBLIC_BASE_TOKEN_URL}token?key=${process.env.EXPO_PUBLIC_KEY_API}`,
+        method: "POST",
+        body: {
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = auth_Api;
+export const { useLoginMutation, useRegisterMutation, useDeleteAccountMutation, useRefreshTokenMutation } =
+  auth_Api;
