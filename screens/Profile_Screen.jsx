@@ -13,8 +13,11 @@ import { clearUser } from "../db/crudUsers";
 import { useGetImageProfileQuery } from "../services/profile_Service";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { ActivityLoadingStyle } from "../utils/globalStyles";
-import { useDeleteAccountMutation, useRefreshTokenMutation } from "../services/auth_Service";
-import { useEffect } from "react";
+import {
+  useDeleteAccountMutation,
+  useRefreshTokenMutation,
+} from "../services/auth_Service";
+import { useEffect, useState } from "react";
 
 const { width } = Dimensions.get("screen");
 
@@ -23,25 +26,14 @@ export function Profile_Screen({ navigation }) {
 
   const { userInfo } = useSelector((state) => state.User);
 
-  const {
-    data: objImageProfile,
-    error,
-    isLoading,
-  } = useGetImageProfileQuery(userInfo?.local_Id || skipToken);
+  const handlePressDeleteAccount =  ()=>{
+    console.log("delete");
+    
+  }
 
-  const [triggerDeleteAccount, resultDelete] = useDeleteAccountMutation()
-  const [triggerIdToken, resultToken] = useRefreshTokenMutation()
+  useEffect(() => {
 
-  const handlePressDeleteAccount = () => {
-    triggerIdToken(userInfo.refreshToken) 
-  };
-
-  useEffect(()=>{
-    if (resultToken.isSuccess) {
-      console.log(resultToken.data.id_token);
-      
-    }
-  },[resultToken])
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -51,17 +43,7 @@ export function Profile_Screen({ navigation }) {
           {userInfo?.email}
         </Montserrat_Text>
 
-        {isLoading ? (
-          <ActivityIndicator
-            style={ActivityLoadingStyle}
-            size={40}
-            color={paletOfColors.black}
-          />
-        ) : error ? (
-          <Avatar_User imageProfile={null} />
-        ) : (
-          <Avatar_User imageProfile={objImageProfile[0]?.imageProfile} />
-        )}
+        <Avatar_User/>
 
         <Modal_Dinamic textButton={"Cerrar Session"}>
           <View style={styles.containerBodyModalLogOut}>

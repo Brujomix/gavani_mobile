@@ -106,7 +106,7 @@ export function Form_Login({ navigation }) {
           );
       }
 
-      navigation.navigate("Stack Users");
+      navigation.navigate("Profile");
 
     } else if (resultLogin.isUninitialized) {
       setErrors((pv) => ({

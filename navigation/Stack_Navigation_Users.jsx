@@ -21,6 +21,7 @@ export function Stack_Navigation_Users() {
         <Stack.Navigator>
           <Stack.Screen
             name="Profile"
+            initialParams={{local_Id: null}}
             options={{
               title: "Perfil",
               headerTitleStyle: styles.textHeaderStack,

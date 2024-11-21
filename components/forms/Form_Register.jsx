@@ -4,11 +4,8 @@ import { Input_Text } from "../ui/Input_Text";
 import { Pressable_Dinamic } from "../ui/Pressable_Dinamic";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { useRegisterMutation } from "../../services/auth_Service";
-import { usePostImageProfileMutation } from "../../services/profile_Service";
 import { paletOfColors } from "../../utils/colors";
 import { Icon_Dinamic } from "../../components";
-import * as ImagePiker from "expo-image-picker";
-import { Avatar_User } from "../ui/Avatar_User";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/usersSlice";
 import { addUser, clearUser } from "../../db/crudUsers";
@@ -19,7 +16,6 @@ export function Form_Register({ navigation }) {
   const dispatch = useDispatch();
 
   const [triggerRegistration, resultRegister] = useRegisterMutation();
-  const [triggerPostImage, resultImageProfile] = usePostImageProfileMutation();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -36,34 +32,6 @@ export function Form_Register({ navigation }) {
     password: "",
     imageProfile: "",
   });
-
-  const handleAddProfileImage = async () => {
-    const { granted } = await ImagePiker.requestCameraPermissionsAsync();
-
-    if (granted) {
-      let result = await ImagePiker.launchCameraAsync({
-        mediaTypes: ImagePiker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [1, 1],
-        base64: true,
-        quality: 0.5,
-      });
-
-      if (!result.canceled) {
-        setDatosUser((pv) => ({
-          ...pv,
-          imageProfile: `data:image/jpg;base64,${result.assets[0].base64}`,
-        }));
-      }
-
-      if (result.assets[0]?.base64) {
-      } else {
-        setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
-      }
-    } else {
-      setDatosUser((pv) => ({ ...pv, imageProfile: "" }));
-    }
-  };
 
   const handlePressConfirmar = () => {
     const { email, password } = datosUser;
@@ -109,42 +77,31 @@ export function Form_Register({ navigation }) {
         errorEmail: "No es un email Válido - Campo Obligatorio",
       }));
     }
-  };
+  };  
 
   useEffect(() => {
     if (resultRegister.isSuccess) {
-      
       clearUser();
 
-      const { email, localId } = resultRegister.data;
+      const { email, localId, refreshToken } = resultRegister.data;
 
-      triggerPostImage({
-        local_Id: localId,
-        imageProfile: datosUser.imageProfile,
-      });
+      dispatch(
+        setUser({
+          email: email,
+          local_Id: localId,
+          refreshToken: refreshToken
+        })
+      );
 
-      if (resultImageProfile.isSuccess && rememberMe) {
-        dispatch(
-          setUser({
-            email: email,
-            local_Id: localId,
-          })
-        );
+      if (rememberMe) {
         addUser({
           email: email,
           local_Id: localId,
+          refreshToken:refreshToken
         });
-        navigation.navigate("Profile", { local_Id: localId });
-      } else {
-        dispatch(
-          setUser({
-            email: email,
-            local_Id: localId,
-          })
-        );
-        navigation.navigate("Profile", { local_Id: localId });
+        navigation.navigate("Profile");
       }
-    } else if (resultImageProfile.isUninitialized) {
+    } else if (resultRegister.isUninitialized) {
       setErrors((pv) => ({
         ...pv,
         errorRegister: "",
@@ -159,17 +116,6 @@ export function Form_Register({ navigation }) {
 
   return (
     <View style={styles.containerLogin}>
-      <Avatar_User imageProfile={datosUser.imageProfile} />
-      <Montserrat_Text style={styles.errorRegister}>
-        {errors.imageProfile}
-      </Montserrat_Text>
-      <Pressable_Dinamic
-        onPress={handleAddProfileImage}
-        style={styles.buttonCamera}
-      >
-        <Icon_Dinamic name="add-a-photo" size={38} />
-      </Pressable_Dinamic>
-
       <Input_Text
         iconName={"email"}
         label={"Email"}
@@ -238,12 +184,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     gap: 18,
-  },
-  buttonCamera: {
-    position: "absolute",
-    right: 95,
-    top: 118,
-    backgroundColor: paletOfColors.lightGray,
   },
   pressableRegister: {
     width: width * 0.8,
