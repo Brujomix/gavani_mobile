@@ -15,7 +15,6 @@ import { formated_Date } from "../utils/formated_Date";
 import { paletOfColors } from "../utils/colors";
 import { generarId } from "../utils/generarId";
 import { useEffect } from "react";
-
 const { width, height } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
@@ -42,6 +41,7 @@ export function Carrito_Screen({ navigation }) {
       dispatch(clearCart());
     }
   }, [result]);
+  
 
   return (
     <ScreenWrapper>

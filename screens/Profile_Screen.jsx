@@ -16,6 +16,7 @@ import {
 } from "../services/auth_Service";
 import { useEffect } from "react";
 import { useDeleteImagePorfileByLocalIdMutation } from "../services/profile_Service";
+import showCustomToast from "../utils/showCustomToast";
 
 const { width } = Dimensions.get("screen");
 
@@ -52,14 +53,15 @@ export function Profile_Screen({ navigation }) {
       triggerDeleteImageProfile(userInfo.localId);
       navigation.navigate("Stack Users");
     } else if (resultDeleteAccount.isError) {
-      console.error("Error al eliminar cuenta:", resultDeleteAccount.error);
+      showCustomToast("error", "Error Servidor", "No Pudimos Eliminar la Cuenta")
     }
   }, [resultDeleteAccount]);
-
+  
   useEffect(() => {
     if (resultDeleteImageProfile.isSuccess) {
     } else if (resultDeleteImageProfile.isError) {
       console.error("No borramos la imagen", resultDeleteImageProfile.error);
+      showCustomToast("error", "Error Servidor","No Pudimos Eliminar Imagen")
     }
   }, [resultDeleteImageProfile]);
 

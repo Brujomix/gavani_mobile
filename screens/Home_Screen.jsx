@@ -1,9 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, ActivityIndicator, Dimensions } from "react-native";
 import { Card_Category, Montserrat_Text } from "../components";
 import { Carousel_Favorites_Products } from "../components/Carousel_Favorites_Products";
 import { ScreenWrapper } from "../wrappers";
@@ -16,6 +11,7 @@ import { fetchUser } from "../db/crudUsers";
 import { setUser } from "../redux/slices/usersSlice";
 import { ActivityLoadingStyle } from "../utils/globalStyles";
 import { ScrollView } from "react-native";
+import showCustomToast from "../utils/showCustomToast";
 
 const { width } = Dimensions.get("screen");
 
@@ -36,23 +32,20 @@ export function Home_Screen({ navigation }) {
         try {
           const resp = await fetchUser();
           if (resp.rows._array?.length !== 0) {
-            const {  localId, email, refreshToken } = resp.rows._array[0];
+            const { localId, email, refreshToken } = resp.rows._array[0];
+            showCustomToast("info", "Hola de Nuevo", `${email}`)
             dispatch(
               setUser({
                 localId: localId,
                 email: email,
-                refreshToken: refreshToken
+                refreshToken: refreshToken,
               })
             );
           } else {
             dispatch(setUser(null));
           }
-          console.info(
-            `Usuarios en base de datos Home`,
-            resp.rows._array.length
-          );
         } catch (error) {
-          console.info(`Error Al Obtener Usuarios DB Home`, error);
+          showCustomToast("error", "No Pudimos Recuperar Cuenta")
         }
       })();
     }

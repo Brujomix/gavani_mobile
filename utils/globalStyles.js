@@ -4,3 +4,4 @@ export const ActivityLoadingStyle = {
     justifyContent: "center",
     alignItems:"center"    
 }
+
