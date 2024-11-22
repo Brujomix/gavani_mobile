@@ -10,7 +10,7 @@ import { ScreenWrapper } from "../wrappers";
 import { useGetCategoriesQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { createTable_User, dropTable } from "../db/createTable";
+import { createTable_User } from "../db/createTable";
 import { useEffect } from "react";
 import { fetchUser } from "../db/crudUsers";
 import { setUser } from "../redux/slices/usersSlice";

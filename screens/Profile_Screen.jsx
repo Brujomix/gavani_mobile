@@ -26,7 +26,9 @@ export function Profile_Screen({ navigation }) {
 
   const [triggerDeleteAccount, resultDeleteAccount] =
     useDeleteAccountMutation();
-  const [triggerrefreshToken, resultRefreshToken] = useRefreshTokenMutation();
+  
+    const [triggerrefreshToken, resultRefreshToken] = useRefreshTokenMutation();
+  
   const [triggerDeleteImageProfile, resultDeleteImageProfile] =
     useDeleteImagePorfileByLocalIdMutation();
 
@@ -45,7 +47,6 @@ export function Profile_Screen({ navigation }) {
 
   useEffect(() => {
     if (resultDeleteAccount.isSuccess) {
-      console.log("Cuenta eliminada con éxito");
       clearUser();
       dispatch(setUser(null));
       triggerDeleteImageProfile(userInfo.localId);
@@ -57,7 +58,6 @@ export function Profile_Screen({ navigation }) {
 
   useEffect(() => {
     if (resultDeleteImageProfile.isSuccess) {
-      console.log("ImagenBorrada");
     } else if (resultDeleteImageProfile.isError) {
       console.error("No borramos la imagen", resultDeleteImageProfile.error);
     }

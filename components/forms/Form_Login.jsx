@@ -42,7 +42,7 @@ export function Form_Login({ navigation }) {
     } else {
       setErrors((pv) => ({
         ...pv,
-        errorConfirmPassword: "Contraseñas no Coinciden - Campo Obligatorio",
+        errorConfirmPassword: "Contraseñas no Coinciden",
       }));
     }
   };
@@ -56,7 +56,7 @@ export function Form_Login({ navigation }) {
       setDatosUser((pv) => ({ ...pv, password: text }));
       setErrors((pv) => ({
         ...pv,
-        errorPassword: "Minimo 6 Caracteres - Campo Obligatorio",
+        errorPassword: "Contraseña erronea minimo 6 caracteres",
       }));
     }
   };
@@ -71,7 +71,7 @@ export function Form_Login({ navigation }) {
       setDatosUser((pv) => ({ ...pv, email: text }));
       setErrors((pv) => ({
         ...pv,
-        errorEmail: "No es un email Válido - Campo Obligatorio",
+        errorEmail: "Mail erroneo - ejemplo@mail.com",
       }));
     }
   };
@@ -85,7 +85,7 @@ export function Form_Login({ navigation }) {
 
         dispatch(
           setUser({
-            local_Id: localId,
+            localId: localId,
             email: email,
             refreshToken: refreshToken,
           })
@@ -103,7 +103,7 @@ export function Form_Login({ navigation }) {
       case "rejected":
         setErrors((pv) => ({
           ...pv,
-          errorRegister: "Error Al Registrar Usuario",
+          errorRegister: "Revisa Tus Credenciales",
         }));
         break;
 

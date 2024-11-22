@@ -19,7 +19,6 @@ import { useEffect } from "react";
 const { width, height } = Dimensions.get("screen");
 
 export function Carrito_Screen({ navigation }) {
-  
   const { cartProducts } = useSelector((state) => state.Cart);
 
   const dispatch = useDispatch();
@@ -43,21 +42,32 @@ export function Carrito_Screen({ navigation }) {
       dispatch(clearCart());
     }
   }, [result]);
-  
+
   return (
     <ScreenWrapper>
       <Montserrat_Text style={styles.titleCart}>Carrito</Montserrat_Text>
-
       {cartProducts?.length === 0 ? (
         <View>
-          <Icon_Dinamic name={"shopping-cart-checkout"} size={300} color={paletOfColors.darkGray}/>
-        <Montserrat_Text style={styles.textWithoutProducts}>
-          Sin Productos En Carrito
-        </Montserrat_Text>
-
+          <Icon_Dinamic
+            name={"shopping-cart-checkout"}
+            size={300}
+            color={paletOfColors.darkGray}
+          />
+          <Montserrat_Text style={styles.textWithoutProducts}>
+            Sin Productos En Carrito
+          </Montserrat_Text>
+          <Pressable_Dinamic
+            style={styles.pressableConfirmar}
+            onPress={() => navigation.navigate("Stack Home")}
+          >
+            <Montserrat_Text style={styles.textConfirButton}>
+              Ver Productos
+            </Montserrat_Text>
+          </Pressable_Dinamic>
         </View>
       ) : (
         <View style={{ width: width * 0.98, height: height * 0.6 }}>
+          
           <FlatList
             style={styles.flatListCartProducts}
             data={cartProducts}
@@ -65,6 +75,7 @@ export function Carrito_Screen({ navigation }) {
             renderItem={({ item }) => <Card_Product_Cart product={item} />}
             contentContainerStyle={styles.containerChildrenCarProducts}
           />
+
           <View style={styles.containerTotalCart}>
             <Montserrat_Text style={styles.textTotalCart}>
               Precio Final
@@ -73,20 +84,8 @@ export function Carrito_Screen({ navigation }) {
               $ {Total_Cart(cartProducts)}
             </Montserrat_Text>
           </View>
-        </View>
-      )}
-      {userInfo ? (
-        <View>
-          {cartProducts?.length === 0 ? (
-            <Pressable_Dinamic
-              style={styles.pressableConfirmar}
-              onPress={() => navigation.navigate("Stack Home")}
-            >
-              <Montserrat_Text style={styles.textConfirButton}>
-                Ver Productos
-              </Montserrat_Text>
-            </Pressable_Dinamic>
-          ) : (
+
+          {userInfo ? (
             <Modal_Dinamic textButton={"Confirmar"}>
               <View style={styles.containerBodyModalCart}>
                 <Montserrat_Text style={styles.textBodyModalCart}>
@@ -103,17 +102,17 @@ export function Carrito_Screen({ navigation }) {
                 </Pressable_Dinamic>
               </View>
             </Modal_Dinamic>
+          ) : (
+            <Pressable_Dinamic
+              style={styles.pressableConfirmar}
+              onPress={() => navigation.navigate("Stack Users")}
+            >
+              <Montserrat_Text style={styles.textConfirButton}>
+                Iniciar Session
+              </Montserrat_Text>
+            </Pressable_Dinamic>
           )}
         </View>
-      ) : (
-        <Pressable_Dinamic
-          style={styles.pressableConfirmar}
-          onPress={() => navigation.navigate("Stack Users")}
-        >
-          <Montserrat_Text style={styles.textConfirButton}>
-            Iniciar Session
-          </Montserrat_Text>
-        </Pressable_Dinamic>
       )}
     </ScreenWrapper>
   );

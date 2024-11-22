@@ -25,7 +25,7 @@ export function Avatar_User() {
     if (granted) {
       let result = await ImagePiker.launchCameraAsync({
         mediaTypes: ImagePiker.MediaTypeOptions.All,
-        allowsEditing: true,
+        //allowsEditing: true,
         aspect: [1, 1],
         base64: true,
         quality: 0.5,

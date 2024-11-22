@@ -88,7 +88,7 @@ export function Form_Register({ navigation }) {
 
         dispatch(
           setUser({
-            local_Id: localId,
+            localId: localId,
             email: email,
             refreshToken: refreshToken,
           })

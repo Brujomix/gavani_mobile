@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   },
   containerCreateAccountButton: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    justifyContent: "space-around",
+    alignItems: "flex-end",
   },
   pressableCreateAccount: {
     width: width * 0.3,

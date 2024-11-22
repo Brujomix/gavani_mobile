@@ -1,12 +1,8 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { Montserrat_Text } from "../ui/Montserrat_Text";
 import { ShadowBox_Wrapper } from "../../wrappers";
 
-const { width } = Dimensions.get("screen");
-
 export function Card_Order_Detail({ order }) {
-  console.info("Order desde Card Order", order);
-
   return (
     <ShadowBox_Wrapper style={styles.containerOrderDetailProduct}>
       <Montserrat_Text style={styles.textCant}>
