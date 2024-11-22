@@ -77,48 +77,42 @@ export function Form_Login({ navigation }) {
   };
 
   useEffect(() => {
-    if (resultLogin.isSuccess) {
-      clearUser();
+    switch (resultLogin.status) {
+      case "fulfilled":
+        clearUser();
 
-      const { email, localId, refreshToken } = resultLogin.data;
-      console.log(resultLogin.data);
-      
-      
-      dispatch(
-        setUser({
-          local_Id: localId,
-          email: email,
-          refreshToken: refreshToken,
-        })
-      );
+        const { localId, email, refreshToken } = resultLogin.data;
 
-      if (rememberMe) {
-        addUser({
-          local_Id: localId,
-          email: email,
-          refreshToken: refreshToken,
-        })
-          .then((res) => {
-            console.info(`Uasuario Insertado con Exito`, res);
+        dispatch(
+          setUser({
+            local_Id: localId,
+            email: email,
+            refreshToken: refreshToken,
           })
-          .catch((err) =>
-            console.error(`Error al Insertar user en la tabla`, err)
-          );
-      }
+        );
 
-      navigation.navigate("Profile");
+        if (rememberMe) {
+          addUser({
+            localId: localId,
+            email: email,
+            refreshToken: refreshToken,
+          });
+        }
+        navigation.navigate("Stack Users");
+        break;
+      case "rejected":
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "Error Al Registrar Usuario",
+        }));
+        break;
 
-    } else if (resultLogin.isUninitialized) {
-      setErrors((pv) => ({
-        ...pv,
-        errorRegister: "",
-      }));
-      
-    } else {
-      setErrors((pv) => ({
-        ...pv,
-        errorRegister: "Error Al Loguear Usuario",
-      }));
+      default:
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "",
+        }));
+        break;
     }
   }, [resultLogin]);
 

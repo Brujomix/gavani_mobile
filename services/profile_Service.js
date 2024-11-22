@@ -6,31 +6,24 @@ export const profile_Api = createApi({
   tagTypes: ["imageProfile"],
   endpoints: (builder) => ({
     getImageProfile: builder.query({
-      query: (local_Id) => {
-        return `profileUsers.json?orderBy="local_Id"&equalTo="${local_Id}"`;
+      query: (localId) => {
+        return `profileUsers/${localId}.json`;
       },
-      transformResponse: (response) =>
-        response
-          ? Object.entries(response).map(([key, objProfile]) => ({
-              image_key_firebase: key,
-              ...objProfile,
-            }))
-          : {},
       providesTags: ["imageProfile"],
     }),
 
-    postImageProfile: builder.mutation({
-      query: ({ ...dataProfileImage }) => ({
-        url: `profileUsers.json`,
-        method: "POST",
-        body: dataProfileImage,
+    putImageProfile: builder.mutation({
+      query: ({ localId, imageProfile }) => ({
+        url: `profileUsers/${localId}.json`,
+        method: 'PUT',
+        body: {imageProfile}
       }),
       invalidatesTags: ["imageProfile"],
     }),
 
     deleteImagePorfileByLocalId: builder.mutation({
-      query: (key_profile) => ({
-        url: `profileUsers/${key_profile}.json`,
+      query: (localId) => ({
+        url: `profileUsers/${localId}.json`,
         method: "DELETE",
       }),
       invalidatesTags: ["imageProfile"],
@@ -40,6 +33,6 @@ export const profile_Api = createApi({
 
 export const {
   useGetImageProfileQuery,
-  usePostImageProfileMutation,
+  usePutImageProfileMutation,
   useDeleteImagePorfileByLocalIdMutation,
 } = profile_Api;

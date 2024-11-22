@@ -10,7 +10,7 @@ import { ScreenWrapper } from "../wrappers";
 import { useGetCategoriesQuery } from "../services/app_Service";
 import { paletOfColors } from "../utils/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { createTable_User } from "../db/createTable";
+import { createTable_User, dropTable } from "../db/createTable";
 import { useEffect } from "react";
 import { fetchUser } from "../db/crudUsers";
 import { setUser } from "../redux/slices/usersSlice";
@@ -20,7 +20,7 @@ import { ScrollView } from "react-native";
 const { width } = Dimensions.get("screen");
 
 createTable_User()
-  .then((res) => console.info("Tabla User Creada", res))
+  .then((res) => console.info("Tabla Users Creada", res))
   .catch((error) => console.error("Error al Crear la Tabla User", error));
 
 export function Home_Screen({ navigation }) {
@@ -36,13 +36,12 @@ export function Home_Screen({ navigation }) {
         try {
           const resp = await fetchUser();
           if (resp.rows._array?.length !== 0) {
-            const { email, local_Id, imageProfile } = resp.rows._array[0];
-
+            const {  localId, email, refreshToken } = resp.rows._array[0];
             dispatch(
               setUser({
+                localId: localId,
                 email: email,
-                imageProfile: imageProfile,
-                local_Id: local_Id,
+                refreshToken: refreshToken
               })
             );
           } else {

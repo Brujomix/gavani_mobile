@@ -77,40 +77,45 @@ export function Form_Register({ navigation }) {
         errorEmail: "No es un email Válido - Campo Obligatorio",
       }));
     }
-  };  
+  };
 
   useEffect(() => {
-    if (resultRegister.isSuccess) {
-      clearUser();
+    switch (resultRegister.status) {
+      case "fulfilled":
+        clearUser();
 
-      const { email, localId, refreshToken } = resultRegister.data;
+        const { localId, email, refreshToken } = resultRegister.data;
 
-      dispatch(
-        setUser({
-          email: email,
-          local_Id: localId,
-          refreshToken: refreshToken
-        })
-      );
+        dispatch(
+          setUser({
+            local_Id: localId,
+            email: email,
+            refreshToken: refreshToken,
+          })
+        );
 
-      if (rememberMe) {
-        addUser({
-          email: email,
-          local_Id: localId,
-          refreshToken:refreshToken
-        });
-        navigation.navigate("Profile");
-      }
-    } else if (resultRegister.isUninitialized) {
-      setErrors((pv) => ({
-        ...pv,
-        errorRegister: "",
-      }));
-    } else {
-      setErrors((pv) => ({
-        ...pv,
-        errorRegister: "Error Al Registrar Usuario",
-      }));
+        if (rememberMe) {
+          addUser({
+            localId: localId,
+            email: email,
+            refreshToken: refreshToken,
+          });
+        }
+        navigation.navigate("Stack Users");
+        break;
+      case "rejected":
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "Error Al Registrar Usuario",
+        }));
+        break;
+
+      default:
+        setErrors((pv) => ({
+          ...pv,
+          errorRegister: "",
+        }));
+        break;
     }
   }, [resultRegister]);
 

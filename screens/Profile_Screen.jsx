@@ -1,5 +1,5 @@
 import { ScreenWrapper } from "../wrappers";
-import { View, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import {
   Avatar_User,
   Modal_Dinamic,
@@ -10,14 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/usersSlice";
 import { paletOfColors } from "../utils/colors";
 import { clearUser } from "../db/crudUsers";
-import { useGetImageProfileQuery } from "../services/profile_Service";
-import { skipToken } from "@reduxjs/toolkit/query";
-import { ActivityLoadingStyle } from "../utils/globalStyles";
 import {
   useDeleteAccountMutation,
   useRefreshTokenMutation,
 } from "../services/auth_Service";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDeleteImagePorfileByLocalIdMutation } from "../services/profile_Service";
 
 const { width } = Dimensions.get("screen");
 
@@ -26,14 +24,44 @@ export function Profile_Screen({ navigation }) {
 
   const { userInfo } = useSelector((state) => state.User);
 
-  const handlePressDeleteAccount =  ()=>{
-    console.log("delete");
-    
-  }
+  const [triggerDeleteAccount, resultDeleteAccount] =
+    useDeleteAccountMutation();
+  const [triggerrefreshToken, resultRefreshToken] = useRefreshTokenMutation();
+  const [triggerDeleteImageProfile, resultDeleteImageProfile] =
+    useDeleteImagePorfileByLocalIdMutation();
+
+  const handleDeleteAccount = () => {
+    if (userInfo.refreshToken) {
+      triggerrefreshToken(userInfo.refreshToken);
+    }
+  };
 
   useEffect(() => {
+    if (resultRefreshToken.isSuccess) {
+      const { id_token } = resultRefreshToken.data;
+      triggerDeleteAccount(id_token);
+    }
+  }, [resultRefreshToken]);
 
-  }, []);
+  useEffect(() => {
+    if (resultDeleteAccount.isSuccess) {
+      console.log("Cuenta eliminada con éxito");
+      clearUser();
+      dispatch(setUser(null));
+      triggerDeleteImageProfile(userInfo.localId);
+      navigation.navigate("Stack Users");
+    } else if (resultDeleteAccount.isError) {
+      console.error("Error al eliminar cuenta:", resultDeleteAccount.error);
+    }
+  }, [resultDeleteAccount]);
+
+  useEffect(() => {
+    if (resultDeleteImageProfile.isSuccess) {
+      console.log("ImagenBorrada");
+    } else if (resultDeleteImageProfile.isError) {
+      console.error("No borramos la imagen", resultDeleteImageProfile.error);
+    }
+  }, [resultDeleteImageProfile]);
 
   return (
     <ScreenWrapper>
@@ -43,7 +71,7 @@ export function Profile_Screen({ navigation }) {
           {userInfo?.email}
         </Montserrat_Text>
 
-        <Avatar_User/>
+        <Avatar_User />
 
         <Modal_Dinamic textButton={"Cerrar Session"}>
           <View style={styles.containerBodyModalLogOut}>
@@ -80,7 +108,7 @@ export function Profile_Screen({ navigation }) {
             </Montserrat_Text>
             <Pressable_Dinamic
               style={styles.pressableConfirmLogOut}
-              onPress={handlePressDeleteAccount}
+              onPress={handleDeleteAccount}
             >
               <Montserrat_Text style={styles.textConfirButtonLogOut}>
                 Eliminar Cuenta

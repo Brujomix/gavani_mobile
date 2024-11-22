@@ -15,14 +15,14 @@ export const auth_Api = createApi({
       query: ({ ...user }) => ({
         url: `accounts:signUp?key=${process.env.EXPO_PUBLIC_KEY_API}`,
         method: "POST",
-        body: user,
+        body: { ...user, returnSecureToken: true },
       }),
     }),
     deleteAccount: builder.mutation({
       query: (idToken) => ({
         url: `accounts:delete?key=${process.env.EXPO_PUBLIC_KEY_API}`,
         method: "POST",
-        body: idToken,
+        body: {idToken: idToken},
       }),
     }),
     refreshToken: builder.mutation({
